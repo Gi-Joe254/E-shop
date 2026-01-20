@@ -7,6 +7,7 @@ import Home from './pages/home'
 import About from './pages/about'
 import Services from './pages/services'
 import Products from './pages/products'
+import ContactUs from './pages/contact'
 
 function App() {
   useEffect( ()=>{
@@ -20,7 +21,8 @@ function App() {
         <Route path='/about' element={<About />}/>
         <Route path='/services' element={<Services />}/>
         <Route path='/products' element={<Products />}/>
-      </Routes>      
+        <Route path='/contact' element={<ContactUs />}/>
+      </Routes>        
     </BrowserRouter>
   )
 }
