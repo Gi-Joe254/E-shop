@@ -6,6 +6,8 @@ export const apiRouter = express.Router()
 apiRouter.get('/health', (req, res)=> {
     res.json({status: 'ok'})
 })
-apiRouter.get('/customerReq', (req, res)=> {
+apiRouter.post('/customerReq', (req, res)=> {
+    const data = req.body
+    console.log(data)
     res.status(201).json({message:'api called'})
 })

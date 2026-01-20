@@ -7,8 +7,17 @@ export default function ContactUs() {
  
     const handleSubmit = async(e)=> {
         e.preventDefault()
-        console.log(service, customer)
-    }
+        const data = {...service, ...customer}
+        const res = await fetch('http://localhost:3000/api/customerReq', {
+            method: 'POST',
+            headers: {'Content-Type': 'Application/json'},
+            body: JSON.stringify(data)
+        })
+        if(!res.ok) {
+            throw new Error(`server error ${res.status}`)
+        }
+        console.log(await res.json())
+    }   
   
     return(
         <>
