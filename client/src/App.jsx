@@ -8,6 +8,7 @@ import About from './pages/about'
 import Services from './pages/services'
 import Products from './pages/products'
 import ContactUs from './pages/contact'
+import AdminLogin from './pages/admin-pages/adminLogin'
 
 function App() {
   useEffect( ()=>{
@@ -22,6 +23,7 @@ function App() {
         <Route path='/services' element={<Services />}/>
         <Route path='/products' element={<Products />}/>
         <Route path='/contact' element={<ContactUs />}/>
+        <Route path='/admin/login' element={<AdminLogin />}/>
       </Routes>        
     </BrowserRouter>
   )
