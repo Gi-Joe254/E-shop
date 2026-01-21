@@ -14,7 +14,7 @@ export default function AdminLogin() {
             if(!res.ok) {
                 throw new Error('server error', res.status)
             }
-            console.log('login details sent')
+            console.log('admin login details sent')
         } catch (error) {
             console.error('login details not sent', error)
         }
