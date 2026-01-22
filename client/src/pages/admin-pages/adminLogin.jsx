@@ -11,10 +11,12 @@ export default function AdminLogin() {
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify(admin)
             })
+            const data = await res.json()
             if(!res.ok) {
-                throw new Error('server error', res.status)
+                return console.log(data.message)
             }
-            console.log('admin login details sent')
+            console.log(data.message)
+            window.location.href = '/admin/dashboard'
         } catch (error) {
             console.error('login details not sent', error)
         }

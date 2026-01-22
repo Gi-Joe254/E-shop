@@ -9,6 +9,7 @@ import Services from './pages/services'
 import Products from './pages/products'
 import ContactUs from './pages/contact'
 import AdminLogin from './pages/admin-pages/adminLogin'
+import AdminDash from './pages/admin-pages/adminDash'
 
 function App() {
   useEffect( ()=>{
@@ -24,6 +25,7 @@ function App() {
         <Route path='/products' element={<Products />}/>
         <Route path='/contact' element={<ContactUs />}/>
         <Route path='/admin/login' element={<AdminLogin />}/>
+        <Route path='/admin/dashboard' element={<AdminDash />}/>
       </Routes>        
     </BrowserRouter>
   )
