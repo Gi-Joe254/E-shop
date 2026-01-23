@@ -6,23 +6,14 @@ const createTables = async()=> {
         db = await createDB()
         //services table
         await db.exec(`
-            CREATE TABLE IF NOT EXISTS services (
+            CREATE TABLE IF NOT EXISTS jobs (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 type TEXT NOT NULL,
                 description TEXT NOT NULL,
                 name TEXT NOT NULL,
                 email TEXT NOT NULL,
-                telephone TEXT NOT NULL
-            )    
-        `)
-        //user login table
-        await db.exec(`
-            CREATE TABLE IF NOT EXISTS users (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                username TEXT NOT NULL,
-                name TEXT NOT NULL,
-                email TEXT NOT NULL,
-                password TEXT NOT NULL
+                telephone TEXT NOT NULL,
+                location TEXT NOT NULL
             )    
         `)
         //admin login table

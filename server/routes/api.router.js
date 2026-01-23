@@ -8,10 +8,23 @@ export const apiRouter = express.Router()
 apiRouter.get('/health', (req, res)=> {
     res.json({status: 'ok'})
 })
-apiRouter.post('/customerReq', (req, res)=> {
-    const data = req.body
-    console.log(data)
-    res.status(201).json({message:'api called'})
+apiRouter.post('/customerReq', async(req, res)=> {
+    const {type, description, name, email, telephone, location} = req.body
+    let db
+    try {
+        db = await createDB()
+        db.run(`
+            INSERT INTO jobs (type, description, name, email, telephone, location) 
+            VALUES(?,?,?,?,?,?)
+        `, [ type, description, name, email, telephone, location ]
+        )
+        res.status(201).json({message:'new job added'})
+    } catch (error) {
+        res.status(500).json({message:'server error'})
+    } finally {
+        await db.close()
+    }
+    
 })
 
 //admin api routes
