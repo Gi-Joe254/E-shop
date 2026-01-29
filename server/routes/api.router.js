@@ -15,7 +15,7 @@ apiRouter.post('/customerReq', async(req, res)=> {
         //check if any field is empty
         const fields = {type, description, name, email, telephone, location}
         for(const [key, value] of Object.entries(fields)){
-            if(!value || value.trim() === ''){
+            if(!value?.trim() === ''){
                 return res.status(400).json({message:`${key} is required`})
             }
         }
@@ -64,19 +64,24 @@ apiRouter.post('/customerReq', async(req, res)=> {
 //admin api routes
 apiRouter.post('/admin/login', async(req, res)=> {
     const { name, password} = req.body
+    //validate login details
+    if(!name || !password) {
+            return res.status(400).json({message: `missing fields`})
+    }
+    
     let db
     try {
         db = await createDB()
         const admin = await db.get(`
             SELECT * FROM admin WHERE username = ?
         `,[name])
+        
+        const hash = admin ? admin.password : '$2b$10$CwTycUXWue0Thq9StjUM0uJ8LQ0Jx7e8b6Qr1eK0Dc5j82d0Xl4He'
+        const valid = await bcrypt.compare(password, hash)
 
-        if(!admin) return res.status(401).json({message: 'wrong credentials'})
-
-        const valid = await bcrypt.compare(password, admin.password)
-        console.log(valid)
-        if(!valid) return res.status(401).json({message:'wrong credentials'})
-
+        if(!admin || !valid) {
+            return res.status(401).json({message: 'wrong credentials'})
+        }
         res.status(200).json({message: 'login success'})
     } catch (error) {
         res.status(500).json({message: 'server error'})
