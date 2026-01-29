@@ -1,6 +1,7 @@
 import express, { json } from "express"
 import cros from 'cors'
 import { apiRouter } from "./routes/api.router.js"
+import session from "express-session"
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -11,6 +12,16 @@ app.use(cros({
 }))
 
 app.use(json())
+
+app.use(session({
+    secret: process.env.secret || 'my secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        secure: false
+    }
+}))
 
 app.use('/api', apiRouter)
 

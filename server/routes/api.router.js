@@ -88,6 +88,8 @@ apiRouter.post('/admin/login', async(req, res)=> {
         if(!admin || !valid) {
             return res.status(401).json({message: 'wrong credentials'})
         }
+        req.sessionID = admin.id
+        console.log(req.sessionID, 'huuuo')
         res.status(200).json({message: 'login success'})
     } catch (error) {
         res.status(500).json({message: 'server error'})
