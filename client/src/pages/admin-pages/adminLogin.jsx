@@ -32,6 +32,7 @@ export default function AdminLogin() {
                     type="text" id="adminName" name="adminName"
                     value={admin.name}
                     onChange={(e)=> {setAdmin({...admin, name: e.target.value})}}
+                    required
                 />
 
                 <label htmlFor="adminPass">Password</label>
@@ -39,6 +40,7 @@ export default function AdminLogin() {
                     type="password" id="adminPass" name="adminPass"
                     value={admin.password}
                     onChange={(e)=> {setAdmin({...admin, password: e.target.value})}}
+                    required
                 />
                 <button type="submit">Log In</button>
             </form>

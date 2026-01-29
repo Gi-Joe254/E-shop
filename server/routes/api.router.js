@@ -66,9 +66,15 @@ apiRouter.post('/admin/login', async(req, res)=> {
     const { name, password} = req.body
     //validate login details
     if(!name || !password) {
-            return res.status(400).json({message: `missing fields`})
+        return res.status(400).json({message: `missing fields`})
     }
-    
+    if(typeof name !== 'string' || typeof password !=='string') {
+        return res.status(400).json({message: `invalid credentials`})
+    }
+    if(name.length >  50 || password > 100) {
+        return res.status(400).json({message: `credentials too long`})
+    }
+    //auth
     let db
     try {
         db = await createDB()
@@ -89,4 +95,18 @@ apiRouter.post('/admin/login', async(req, res)=> {
         await db.close()
     }
 
+})
+apiRouter.get('/admin/dash', async(req, res)=> {
+    let db
+    try {
+        db = await createDB()
+        const jobs = await db.all(`
+            SELECT * FROM jobs       
+        `)
+        res.status(200).json(jobs)
+    } catch (error) {
+        res.status(500).json({message:'server error'})
+    } finally {
+        await db.close()
+    }
 })
