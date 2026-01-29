@@ -7,17 +7,19 @@ export default function ContactUs() {
  
     const handleSubmit = async(e)=> {
         e.preventDefault()
-        const data = {...service, ...customer}
+        const load = {...service, ...customer}
         try {
             const res = await fetch('http://localhost:3000/api/customerReq', {
                 method: 'POST',
                 headers: {'Content-Type': 'Application/json'},
-                body: JSON.stringify(data)
+                body: JSON.stringify(load)
             })
+            const data = await res.json()
             if(!res.ok) {
-                throw new Error(`server error ${res.status}`)
-            } 
-            console.log(await res.json())
+                console.log(data.message)
+            }
+            
+            console.log(data.message)
         } catch (error) {
             console.log('there was an error', error)
         }
@@ -35,6 +37,7 @@ export default function ContactUs() {
                         name="service" id="service" value={service.type} 
                         onChange={(e)=> {setService({...service, type: e.target.value})}}
                     >
+                        <option defaultValue=''>--select service--</option>
                         <option value='installation'>Electrical installation</option>
                         <option value='maintenance'>Electrical maintenance</option>
                         <option value='applianceRepair'>Home appliance repair</option>
@@ -72,6 +75,7 @@ export default function ContactUs() {
                         name="location" id="location" value={customer.location}
                         onChange={(e)=> {setCustomer({...customer, location: e.target.value})}}
                     >
+                        <option defaultValue=''>--select location--</option>
                         <option value='Kiambu'>Kiambu</option>
                         <option value='Nairobi'>Nairobi</option>
                         <option value='Thika'>Thika</option>
