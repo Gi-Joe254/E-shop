@@ -10,7 +10,8 @@ export default function AdminDash() {
         try {
 
             const res = await fetch(`http://localhost:3000/api/admin/me/delete/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                credentials: 'include'
             })
             const data = await res.json()
             if(!res.ok) throw new Error(res.status)
@@ -36,11 +37,10 @@ export default function AdminDash() {
                 credentials: 'include'
             })
             if(!res.ok) throw new Error(res.status)
-            window.location.href = 'admin/login'
+            window.location.href = '/admin/login'
         } catch (error) {
-            console.error('failed to delete', error)
-        }
-        
+            console.error('failed to logout', error)
+        } 
     }
 
     useEffect(()=> {
@@ -49,6 +49,10 @@ export default function AdminDash() {
                 const jobsRes = await fetch('http://localhost:3000/api/admin/dash', {
                     credentials: 'include'
                 })
+                if(jobsRes.status === 401) {
+                    window.location.href = '/admin/login'
+                    return
+                }
                 if (!jobsRes.ok) throw new Error(jobsRes.status)
                 const data = await jobsRes.json()
                 setJobs(data)
@@ -56,14 +60,19 @@ export default function AdminDash() {
                 const adminRes = await fetch('http://localhost:3000/api/admin/me', {
                     credentials: 'include'
                 })
+                if(adminRes.status === 401) {
+                    window.location.href = '/admin/login'
+                    return
+                }
                 if (!adminRes.ok) throw new Error(adminRes.status)
                 const adminData = await adminRes.json()
                 setAdminName(adminData.username)
             } catch (error) {
                 console.error('Failed to load jobs:', error)
             }         
-        } 
+        }
         loadJobs()
+        
     },[])
 
 
