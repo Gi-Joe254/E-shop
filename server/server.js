@@ -1,12 +1,12 @@
 import express, { json } from "express"
-import cros from 'cors'
+import cors from 'cors'
 import { apiRouter } from "./routes/api.router.js"
 import session from "express-session"
 
 const app = express()
 const PORT = process.env.PORT || 3000
 
-app.use(cros({
+app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true
 }))
@@ -19,7 +19,8 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        secure: false
+        secure: false,
+        sameSite: 'lax'
     }
 }))
 

@@ -71,7 +71,7 @@ apiRouter.post('/admin/login', async(req, res)=> {
     if(typeof name !== 'string' || typeof password !=='string') {
         return res.status(400).json({message: `invalid credentials`})
     }
-    if(name.length >  50 || password > 100) {
+    if(name.length >  50 || password.length > 100) {
         return res.status(400).json({message: `credentials too long`})
     }
     //auth
@@ -82,14 +82,18 @@ apiRouter.post('/admin/login', async(req, res)=> {
             SELECT * FROM admin WHERE username = ?
         `,[name])
         
-        const hash = admin ? admin.password : '$2b$10$CwTycUXWue0Thq9StjUM0uJ8LQ0Jx7e8b6Qr1eK0Dc5j82d0Xl4He'
+        const hash = admin 
+        ? admin.password 
+        : '$2b$10$CwTycUXWue0Thq9StjUM0uJ8LQ0Jx7e8b6Qr1eK0Dc5j82d0Xl4He'
+
         const valid = await bcrypt.compare(password, hash)
 
         if(!admin || !valid) {
             return res.status(401).json({message: 'wrong credentials'})
         }
-        req.sessionID = admin.id
-        console.log(req.sessionID, 'huuuo')
+        req.session.adminId = admin.id
+        req.session.isAdmin = true
+
         res.status(200).json({message: 'login success'})
     } catch (error) {
         res.status(500).json({message: 'server error'})
@@ -111,4 +115,22 @@ apiRouter.get('/admin/dash', async(req, res)=> {
     } finally {
         await db.close()
     }
+})
+
+apiRouter.get('/admin/me', async(req, res)=> {
+    let db
+    try {
+        console.log(req.session)
+        db = await createDB()
+        const adminName = await db.get(`
+           SELECT username FROM admin WHERE id = ?
+        `, [req.session.adminId]
+        )
+        res.status(200).json(adminName)
+    } catch (error) {
+        res.status(500).json({message: 'server error'})
+    } finally {
+        await db.close()
+    }
+    
 })
