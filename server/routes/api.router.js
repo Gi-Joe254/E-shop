@@ -31,7 +31,7 @@ apiRouter.post('/customerReq', async(req, res)=> {
             return res.status(400).json({message:'invalid phone number'})
         }
         //validate description
-        if (description.length > 10) {
+        if (description.length > 1000) {
             return res.status(400).json({ message: 'description too long' })
         }
         //validate name
@@ -137,13 +137,14 @@ apiRouter.get('/admin/me', async(req, res)=> {
     
 })
 
-apiRouter.post('/admin/me/delete', async(req, res)=> {
-    console.log(req.body)
-    const jobId = req.body.id
+apiRouter.delete('/admin/me/delete/:id', async(req, res)=> {
+    const jobId = Number(req.params.id)
+    if(isNaN(jobId)) return res.status(400).json({message: 'invalid id'})
+    console.log(jobId)
     let db
     try {
         db = await createDB()
-        const jobs = await db.get(`
+        await db.run(`
            DELETE FROM jobs WHERE id = ?
         `, [jobId]
         )
@@ -154,4 +155,10 @@ apiRouter.post('/admin/me/delete', async(req, res)=> {
         if(db) await db.close()
     }
     
+})
+
+apiRouter.post('/admin/logout', (req, res)=> {
+    req.session.destroy(()=> {
+        res.json({message: 'logged out'})
+    })
 })
