@@ -15,7 +15,7 @@ apiRouter.post('/customerReq', async(req, res)=> {
         //check if any field is empty
         const fields = {type, description, name, email, telephone, location}
         for(const [key, value] of Object.entries(fields)){
-            if(!value?.trim() === ''){
+            if(!value || value.trim() === ''){
                 return res.status(400).json({message:`${key} is required`})
             }
         }
@@ -56,7 +56,7 @@ apiRouter.post('/customerReq', async(req, res)=> {
     } catch (error) {
         res.status(500).json({message:'server error'})
     } finally {
-        await db.close()
+        if(db) await db.close()
     }
     
 })
@@ -98,7 +98,7 @@ apiRouter.post('/admin/login', async(req, res)=> {
     } catch (error) {
         res.status(500).json({message: 'server error'})
     } finally {
-        await db.close()
+        if(db) await db.close()
     }
 
 })
@@ -113,14 +113,16 @@ apiRouter.get('/admin/dash', async(req, res)=> {
     } catch (error) {
         res.status(500).json({message:'server error'})
     } finally {
-        await db.close()
+        if(db) await db.close()
     }
 })
 
 apiRouter.get('/admin/me', async(req, res)=> {
     let db
     try {
-        console.log(req.session)
+        if(!req.session.adminId) {
+            return res.status(401).json({message: 'unauthorized'})
+        }
         db = await createDB()
         const adminName = await db.get(`
            SELECT username FROM admin WHERE id = ?
@@ -130,7 +132,26 @@ apiRouter.get('/admin/me', async(req, res)=> {
     } catch (error) {
         res.status(500).json({message: 'server error'})
     } finally {
-        await db.close()
+        if(db) await db.close()
+    }
+    
+})
+
+apiRouter.post('/admin/me/delete', async(req, res)=> {
+    console.log(req.body)
+    const jobId = req.body.id
+    let db
+    try {
+        db = await createDB()
+        const jobs = await db.get(`
+           DELETE FROM jobs WHERE id = ?
+        `, [jobId]
+        )
+        res.status(200).json({message:`job id: ${jobId} deleted`})
+    } catch (error) {
+        res.status(500).json({message: 'server error'})
+    } finally {
+        if(db) await db.close()
     }
     
 })
