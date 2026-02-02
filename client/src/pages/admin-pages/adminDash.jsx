@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { useEffect } from "react"
+import { Navigate, useNavigate } from "react-router-dom"
 
 export default function AdminDash() {
     const [jobs, setJobs] = useState([])
     const [adminName, setAdminName] = useState('')
+    const navigate = useNavigate()
 
     const handleDelete = async(id)=> {
         console.log(id)
@@ -31,13 +33,14 @@ export default function AdminDash() {
     }
 
     const handleLogout = async()=> {
+        
         try {
             const res = await fetch('http://localhost:3000/api/admin/logout', {
                 method: 'POST',
                 credentials: 'include'
             })
             if(!res.ok) throw new Error(res.status)
-            window.location.href = '/admin/login'
+            navigate('/admin/login')
         } catch (error) {
             console.error('failed to logout', error)
         } 
@@ -50,7 +53,7 @@ export default function AdminDash() {
                     credentials: 'include'
                 })
                 if(jobsRes.status === 401) {
-                    window.location.href = '/admin/login'
+                    navigate('/admin/login')
                     return
                 }
                 if (!jobsRes.ok) throw new Error(jobsRes.status)
@@ -61,7 +64,7 @@ export default function AdminDash() {
                     credentials: 'include'
                 })
                 if(adminRes.status === 401) {
-                    window.location.href = '/admin/login'
+                    navigate('/admin/login')
                     return
                 }
                 if (!adminRes.ok) throw new Error(adminRes.status)
