@@ -13,7 +13,9 @@ const createTables = async()=> {
                 name TEXT NOT NULL,
                 email TEXT NOT NULL,
                 telephone TEXT NOT NULL,
-                location TEXT NOT NULL
+                location TEXT NOT NULL,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                status TEXT DEFAULT 'pending'
             )    
         `)
         //admin login table

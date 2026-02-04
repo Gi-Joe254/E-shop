@@ -34,8 +34,15 @@ export const customerReq = async(req, res)=> {
         db = await createDB()
 
         const existing = await db.get(`
-            SELECT id FROM jobs WHERE description = ? AND telephone = ?
-            `, [description, telephone]
+            SELECT id FROM jobs 
+            WHERE type = ?
+                AND description = ?
+                AND name = ?
+                AND telephone = ?
+                AND email = ?
+                AND location = ?
+                AND status != 'completed'
+            `, [type, description, name, telephone, email, location]
         )
         if(existing) return res.status(400).json({message: 'already submitted'})
         
