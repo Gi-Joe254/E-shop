@@ -1,9 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Nav from "../components/nav";
 
 export default function ContactUs() {
     const [service, setService] = useState({type: '', description:''})
     const [customer, setCustomer] = useState({name:'', email:'', telephone:'', location:''})
+    const [submitMessage, setSubmitMessage] = useState()
+
+    useEffect(()=> {
+        //set timeout for ui message
+        if(!submitMessage) return
+        const timer = setTimeout(() => {
+            setSubmitMessage(null)
+        }, 2000);
+        return ()=> {
+            clearTimeout(timer)
+        }
+    },[submitMessage])
  
     const handleSubmit = async(e)=> {
         e.preventDefault()
@@ -15,13 +27,16 @@ export default function ContactUs() {
                 body: JSON.stringify(load)
             })
             const data = await res.json()
+            
             if(!res.ok) {
-                console.log(data.message)
+                setSubmitMessage({text: data.message, type: 'error'})
+                return
             }
             
-            console.log(data.message)
+            setSubmitMessage({text: data.message, type: 'success'})
+
         } catch (error) {
-            console.log('there was an error', error)
+            setSubmitMessage({text: 'Network error, try again', type: 'error'})
         }
        
     }   
@@ -85,6 +100,7 @@ export default function ContactUs() {
                 </div>
                 <button type="submit">Submit</button>
             </form>
+            <div className={submitMessage?.type}>{submitMessage?.text}</div>
         </>
     )
 }
