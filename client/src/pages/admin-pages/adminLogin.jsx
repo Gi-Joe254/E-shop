@@ -1,7 +1,16 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function AdminLogin() {
     const [admin, setAdmin] = useState({name:'', password:''})
+    const [loginMessage, setLoginMessage] = useState()
+
+    //set timeout for loginMessage div
+    useEffect(()=> {
+        const timer = setTimeout(() => {
+            setLoginMessage(null)
+        }, 2000);
+        return ()=> {clearTimeout(timer)}
+    },[loginMessage])
 
     const handleSubmit = async(e)=> {
         e.preventDefault()
@@ -14,14 +23,13 @@ export default function AdminLogin() {
             })
             const data = await res.json()
             if(!res.ok) {
-                return console.log(data.message)
+                return setLoginMessage({text: data.message, type: 'error'})
             }
-            console.log(data.message)
+            setLoginMessage({text: data.message, type: 'success'})
             window.location.href = '/admin/dashboard'
         } catch (error) {
-            console.error('login details not sent', error)
-        }
-        
+            setLoginMessage({text: 'error logging in', type: 'error'})
+        }  
     }
 
     return(
@@ -45,6 +53,9 @@ export default function AdminLogin() {
                 />
                 <button type="submit">Log In</button>
             </form>
+            {loginMessage &&
+                <div>{loginMessage.text}</div>
+            }
         </>
     )
 }

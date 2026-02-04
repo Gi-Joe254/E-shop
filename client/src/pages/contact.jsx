@@ -100,7 +100,7 @@ export default function ContactUs() {
                 </div>
                 <button type="submit">Submit</button>
             </form>
-            <div className={submitMessage?.type}>{submitMessage?.text}</div>
+            {submitMessage && <div className={submitMessage.type}>{submitMessage.text}</div>}
         </>
     )
 }
