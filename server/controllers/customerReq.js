@@ -51,7 +51,7 @@ export const customerReq = async(req, res)=> {
             VALUES(?,?,?,?,?,?)
         `, [ type, description, name, email, telephone, location ]
         )
-        res.status(201).json({message:'new job added'})
+        res.status(201).json({message:'Job submited'})
     } catch (error) {
         res.status(500).json({message:'server error'})
     } finally {
