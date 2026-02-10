@@ -37,6 +37,8 @@ export default function ContactUs() {
 
         } catch (error) {
             setSubmitMessage({text: 'Network error, try again', type: 'error'})
+        } finally {
+            setService({type:'', description:''})
         }
        
     }   

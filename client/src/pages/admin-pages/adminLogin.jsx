@@ -34,8 +34,10 @@ export default function AdminLogin() {
             setLoginMessage({text: data.message, type: 'success'})
             navigate('/admin/dashboard')
         } catch (error) {
-            setLoginMessage({text: 'error logging in', type: 'error'})
+            setLoginMessage({text: error.message, type: 'error'})
         } finally {
+            setAdmin({name:'', password:''})
+            console.log(e.target.adminName.value)
             setBusyId(false)
         }
     }
