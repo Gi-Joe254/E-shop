@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function AdminLogin() {
     const [admin, setAdmin] = useState({name:'', password:''})
     const [loginMessage, setLoginMessage] = useState()
+    const [busyId, setBusyId] = useState(false)
+
+    const navigate = useNavigate()
 
     //set timeout for loginMessage div
     useEffect(()=> {
+        if(!loginMessage) return
         const timer = setTimeout(() => {
             setLoginMessage(null)
         }, 2000);
@@ -14,6 +19,7 @@ export default function AdminLogin() {
 
     const handleSubmit = async(e)=> {
         e.preventDefault()
+        setBusyId(true)
         try {
             const res = await fetch('http://localhost:3000/api/admin/login', {
                 method: 'POST',
@@ -26,10 +32,12 @@ export default function AdminLogin() {
                 return setLoginMessage({text: data.message, type: 'error'})
             }
             setLoginMessage({text: data.message, type: 'success'})
-            window.location.href = '/admin/dashboard'
+            navigate('/admin/dashboard')
         } catch (error) {
             setLoginMessage({text: 'error logging in', type: 'error'})
-        }  
+        } finally {
+            setBusyId(false)
+        }
     }
 
     return(
@@ -51,7 +59,7 @@ export default function AdminLogin() {
                     onChange={(e)=> {setAdmin({...admin, password: e.target.value})}}
                     required
                 />
-                <button type="submit">Log In</button>
+                <button type="submit" disabled = {busyId}>Log In</button>
             </form>
             {loginMessage &&
                 <div>{loginMessage.text}</div>

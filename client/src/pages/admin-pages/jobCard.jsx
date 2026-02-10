@@ -1,4 +1,4 @@
-export default function JobCard({jobs, handleDelete, handleComplete}) {
+export default function JobCard({jobs, handleDelete, handleComplete, busyId}) {
     return(
        jobs.map((item)=> (
             <div key={item.id}>
@@ -11,10 +11,18 @@ export default function JobCard({jobs, handleDelete, handleComplete}) {
                 <p >{item.status}</p>
                 <p >{item.created_at}</p>
                 {item.status === 'completed' &&
-                    <button onClick={()=>{handleDelete(item.id)}}>Delete</button>
+                    <button 
+                        onClick={()=>{handleDelete(item.id)}}
+                        disabled = {busyId === item.id}
+                    >Delete
+                    </button>
                 }
                 {item.status === 'pending' &&
-                    <button onClick={()=>{handleComplete(item.id)}}>Complete</button>   
+                    <button 
+                        onClick={()=>{handleComplete(item.id)}}
+                        disabled = {busyId === item.id}
+                    >Complete
+                    </button>   
                 }
             </div>
             
