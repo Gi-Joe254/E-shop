@@ -1,13 +1,20 @@
-import { NavLink } from "react-router-dom"
+import Hamburger from "hamburger-react"
+import { useState } from "react"
+import NavLinks from "./navLinks"
 
 export default function Nav() {
+    const [isOpen, setOpen] = useState(false)
+    
     return(
-       <nav>
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/services">Services</NavLink>
-            <NavLink to="/products">Products</NavLink>
-            <NavLink to="/about">About</NavLink>
-            <NavLink to="/Contact">ContactUs</NavLink>
+        <>
+        <nav className="desktopNav">
+            <NavLinks />
         </nav>
+        <nav className="mobileNav">
+            <Hamburger toggled={isOpen} toggle={setOpen}/>
+            {isOpen && <NavLinks />} 
+        </nav>
+        
+        </>
     )
 }

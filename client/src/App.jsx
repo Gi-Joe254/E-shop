@@ -7,7 +7,6 @@ import Home from './pages/home'
 import About from './pages/about'
 import Services from './pages/services'
 import Products from './pages/products'
-import ContactUs from './pages/contact'
 import AdminLogin from './pages/admin-pages/adminLogin'
 import AdminDash from './pages/admin-pages/adminDash'
 import ProtectedRoute from './protectedRoute'
@@ -24,7 +23,6 @@ function App() {
         <Route path='/about' element={<About />}/>
         <Route path='/services' element={<Services />}/>
         <Route path='/products' element={<Products />}/>
-        <Route path='/contact' element={<ContactUs />}/>
         <Route path='/admin/login' element={<AdminLogin />}/>
         <Route path='/admin/dashboard' element={
           <ProtectedRoute>

@@ -1,71 +1,34 @@
-import { useEffect, useState } from "react";
-import Nav from "../components/nav";
+import Comms from "./comms";
 
-export default function ContactUs() {
-    const [service, setService] = useState({type: '', description:''})
-    const [customer, setCustomer] = useState({name:'', email:'', telephone:'', location:''})
-    const [submitMessage, setSubmitMessage] = useState()
-
-    useEffect(()=> {
-        //set timeout for ui message
-        if(!submitMessage) return
-        const timer = setTimeout(() => {
-            setSubmitMessage(null)
-        }, 2000);
-        return ()=> {
-            clearTimeout(timer)
-        }
-    },[submitMessage])
- 
-    const handleSubmit = async(e)=> {
-        e.preventDefault()
-        const load = {...service, ...customer}
-        try {
-            const res = await fetch('http://localhost:3000/api/customerReq', {
-                method: 'POST',
-                headers: {'Content-Type': 'Application/json'},
-                body: JSON.stringify(load)
-            })
-            const data = await res.json()
-            
-            if(!res.ok) {
-                setSubmitMessage({text: data.message, type: 'error'})
-                return
-            }
-            
-            setSubmitMessage({text: data.message, type: 'success'})
-
-        } catch (error) {
-            setSubmitMessage({text: 'Network error, try again', type: 'error'})
-        } finally {
-            setService({type:'', description:''})
-        }
-       
-    }   
+export default function ContactUs({handleSubmit, service, setService, customer, setCustomer}) {
+   
   
     return(
         <>
-            <Nav />
-            <header>ContactUs Page</header>
+            <h1>ContactUs</h1>
+            <p>Get in touch with our team for a free consultation</p>
+            <strong>Send us a message</strong>
+            <p>Fill out the form below and we'll respond within 24 hours</p>
             <form onSubmit={handleSubmit}>
                 <div className="service">
                     <label htmlFor="service">Select service:</label>
-                    <select 
+                    <select required
                         name="service" id="service" value={service.type} 
                         onChange={(e)=> {setService({...service, type: e.target.value})}}
                     >
                         <option defaultValue=''>--select service--</option>
                         <option value='installation'>Electrical installation</option>
-                        <option value='maintenance'>Electrical maintenance</option>
-                        <option value='applianceRepair'>Home appliance repair</option>
-                        <option value='phoneRepair'>Phone repair</option>
-                        <option value='TVRepair'>TV repair</option>
-                        <option value='TVMounting'>TV mounting</option>
+                        <option value='maintenance'>Electrical repairs</option>
+                        <option value='lighting'>Lighting solutions</option>
+                        <option value='gadgetRepair'>Gadget repair</option>
+                        <option value='soundSystem'>Sound system</option>
+                        <option value='emergency'>Emergency services</option>
                     </select>
                     <label htmlFor="description">Describe the issue:</label>
                     <textarea 
                         name="description" id="description" cols={50} rows={4} value={service.description} 
                         onChange={(e)=> {setService({...service, description: e.target.value})}}
+                        required
                     />
                 </div>
                 <div className="customerDetails">
@@ -73,22 +36,25 @@ export default function ContactUs() {
                     <input 
                         type='text' name='name' id='name' value={customer.name} 
                         onChange={(e)=> {setCustomer({...customer, name: e.target.value})}}
+                        required
                     />
 
                     <label htmlFor="email">E-mail</label>
                     <input 
-                        type='email' name='email' id='email' 
+                        type='email' name='email' id='email' value={customer.email}
                         onChange={(e)=> {setCustomer({...customer, email: e.target.value})}}
+                        required
                     />
 
                     <label htmlFor="telephone">Phone Number</label>
                     <input 
-                        type='number' name='telephone' id='telephone' 
+                        type='tel' name='telephone' id='telephone' value={customer.telephone}
                         onChange={(e)=> {setCustomer({...customer, telephone: e.target.value})}}
+                        required
                     />
 
                     <label htmlFor="location">Location</label>
-                    <select 
+                    <select required
                         name="location" id="location" value={customer.location}
                         onChange={(e)=> {setCustomer({...customer, location: e.target.value})}}
                     >
@@ -102,7 +68,9 @@ export default function ContactUs() {
                 </div>
                 <button type="submit">Submit</button>
             </form>
-            {submitMessage && <div className={submitMessage.type}>{submitMessage.text}</div>}
+        
+            <Comms />
+            
         </>
     )
 }
