@@ -1,0 +1,26 @@
+.productContainer {
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    border: 1px solid burlywood;
+    border-radius: 10px;
+    max-width: 300px;
+    margin: 20px auto;
+}
+
+.productContainer > img {
+    height: 150px;
+    border-bottom: 1px solid rgb(145, 141, 141);
+    object-fit: cover;
+}
+.productText {
+    text-align: left;
+    padding: 20px;
+}
+.productText > p {
+    font-size: 0.9rem;
+}
+button {
+    width: 90%;
+    margin: 0 auto 20px;
+}

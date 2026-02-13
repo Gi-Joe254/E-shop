@@ -7,6 +7,16 @@ import Review from "../components/reviewCard";
 import Service from "../components/serviceCard";
 import { useEffect } from "react";
 import Footer from "../components/footer";
+import "./home.css"
+import soundImg from "../assets/images/services/sound-image.jpg"
+import emergencyImg from "../assets/images/services/emergency-image.jpg"
+import gadgetImg from "../assets/images/services/gadget-image.jpg"
+import lightsImg from "../assets/images/services/lights-image.png"
+import panelImg from "../assets/images/services/panel-image.jpg"
+import repairsImg from "../assets/images/services/repairs-image.jpg"
+import lightImg2 from "../assets/images/products/lights-image.jpg"
+import tvImg from "../assets/images/products/tv-image.avif"
+import wireImg from "../assets/images/products/wires-image.jpg"
 
 export default function Home() {
     const [isOpen, setOpen] = useState(false)
@@ -62,43 +72,37 @@ export default function Home() {
                 <h1>Our Services</h1>
                 <p>Professional electrical solutions for residential and commercial properties</p>
                 <Service
-                    imgSrc= ''
+                    imgSrc= {repairsImg}
                     imgAlt= 'repairs image'
                     name= 'Electrical Repairs'
                     description= 'Quick and reliable fixes for all elctrical issues in your home or business.'
                 />
                 <Service 
-                    imgSrc= ''
+                    imgSrc= {panelImg}
                     imgAlt= 'upgrades image'
                     name= 'Panel Upgrades'
                     description= 'Modern electrical panel installations to handle your power needs.'
                 />
                 <Service
-                    imgSrc= ''
+                    imgSrc= {lightsImg}
                     imgAlt= 'lighting image'
                     name= 'Lighting Solutions'
                     description= 'Interior and exterior lighting solutions for enhanced ambiance and security'
                 />
                 <Service 
-                    imgSrc= ''
+                    imgSrc= {gadgetImg}
                     imgAlt= 'gadget image'
                     name= 'Gadget Repairs'
                     description= 'Fast and reliable repairs for your phone, TV, and laptop'
                 />
                 <Service 
-                    imgSrc= ''
-                    imgAlt= 'repairs image'
-                    name= 'Electrical Repairs'
-                    description= 'Quick and reliable fixes for all elctrical issues in your home or business'
-                />
-                <Service 
-                    imgSrc= ''
+                    imgSrc= {soundImg}
                     imgAlt= 'sound image'
                     name= 'Car Sound Installation'
                     description= 'Professional car sound system installation to upgrade your ride with good music'
                 />
                 <Service 
-                    imgSrc= ''
+                    imgSrc= {emergencyImg}
                     imgAlt= 'emergency image'
                     name= '24/7 Emergency Service'
                     description= 'Round-the-clock availability for urgent electrial issues'
@@ -108,28 +112,28 @@ export default function Home() {
                 <h1>Featured Products</h1>
                 <p>High-quality electrical products for all your needs</p>
                 <Product
-                    imgSrc=''
+                    imgSrc= {lightImg2}
                     imgAlt='bulbs image'
                     name='LED Light Bulbs'
                     description='Energy-efficient LED bulbs'
                     price='From Ksh.100'
                 />
                 <Product
-                    imgSrc=''
+                    imgSrc= {soundImg}
                     imgAlt='sound image'
                     name='Sound Sytems'
                     description='Premium and high-quality sound systems'
                     price='From Ksh.10,000'
                 />
                 <Product
-                    imgSrc=''
+                    imgSrc= {tvImg}
                     imgAlt='TV image'
                     name='Pre-owned TVs'
                     description='Refurbished Television sets'
                     price='From Ksh.5000'
                 />
                 <Product
-                    imgSrc=''
+                    imgSrc= {wireImg}
                     imgAlt='wire image'
                     name='Electrical wires'
                     description='Essential and professional grade electrical wires'

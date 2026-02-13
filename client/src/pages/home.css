@@ -1,0 +1,28 @@
+h1 {
+    font-size: 2rem;
+}
+section {
+    padding: 100px 0;
+}
+.services {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.services > p ,.services > h1{
+    padding: 20px;
+}
+.products {    
+    gap: 20px;
+    padding: 100px 0;
+}
+.products > p, .products > h1{
+    padding: 20px;
+}
+
+
+.reviews > p ,.reviews h1 {
+    padding: 20px;
+}
+
+

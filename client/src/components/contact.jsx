@@ -1,15 +1,52 @@
-import Comms from "./comms";
+import Comms from "./comms"
+import "./contact.css"
 
 export default function ContactUs({handleSubmit, service, setService, customer, setCustomer}) {
    
   
     return(
-        <>
+        <div className="contactContainer">
             <h1>ContactUs</h1>
             <p>Get in touch with our team for a free consultation</p>
-            <strong>Send us a message</strong>
-            <p>Fill out the form below and we'll respond within 24 hours</p>
-            <form onSubmit={handleSubmit}>
+            
+            <form className="contactForm" onSubmit={handleSubmit}>
+                <strong>Send us a message</strong>
+                <p>Fill out the form below and we'll respond within 24 hours</p>
+                <div className="customerDetails">
+                    <label htmlFor="name">Name:</label>
+                    <input 
+                        type='text' name='name' id='name' value={customer.name} 
+                        onChange={(e)=> {setCustomer({...customer, name: e.target.value})}}
+                        required
+                    />
+
+                    <label htmlFor="email">E-mail:</label>
+                    <input 
+                        type='email' name='email' id='email' value={customer.email}
+                        onChange={(e)=> {setCustomer({...customer, email: e.target.value})}}
+                        required
+                    />
+
+                    <label htmlFor="telephone">Phone Number:</label>
+                    <input 
+                        type='tel' name='telephone' id='telephone' value={customer.telephone}
+                        onChange={(e)=> {setCustomer({...customer, telephone: e.target.value})}}
+                        required
+                    />
+
+                    <label htmlFor="location">Location:</label>
+                    <select required
+                        name="location" id="location" value={customer.location}
+                        onChange={(e)=> {setCustomer({...customer, location: e.target.value})}}
+                    >
+                        <option defaultValue=''>--select location--</option>
+                        <option value='Kiambu'>Kiambu</option>
+                        <option value='Nairobi'>Nairobi</option>
+                        <option value='Thika'>Thika</option>
+                        <option value='Limuru'>Limuru</option>
+                        <option value='Thika-Road'>Thika-Road</option>
+                    </select>
+                </div>
                 <div className="service">
                     <label htmlFor="service">Select service:</label>
                     <select required
@@ -31,46 +68,12 @@ export default function ContactUs({handleSubmit, service, setService, customer, 
                         required
                     />
                 </div>
-                <div className="customerDetails">
-                    <label htmlFor="name">Name</label>
-                    <input 
-                        type='text' name='name' id='name' value={customer.name} 
-                        onChange={(e)=> {setCustomer({...customer, name: e.target.value})}}
-                        required
-                    />
-
-                    <label htmlFor="email">E-mail</label>
-                    <input 
-                        type='email' name='email' id='email' value={customer.email}
-                        onChange={(e)=> {setCustomer({...customer, email: e.target.value})}}
-                        required
-                    />
-
-                    <label htmlFor="telephone">Phone Number</label>
-                    <input 
-                        type='tel' name='telephone' id='telephone' value={customer.telephone}
-                        onChange={(e)=> {setCustomer({...customer, telephone: e.target.value})}}
-                        required
-                    />
-
-                    <label htmlFor="location">Location</label>
-                    <select required
-                        name="location" id="location" value={customer.location}
-                        onChange={(e)=> {setCustomer({...customer, location: e.target.value})}}
-                    >
-                        <option defaultValue=''>--select location--</option>
-                        <option value='Kiambu'>Kiambu</option>
-                        <option value='Nairobi'>Nairobi</option>
-                        <option value='Thika'>Thika</option>
-                        <option value='Limuru'>Limuru</option>
-                        <option value='Thika-Road'>Thika-Road</option>
-                    </select>
-                </div>
+                
                 <button type="submit">Submit</button>
             </form>
         
             <Comms />
             
-        </>
+        </div>
     )
 }

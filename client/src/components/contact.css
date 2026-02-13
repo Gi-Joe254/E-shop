@@ -1,0 +1,40 @@
+
+.contactContainer > h1 {
+    padding: 20px;
+}
+
+.contactForm {
+    border: 1px solid burlywood;
+    border-radius: 10px;
+    padding: 50px 20px;
+    width: 90%;
+    margin: 50px auto;
+    text-align: left;
+    height: max-content;
+}
+.customerDetails {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px 0;
+}
+input, select {
+    height: 40px;
+    border-radius: 5px;
+}
+textarea {
+    height: 100px;
+    border-radius: 5px;
+}
+.service {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 20px 0;
+}
+button {
+    margin: 0 auto;
+    display: block;
+}
