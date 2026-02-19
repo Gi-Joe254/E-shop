@@ -33,7 +33,7 @@ export default function Nav() {
         </nav>
         <div 
             className= {`dropdown ${isOpen ? "open" : ""}`}
-            style={{maxHeight: isOpen ? '45vh': '0'}}
+            style={{maxHeight: isOpen ? '50vh': '0'}}
         >
             {isOpen && <Links />}
         </div>
