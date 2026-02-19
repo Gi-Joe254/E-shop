@@ -1,22 +1,39 @@
 .serviceContainer {
-    display: flex;
-    flex-direction: column;
-    height: 300px;
-    border: 1px solid burlywood;
-    border-radius: 10px;
-    max-width: 300px;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;              /* fills 300px grid column */
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  overflow: hidden;         /* prevents image radius glitches */
+  background: var(--card);
+
 }
 
 .serviceContainer > img {
-    height: 150px;
-    border-bottom: 1px solid rgb(145, 141, 141);
-    object-fit: cover;
+  width: 100%;
+  height: 180px;            /* slightly taller = more premium */
+  object-fit: cover;
+  display: block;
 }
+
 .serviceText {
-    text-align: left;
-    padding: 20px;
+  padding: 1.25rem;         /* use consistent spacing */
+  text-align: left;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;              /* controlled spacing between h3 & p */
 }
-.serviceText > p {
-    font-size: 0.9rem;
+
+.serviceText h3 {
+  margin: 0;
+}
+
+.serviceText p {
+  margin: 0;
+  font-size: 0.9rem;        /* slightly bigger for readability */
+  color: var(--muted-text);
+  line-height: 1.5;
 }

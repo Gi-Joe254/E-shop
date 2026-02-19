@@ -5,9 +5,9 @@ export default function Product({imgSrc, imgAlt, name, description, price}) {
         <div className="productContainer">
             <img src={imgSrc} alt={imgAlt}/>
             <div className="productText">
-                <strong>{name}</strong>
+                <h3>{name}</h3>
                 <p>{description}</p>
-                <p>{price}</p>
+                <p className="price">{price}</p>
             </div>
             <button>Add to Cart</button>
         </div>

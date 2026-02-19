@@ -5,7 +5,7 @@ export default function Service({imgSrc, imgAlt, name, description}) {
         <div className="serviceContainer">
             <img src={imgSrc} alt={imgAlt}/>
             <div className="serviceText">
-                <strong>{name}</strong>
+                <h3>{name}</h3>
                 <p>{description}</p>
             </div>
         </div>

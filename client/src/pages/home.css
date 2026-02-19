@@ -1,28 +1,66 @@
-h1 {
-    font-size: 2rem;
-}
+
 section {
-    padding: 100px 0;
+  padding: 100px 0;
 }
+
+section h1 {
+  margin-bottom: var(--space-xs);
+  text-align: center;
+}
+
+section > p {
+  margin-bottom: var(--space-md);
+  text-align: center;
+  color: var(--muted-text);
+  max-width: 600px;
+  margin-inline: auto;
+}
+
 .services {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  /*padding to match 200px section space*/
+    padding-top: 200px;
 }
-.services > p ,.services > h1{
-    padding: 20px;
+.contactUs {
+  /*padding to match 200px section space*/
+  padding-bottom: 200px;
 }
-.products {    
-    gap: 20px;
-    padding: 100px 0;
+
+.serviceCards,
+.productCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 300px));
+  gap: var(--space-md);
+  width: 100%;
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding-inline: var(--space-sm);
+  justify-content: center;
 }
-.products > p, .products > h1{
-    padding: 20px;
+
+.reviewCards {
+  display: flex;
+  gap: var(--space-lg);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-inline: var(--space-sm);
+  max-width: var(--container-width);
+  margin-inline: auto;
+}
+
+/* Hide scrollbar (optional clean look) */
+.reviewCards::-webkit-scrollbar {
+  display: none;
+}
+
+.reviewCards > * {
+  flex: 0 0 300px;
 }
 
 
-.reviews > p ,.reviews h1 {
-    padding: 20px;
-}
+
+
+
+
+
 
 

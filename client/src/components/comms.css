@@ -1,21 +1,36 @@
 .comms {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.25rem;
 }
 .comms > div {
-    border: 1px solid burlywood;
-    border-radius: 10px;
-    width: 90%;
-    margin: 0 auto;
-    height: 100px;
     display: flex;
-    gap: 10px;
-    padding: 20px;
+    align-items: flex-start;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    gap: 1rem;
+    padding: 1.25rem;
+}
+.comms > div svg {
+    color: var(--button-bg);
+    font-size: 1.25rem;
+    margin-top: 10px;
 }
 .commsText {
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 .commsText > p {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    color: var(--muted-text);
+    line-height: 1.4;
+    margin: 0;
 }
+.commsText > h4 {
+    font-weight: 600;
+    margin: 0;
+}
+

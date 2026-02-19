@@ -1,10 +1,67 @@
 .footer {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-    text-align: left;
+    gap: 1.5rem;
+    padding: 2rem 1.25rem;
+    background-color: var(--primary);
+    color: var(--primary-text);
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+p {
+    color: var(--muted-text);
+    margin: 0.25rem 0 0 0;
 }
 ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
+}
+ul li {
+    margin-bottom: 0.25rem;
+    color: var(--muted-text);
+}
+
+.footEnd {
+    border-top: 1px solid var(--muted-text);
+    padding-top: 1.25rem;
+}
+.socials {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.25rem;
+}
+.rights {
+    text-align: center;
+    padding-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--muted-text);
+}
+
+@media (min-width: 768px) {
+  .footer {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  /* Make headline + description take full width */
+  .footer > h4:first-of-type,
+  .footer > p:first-of-type {
+    flex-basis: 100%;
+  }
+
+  .footNav,
+  .footer > div:nth-child(3),
+  .footer > div:nth-child(4) {
+    flex: 1 1 200px; /* grow but maintain minimum width */
+  }
+  .footEnd {
+    flex-basis: 100%;
+  }
+  .socials {
+    justify-content: flex-start;
+  }
 }

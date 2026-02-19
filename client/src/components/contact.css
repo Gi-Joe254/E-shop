@@ -1,40 +1,62 @@
+.contactContainer {
+    padding: 0 1.25rem
+}
 
-.contactContainer > h1 {
-    padding: 20px;
+.contactContainer > h1,
+.contactContainer > p {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.contactWrapper { 
+    display: grid;
+    gap: 2rem;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .contactForm {
-    border: 1px solid burlywood;
-    border-radius: 10px;
-    padding: 50px 20px;
-    width: 90%;
-    margin: 50px auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    background-color: var(--card);
     text-align: left;
-    height: max-content;
 }
-.customerDetails {
-    min-height: 200px;
+
+.customerDetails, .service {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 1rem;
     margin: 20px 0;
 }
-input, select {
-    height: 40px;
-    border-radius: 5px;
+.contactContainer > p { 
+    padding: 10px;
+}
+
+
+input, select, textarea {
+    width: 100%;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
 }
 textarea {
-    height: 100px;
-    border-radius: 5px;
+    min-height: 120px;
+    resize: vertical;
 }
-.service {
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 20px 0;
-}
-button {
-    margin: 0 auto;
+
+form > button {
+    margin-top: 1.5rem;
     display: block;
+    background-color: var(--button-bg);
+    height: 45px;
+    width: 100%;
+}
+
+@media (min-width:768px) {
+    .contactWrapper {
+        grid-template-columns: 2fr 1fr;
+        align-items: start;
+        
+    }
 }

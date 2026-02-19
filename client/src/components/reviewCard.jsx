@@ -3,10 +3,10 @@ import "./reviewCard.css"
 export default function Review({name, location, message, rating}) {
     return(
         <div className="reviewContainer">
-            <strong>{name}</strong>
-            <div>{location}</div>
+            <h4>{name}</h4>
+            <h5>{location}</h5>
             <p>{message}</p>
-            <p>{rating}</p>
+            <p className="rating">{rating}</p>
         </div>
     )
 }

@@ -7,7 +7,7 @@ export default function Comms() {
             <div>
                 <FaPhone />
                 <div className="commsText">
-                    <strong>Phone</strong>
+                    <h4>Phone</h4>
                     <p>0706571416</p>
                     <p>24/7 Emergency Line</p>
                 </div>  
@@ -16,7 +16,7 @@ export default function Comms() {
             <div>
                 <FaMailBulk />
                 <div className="commsText">
-                    <strong>Email</strong>
+                    <h4>Email</h4>
                     <p>trixxsolutions@gmail.com</p>
                     <p>We reply within 24 hours</p> 
                 </div>
@@ -25,14 +25,14 @@ export default function Comms() {
             <div>
                 <FaLocationArrow />
                 <div className="commsText">
-                    <strong>Kiambu town</strong>
+                    <h4>Kiambu town</h4>
                     <p>opposite Hunton heights</p>
                 </div>
             </div>
             <div>
                 <FaClock />
                 <div className="commsText">
-                    <strong>Business Hours</strong>
+                    <h4>Business Hours</h4>
                     <p>Mon-Sat: 8:00 AM - 20:00 PM</p>
                     <p>Sun: Emergency only</p>
                 </div>

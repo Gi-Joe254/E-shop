@@ -1,26 +1,46 @@
 .productContainer {
-    display: flex;
-    flex-direction: column;
-    height: 350px;
-    border: 1px solid burlywood;
-    border-radius: 10px;
-    max-width: 300px;
-    margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+
+  overflow: hidden; /* handles image radius cleanly */
 }
 
 .productContainer > img {
-    height: 150px;
-    border-bottom: 1px solid rgb(145, 141, 141);
-    object-fit: cover;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
 }
+
 .productText {
-    text-align: left;
-    padding: 20px;
+  padding: 1.25rem;
+  text-align: left;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
 }
-.productText > p {
-    font-size: 0.9rem;
+
+.productText p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted-text);
 }
-button {
-    width: 90%;
-    margin: 0 auto 20px;
+
+.productText  > .price {
+  color: var(--button-bg);
+  font-weight: 600;
+}
+
+.productContainer > button {
+  margin: 0 1.25rem 1.25rem;
+  width: auto;
+  align-self: stretch; /* fills container minus margin */
+  background-color: var(--button-bg);
 }

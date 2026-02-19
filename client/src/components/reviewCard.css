@@ -1,20 +1,24 @@
 .reviewContainer {
     display: flex;
     flex-direction: column;
-    min-height: 250px;
-    max-height: fit-content;
-    border: 1px solid burlywood;
-    border-radius: 10px;
-    max-width: 300px;
-    margin: 20px auto;
-    gap: 10px;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);    
+    width: 300px;
+    gap: 0.75rem;
     text-align: left;
-    padding: 20px;
-    justify-content: center;
+    padding: 1.25rem;
+    background: var(--card);
 }
 
 .reviewContainer > p {
+    margin: 0;
     font-size: 0.9rem;
     font-style: italic;
+    line-height: 1.5;
+    color: var(--muted-text);
 }
-
+.reviewContainer > .rating {
+    color: var(--button-bg);
+    font-weight: 600;
+}

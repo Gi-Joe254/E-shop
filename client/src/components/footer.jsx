@@ -1,18 +1,23 @@
 import NavLinks from "./navLinks";
 import './footer.css'
+import { FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
 
 export default function Footer() {
     return(
         <div className="footer">
-            <strong>Trixx Solutions</strong>
+            <h4>Trixx Solutions</h4>
             <p>Professional electrical services you can trust. Licensed and available 24/7.</p>
             <div className="footNav">
-                <strong>Quick Links</strong>
-                <NavLinks />
+                <h4>Quick Links</h4>
+                <p>Our Services</p>
+                <p>Featured Products</p>
+                <p>What Our Customers Say</p>
+                <p>Contact Us</p>
+                
             </div>
             
-            <div>
-            <strong>Our Services</strong>
+            <div className="serviceList">
+            <h4>Our Services</h4>
                 <ul>
                     <li>Electrical Repairs</li>
                     <li>Panel Upgrades</li>
@@ -24,13 +29,24 @@ export default function Footer() {
                 </ul>
             </div>
 
-            <div>
-                <strong>Contact Us</strong>
+            <div className="contactList">
+                <h4>Contact Us</h4>
                 <p>Location: Kiambu-Ndumberi Road</p>
                 <p>Phone: 0706571416</p>
                 <p>Email: trixxsolutions@gmail.com</p>
             </div>
-
+            <div className="footEnd">
+                <div className="socials">
+                    <FaFacebook />
+                    <FaTwitter />
+                    <FaWhatsapp />
+                    <FaInstagram />
+                </div>
+                <div className="rights">
+                    <p>@ 2026 Trixx Solutions. All rights reserved</p>
+                </div>
+            </div>
+            
         </div>
     )
 }
