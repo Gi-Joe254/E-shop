@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { useEffect } from "react"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import JobCard from "./jobCard"
 import { completeJob, deleteJob, fetchAdmin, fetchJobs, logout } from "./jobsServices"
+import "./adminDash.css"
 
 export default function AdminDash() {
     const [jobs, setJobs] = useState([])

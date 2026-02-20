@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import "./adminLogin.css"
 
 export default function AdminLogin() {
     const [admin, setAdmin] = useState({name:'', password:''})
@@ -43,29 +44,34 @@ export default function AdminLogin() {
     }
 
     return(
-        <>
-            <header>Admin Login</header>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="adminName">Admin Name</label>
-                <input 
-                    type="text" id="adminName" name="adminName"
-                    value={admin.name}
-                    onChange={(e)=> {setAdmin({...admin, name: e.target.value})}}
-                    required
-                />
+        <div className="adminLogin">
+            <div className="loginContainer">
+                <header>Admin Login</header>
+                <form
+                    className="adminForm"
+                    onSubmit={handleSubmit}
+                >
 
-                <label htmlFor="adminPass">Password</label>
-                <input 
-                    type="password" id="adminPass" name="adminPass"
-                    value={admin.password}
-                    onChange={(e)=> {setAdmin({...admin, password: e.target.value})}}
-                    required
-                />
-                <button type="submit" disabled = {busyId}>Log In</button>
-            </form>
-            {loginMessage &&
-                <div>{loginMessage.text}</div>
-            }
-        </>
+                    <input 
+                        type="text" id="adminName" name="adminName"
+                        value={admin.name}
+                        onChange={(e)=> {setAdmin({...admin, name: e.target.value})}}
+                        required
+                    />
+
+                    <input 
+                        type="password" id="adminPass" name="adminPass"
+                        value={admin.password}
+                        onChange={(e)=> {setAdmin({...admin, password: e.target.value})}}
+                        required
+                    />
+                    <button type="submit" disabled = {busyId}>Log In</button>
+                </form>
+                {loginMessage &&
+                    <div className="loginMessage">{loginMessage.text}</div>
+                }
+            </div>
+        </div>
+        
     )
 }
