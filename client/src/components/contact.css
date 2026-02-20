@@ -51,6 +51,10 @@ form > button {
     background-color: var(--button-bg);
     height: 45px;
     width: 100%;
+    cursor: pointer;
+}
+form > button:hover {
+    background-color: var(--button-hover);
 }
 
 @media (min-width:768px) {

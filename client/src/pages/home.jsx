@@ -173,7 +173,7 @@ export default function Home() {
                  <ContactUs 
                     handleSubmit={handleSubmit}
                     customer={customer}
-                    setCustomer={customer}
+                    setCustomer={setCustomer}
                     service={service}
                     setService={setService}
                 />

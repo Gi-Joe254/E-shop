@@ -11,7 +11,7 @@ export default function Nav() {
             <div>Products</div>
             <div>Reviews</div>
             <div>Contact</div>
-            <button>Get Free Qoute</button>
+            <button className="quoteBtn">Get Free Qoute</button>
         </>
     )
     return(

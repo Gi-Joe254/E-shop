@@ -56,6 +56,7 @@ html {
 }
 
 body {
+  overflow-x: hidden;
   margin: 0;
   padding: 0;
   font-family: system-ui, sans-serif;
@@ -96,6 +97,7 @@ textarea {
   border: none;
   border-radius: var(--radius);
   outline-color: var(--button-bg);
+  color: var(--muted-text);
 }
 
 button {
@@ -104,4 +106,16 @@ button {
   border-radius: var(--radius);
   border: none;
   cursor: pointer;
+}
+
+
+@media (min-width: 768px) {
+  html {
+    font-size: 17px;
+  }
+}
+@media (min-width: 1200px) {
+  html {
+    font-size: 18px;
+  }
 }

@@ -1,5 +1,5 @@
 .hero {
-    padding: 200px 20px;
+    padding: 100px 20px;
     position: relative;
     background-image: 
         linear-gradient(rgba(241, 236, 236, 0.4), rgba(238, 238, 238, 0.4)), 
@@ -10,7 +10,7 @@
     z-index: 1;
     color: var(--primary-text);
     min-height: 90vh;
-    width: 100%;
+    align-items: center;
 }
 
 .hero::before {
@@ -42,16 +42,26 @@
     color: var(--text);
 }
 .callBtn:hover {
-  background-color: var(--button-hover);
+    background-color: var(--button-hover);
 }
+.quoteBtn:hover {
+  border: 1px solid var(--button-hover);
+}
+
 .hero > p {
     color: var(--primary-text);
 }
 
 @media (min-width:576px) {
+    .hero {
+        padding-top: 200px;
+    }
     .heroBtns {
         flex-direction: row;
         justify-content: center;
         padding: 40px 0;
+    }
+    .hero > h1 {
+        font-size: 3.5rem;
     }
 }

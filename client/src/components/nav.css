@@ -8,11 +8,10 @@
     background-color: var(-bg);
     box-shadow: 0 2px 5px var(--card);
 }
-
-.desktopNav > button {
-    height: 40px;
-    background-color: var(--button-bg);
+.quoteBtn {
+    background-color: var(--muted);
 }
+
 .desktopNav > h4 {
     flex: 1;
 }
@@ -54,9 +53,7 @@
 .dropdown > div:hover, .desktopNav > div:hover {
     color: var(--button-hover);
 }
-button {
-    background-color: var(--button-bg);
-}
+
 
 @media (min-width: 570px) {
     .desktopNav {

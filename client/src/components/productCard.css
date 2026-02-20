@@ -44,3 +44,7 @@
   align-self: stretch; /* fills container minus margin */
   background-color: var(--button-bg);
 }
+
+.productContainer > button:hover {
+    background-color: var(--button-hover);
+}
