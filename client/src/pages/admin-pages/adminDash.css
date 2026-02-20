@@ -1,9 +1,11 @@
 /* PAGE WRAPPER */
 .adminDash {
-  margin-inline: auto;
-  text-align: left;
-  background-color: var(--secondary)
+  min-height: 100vh;
+  background-color: var(--secondary);
+  display: flex;
+  flex-direction: column;
 }
+
 .adminDash nav {
     display: flex;
     justify-content: space-between;
@@ -93,23 +95,26 @@
 }
 
 /* STATUS / FEEDBACK MESSAGE */
-.adminMessage {
-  padding: 10px 14px;
-  border-radius: 6px;
-  margin-bottom: var(--space-md);
-  font-size: 0.85rem;
-  position: relative;
-  top: 100%;
+.toast {
+    position: fixed;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 80%;
+    padding: 0.75rem;
+    border-radius: var(--radius);
+    margin-bottom: var(--space-md);
+    font-size: 0.85rem;
 }
 
-.adminMessage.success {
-  background-color: rgba(0, 128, 0, 0.1);
-  color: green;
+.toast.success {
+  background-color: var(--success);
+  color: var(--succes-text);
 }
 
-.adminMessage.error {
-  background-color: rgba(255, 0, 0, 0.1);
-  color: red;
+.toast.error {
+  background-color: var(--accent);
+  color: var(--danger);
 }
 
 /* SECTION TITLE */
@@ -122,10 +127,5 @@
 .adminState {
   color: var(--muted-text);
   font-size: 0.9rem;
-  padding: var(--space-sm) 0;
-}
-
-/* MOBILE SAFETY */
-* {
-  max-width: 100%;
+  padding: var(--space-sm);
 }

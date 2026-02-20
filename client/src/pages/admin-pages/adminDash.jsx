@@ -117,14 +117,6 @@ export default function AdminDash() {
 
             {loading && <div>Loading...</div>}
 
-            
-            
-            {message &&
-                <div className={`adminMessage ${message.type}`}>
-                    {message.text}
-                </div>
-            }
-
             <h3>Jobs</h3>
             
             {!loading && jobs.length === 0 &&
@@ -138,6 +130,13 @@ export default function AdminDash() {
                 busyId={busyId}
             />
         </div>
+
+        {message &&
+            <div className={`toast ${message.type}`}>
+                {message.text}
+            </div>
+        }
+
         </>
     )
 }
