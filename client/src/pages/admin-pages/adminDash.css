@@ -1,0 +1,131 @@
+/* PAGE WRAPPER */
+.adminDash {
+  margin-inline: auto;
+  text-align: left;
+  background-color: var(--secondary)
+}
+.adminDash nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+    box-shadow: 0 2px 5px #0000001a;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    background-color: var(--bg);
+
+}
+.logo {
+    font-size: clamp(1rem, 3vw, 1rem);
+    display: flex;
+    align-items: center;
+}
+
+.logo :nth-child(1) {
+    color: var(--button-bg);
+}
+.adminDash header {
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 1rem 1.75rem;
+}
+
+.adminDash p {
+  color: var(--muted-text);
+  margin-bottom: var(--space-md);
+}
+.adminDash h3 {
+  color: var(--text);
+  font-size: clamp(1rem, 3vw, 2rem);
+  text-align: center;
+  margin-bottom: var(--space-md);
+}
+.drop {
+    height: 0;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    background-color: var(--primary-text);
+
+    transition: all 0.5s ease;
+}
+.drop.open{
+    height: 20vh;
+    opacity: 1;
+    pointer-events: auto;
+
+}
+
+.drop > p {
+    color: var(--text);
+}
+.drop > p:hover {
+    color: var(--button-bg);
+    text-decoration: underline;
+}
+.drop button {
+  background-color: var(--button-bg);
+  color: var(--primary-text);
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  width: 30%;
+}
+
+.drop button:hover {
+  background-color: var(--button-hover);
+  color: var(--primary-text);
+  border-color: var(--button-bg);
+}
+/* TOP ACTION BAR */
+.adminActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+/* STATUS / FEEDBACK MESSAGE */
+.adminMessage {
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: var(--space-md);
+  font-size: 0.85rem;
+  position: relative;
+  top: 100%;
+}
+
+.adminMessage.success {
+  background-color: rgba(0, 128, 0, 0.1);
+  color: green;
+}
+
+.adminMessage.error {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: red;
+}
+
+/* SECTION TITLE */
+.adminSectionTitle {
+  font-weight: bold;
+  margin-bottom: var(--space-sm);
+}
+
+/* EMPTY / LOADING STATES */
+.adminState {
+  color: var(--muted-text);
+  font-size: 0.9rem;
+  padding: var(--space-sm) 0;
+}
+
+/* MOBILE SAFETY */
+* {
+  max-width: 100%;
+}

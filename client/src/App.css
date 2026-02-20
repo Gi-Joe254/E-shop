@@ -17,10 +17,12 @@
   --muted: #ececf0;
   --muted-text: #717182;
 
-  --accent: #e9ebef;
+  --accent: rgba(255, 165, 0, 0.15);
   --accent-text: #030213;
+  --success: rgba(0, 128, 0, 0.15);
+  --success-text: rgb(5, 124, 5);
 
-  --danger: #d4183d;
+  --danger: #f70606;
   --danger-text: #ffffff;
 
   --button-bg: #f0b100;

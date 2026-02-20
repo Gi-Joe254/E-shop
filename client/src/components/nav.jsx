@@ -2,6 +2,7 @@ import Hamburger from "hamburger-react"
 import { useState } from "react"
 import NavLinks from "./navLinks"
 import './nav.css'
+import { FaBolt } from "react-icons/fa"
 
 export default function Nav() {
     const [isOpen, setOpen] = useState(false)
@@ -17,16 +18,15 @@ export default function Nav() {
     return(
         <>
         <nav className="desktopNav">
-            <h4>Trixx Solutions</h4>
+            <h1 className="logo"><FaBolt /> Trixx Solutions</h1>
             <Links />
         </nav>
         <nav className="mobileNav">
-            <h2>Trixx Solutions</h2>
+            <h1 className="logo"><FaBolt /> Trixx Solutions</h1>
             <Hamburger 
                 toggled={isOpen} 
                 toggle={setOpen}
                 size={20}
-                rounded
             />
             
             

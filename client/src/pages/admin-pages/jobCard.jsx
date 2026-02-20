@@ -1,31 +1,51 @@
+import "./jobCard.css"
+
 export default function JobCard({jobs, handleDelete, handleComplete, busyId}) {
     return(
-       jobs.map((item)=> (
-            <div key={item.id}>
-                <p> {item.type}</p>
-                <p> {item.description}</p>
-                <p> {item.name}</p>
-                <p> {item.email}</p>
-                <p> {item.telephone}</p>
-                <p >{item.location}</p>
-                <p >{item.status}</p>
-                <p >{item.created_at}</p>
-                {item.status === 'completed' &&
-                    <button 
-                        onClick={()=>{handleDelete(item.id)}}
-                        disabled = {busyId === item.id}
-                    >Delete
-                    </button>
-                }
-                {item.status === 'pending' &&
-                    <button 
-                        onClick={()=>{handleComplete(item.id)}}
-                        disabled = {busyId === item.id}
-                    >Complete
-                    </button>   
-                }
-            </div>
-            
-        ))
+        <div className="jobList">
+           {jobs.map((item) => (
+                <div className="jobCard" key={item.id}>
+                    <div className="jobHeader">
+                        <span className={`jobStatus ${item.status}`}>
+                            {item.status}
+                        </span>
+                        <span className="jobDate">{item.created_at}</span>
+                    </div>
+
+                    <p className="jobType"> {item.type}</p>
+                    <p className="jobDesc"> {item.description}</p>
+
+                    <div className="jobMeta">
+                        <p><strong>Name:</strong> {item.name}</p>
+                        <p><strong>Email:</strong> {item.email}</p>
+                        <p><strong>Phone:</strong> {item.telephone}</p>
+                        <p><strong>Location:</strong> {item.location}</p>
+                    </div>
+                    
+                    <div className="jobActions">
+                        {item.status === 'completed' &&
+                            <button 
+                                className="delBtn"
+                                onClick={()=>{handleDelete(item.id)}}
+                                disabled = {busyId === item.id}
+                            >Delete
+                            </button>
+                        }
+                    
+                        {item.status === 'pending' &&
+                            <button 
+                                className="compBtn"
+                                onClick={()=>{handleComplete(item.id)}}
+                                disabled = {busyId === item.id}
+                            >Complete
+                            </button>   
+                        }
+                    </div>
+
+                </div>
+
+            ))}      
+        </div>
+
     )
 }

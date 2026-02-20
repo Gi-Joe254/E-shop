@@ -1,0 +1,115 @@
+/* LIST WRAPPER */
+.jobList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+  gap: var(--space-lg);
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+/* CARD */
+.jobCard {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-md);
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* HEADER ROW */
+.jobHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--muted-text);
+}
+
+/* STATUS */
+.jobStatus {
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  text-transform: capitalize;
+}
+
+.jobStatus.pending {
+  background-color: var(--accent);
+  color: var(--button-bg);
+  
+}
+
+.jobStatus.completed {
+  background-color: var(--success);
+  color: var(--success-text);
+}
+
+/* MAIN INFO */
+.jobType {
+  font-weight: bold;
+}
+
+.jobDesc {
+  font-size: 0.85rem;
+  color: var(--muted-text);
+  line-height: 1.4rem;
+}
+
+/* META GRID */
+.jobMeta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    overflow: visible;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+    color: var(--muted-text);
+
+}
+
+/* ACTIONS */
+.jobActions {
+  display: flex;
+  margin-top: var(--space-sm);
+  margin-top: auto;
+}
+
+.jobActions button {
+  height: 36px;
+  padding: 0 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 0 1.25rem 1.25rem;
+  width: 100%;
+  flex: 1;
+}
+
+.jobActions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* DANGER BUTTON */
+
+.delBtn {
+  background-color: var(--success);
+  color: var(--button-bg);
+}
+
+.delBtn:hover {
+  color: var(--danger);
+}
+
+.compBtn {
+    background-color: var(--success);
+}
+.compBtn:hover {
+    color: var(--success-text);
+}
+
+/* MOBILE SAFETY */
+.jobCard,
+.jobList {
+  max-width: 100%;
+}

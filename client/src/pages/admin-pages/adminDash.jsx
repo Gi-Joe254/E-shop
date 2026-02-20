@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom"
 import JobCard from "./jobCard"
 import { completeJob, deleteJob, fetchAdmin, fetchJobs, logout } from "./jobsServices"
 import "./adminDash.css"
+import Hamburger from "hamburger-react"
+import { FaBolt, FaFire } from "react-icons/fa"
 
 export default function AdminDash() {
     const [jobs, setJobs] = useState([])
@@ -12,6 +14,7 @@ export default function AdminDash() {
     const [loading, setLoading] = useState(false)
     const [busyId, setBusyId] = useState(null)
     const navigate = useNavigate()
+    const [isOpen, setOpen] = useState(false)
 
      const loadJobs = async()=> {
         setLoading(true)
@@ -69,6 +72,10 @@ export default function AdminDash() {
         }
     }
 
+    const toSite = ()=> {
+        navigate('/')
+    }
+
     useEffect(()=> {
            
         loadJobs()
@@ -85,25 +92,52 @@ export default function AdminDash() {
 
     return(
         <>
-        <header>Admin Dashboard</header>
-        {loading && 
-            <div>Loading...</div>
-        }
-        <p>Hello, {adminName} (admin)</p>
-        <button onClick={handleLogout} >Logout</button>
-        <div>Jobs</div>
-        {message &&
-            <div>{message.text}</div>
-        }
-        {!loading && jobs.length === 0 &&
-            <div>No jobs to show</div>
-        }
-        <JobCard
-            jobs ={jobs}
-            handleDelete={handleDelete}
-            handleComplete={handleComplete}
-            busyId={busyId}
-        />
+        <div className="adminDash">
+            <nav>
+                
+                <h1 className="logo"><FaBolt /> Trixx Solutions</h1>
+                <Hamburger 
+                    toggle={setOpen} 
+                    toggled={isOpen}
+                    size={20}
+                />
+            </nav>
+
+        
+            <div className={`drop ${isOpen ? "open" : ""}`}>
+                <p onClick={toSite}>Go to site</p>
+                <button onClick={handleLogout} >Logout</button>
+            </div>
+        
+            <header>
+                <div className="adminActions">
+                    <p>Hello, {adminName} (admin)</p>
+                </div>
+            </header>
+
+            {loading && <div>Loading...</div>}
+
+            
+            
+            {message &&
+                <div className={`adminMessage ${message.type}`}>
+                    {message.text}
+                </div>
+            }
+
+            <h3>Jobs</h3>
+            
+            {!loading && jobs.length === 0 &&
+                <div className="adminState">No jobs to show</div>
+            }
+
+            <JobCard
+                jobs ={jobs}
+                handleDelete={handleDelete}
+                handleComplete={handleComplete}
+                busyId={busyId}
+            />
+        </div>
         </>
     )
 }
