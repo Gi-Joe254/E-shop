@@ -1,11 +1,17 @@
 import Hamburger from "hamburger-react"
 import { useState } from "react"
 import './nav.css'
-import { FaBolt } from "react-icons/fa"
+import { FaBolt, FaMoon, FaSun } from "react-icons/fa"
 import { handleRef } from "../services/handleRef"
 
 export default function Nav({servRef, prodRef, revRef, contRef}) {
     const [isOpen, setOpen] = useState(false)
+    const [isDark, setDark] = useState(false)
+
+    const handleMode = ()=> {
+        document.documentElement.classList.toggle('dark')
+        setDark(prev => !prev)
+    }
     
     const Links = ()=> (
         <>
@@ -14,7 +20,11 @@ export default function Nav({servRef, prodRef, revRef, contRef}) {
             <div onClick = {()=> {handleRef(revRef), setOpen(false)}}>Reviews</div>
             <div onClick= {()=> {handleRef(contRef), setOpen(false)}}>Contact</div>
             
+
             <button className="quoteBtn">Get Free Qoute</button>
+            <div className="darkMode" onClick={handleMode}>
+                {isDark ? <FaSun />:<FaMoon />}
+            </div>
         </>
     )
     return(
