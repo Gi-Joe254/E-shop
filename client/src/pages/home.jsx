@@ -75,7 +75,9 @@ export default function Home() {
                 contRef={cont}
             />
             
-            <Hero />
+            <Hero
+                contRef={cont}
+            />
             
             <section 
                 className="services"
@@ -164,7 +166,41 @@ export default function Home() {
                 <p>Don't just take our word for it - see what our satisfied customers have to say</p>
                 <div className="reviewCards">
                     <Review
-                        name='Joseph Gacheru'
+                        name="Mary Wanjiku"
+                        location="Ruiru"
+                        message="Great experience from start to finish. The team arrived on time, explained everything clearly, and completed the job neatly. Very reliable and affordable service."
+                        rating="*****"
+                    />
+
+                    <Review
+                        name="Peter Mwangi"
+                        location="Thika"
+                        message="I was impressed by how fast they responded to my emergency call. The wiring issue was fixed quickly and safely. Definitely my go-to electricians."
+                        rating="****"
+                    />
+
+                    <Review
+                        name="Grace Njeri"
+                        location="Kiambu Road"
+                        message="Professional and honest service. They helped upgrade our lighting and gave useful advice without pushing unnecessary costs. Highly recommended."
+                        rating="****"
+                    />
+
+                    <Review
+                        name="Daniel Kariuki"
+                        location="Juja"
+                        message="Excellent workmanship and very friendly technicians. Everything was done efficiently and the place was left clean. I would use their services again."
+                        rating="*****"
+                    />
+
+                    <Review
+                        name="Lucy Achieng"
+                        location="Githurai"
+                        message="Very dependable service. They diagnosed the problem quickly and fixed it the same day. Good communication and fair pricing."
+                        rating="****"
+                    />
+                    <Review
+                        name='John Sabimana'
                         location='Kiambu'
                         message='Absolutely fantastic service! They came out the same day to fix our electrical issue. The technician was professional, knowledgeable, and very thorough. Highly recommend!'
                         rating='****'
