@@ -1,3 +1,5 @@
+
+
 .navBar {
     position: fixed;
     top: 0;
@@ -28,6 +30,9 @@
 
 .logo {
     flex: 1;
+    font-weight: 5800;
+  font-size: 1.35rem;
+  letter-spacing: 0.8px;
 }
 
 .mobileNav{

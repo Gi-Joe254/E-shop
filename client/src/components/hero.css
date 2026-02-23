@@ -37,6 +37,7 @@
 .callBtn, .quoteBtn {
     height: 40px;
     background-color: var(--primary-text);
+    text-transform: uppercase;
 }
 
 .callBtn {
@@ -54,6 +55,7 @@
 
 .hero > p {
     color: var(--primary-text);
+    font-family: 'Roboto', sans-serif;
 }
 
 @media (min-width:576px) {

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Roboto:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
   --font-size: 16px;
 
@@ -61,7 +64,7 @@ body {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
-  font-family: system-ui, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   background-color: var(--bg);
   color: var(--text);
   line-height: 1.6;
@@ -71,6 +74,10 @@ body {
 h1, h2, h3, h4, h5, h6,
 p {
   margin: 0;
+}
+
+h1, h2, h3, .logo {
+  font-family: 'Roboto', sans-serif;
 }
 
 h1 { font-size: 1.75rem; font-weight: 600; }
@@ -93,7 +100,8 @@ input,
 select,
 textarea {
   width: 100%;
-  font-size: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
   padding: var(--space-xs);
   background-color: var(--input-bg);
   border: none;
@@ -103,7 +111,7 @@ textarea {
 }
 
 button {
-  font-size: 1rem;
+  font-size: 0.8rem;
   padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius);
   border: none;
