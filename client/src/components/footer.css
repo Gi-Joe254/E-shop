@@ -38,6 +38,12 @@ ul li {
     font-size: 0.85rem;
     color: var(--muted-text);
 }
+.footNav > p{
+  cursor: pointer;
+}
+.footNav > p:hover {
+  color: var(--button-hover);
+}
 
 @media (min-width: 768px) {
   .footer {

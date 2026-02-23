@@ -1,17 +1,19 @@
 import Hamburger from "hamburger-react"
 import { useState } from "react"
-import NavLinks from "./navLinks"
 import './nav.css'
 import { FaBolt } from "react-icons/fa"
+import { handleRef } from "../services/handleRef"
 
-export default function Nav() {
+export default function Nav({servRef, prodRef, revRef, contRef}) {
     const [isOpen, setOpen] = useState(false)
+    
     const Links = ()=> (
         <>
-            <div>Services</div>
-            <div>Products</div>
-            <div>Reviews</div>
-            <div>Contact</div>
+            <div onClick= {()=> {handleRef(servRef), setOpen(false)}}>Services</div>
+            <div onClick= {()=> {handleRef(prodRef), setOpen(false)}}>Products</div>
+            <div onClick = {()=> {handleRef(revRef), setOpen(false)}}>Reviews</div>
+            <div onClick= {()=> {handleRef(contRef), setOpen(false)}}>Contact</div>
+            
             <button className="quoteBtn">Get Free Qoute</button>
         </>
     )

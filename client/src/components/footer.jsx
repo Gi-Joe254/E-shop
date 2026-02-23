@@ -1,18 +1,20 @@
 import NavLinks from "./navLinks";
 import './footer.css'
 import { FaBolt, FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import { handleRef } from "../services/handleRef";
 
-export default function Footer() {
+export default function Footer({servRef, prodRef, revRef, contRef}) {
+    
     return(
         <div className="footer">
             <h1 className="logo"><FaBolt /> Trixx Solutions</h1>
             <p>Professional electrical services you can trust. Licensed and available 24/7.</p>
             <div className="footNav">
                 <h4>Quick Links</h4>
-                <p>Our Services</p>
-                <p>Featured Products</p>
-                <p>What Our Customers Say</p>
-                <p>Contact Us</p>
+                <p onClick={()=> {handleRef(servRef)}}>Our Services</p>
+                <p onClick={()=> {handleRef(prodRef)}}>Featured Products</p>
+                <p onClick={()=> {handleRef(revRef)}}>What Our Customers Say</p>
+                <p onClick={()=> {handleRef(contRef)}}>Contact Us</p>
                 
             </div>
             

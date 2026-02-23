@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ContactUs from "../components/contact";
 import Hero from "../components/hero";
 import Nav from "../components/nav";
@@ -19,10 +19,14 @@ import tvImg from "../assets/images/products/tv-image.avif"
 import wireImg from "../assets/images/products/wires-image.jpg"
 
 export default function Home() {
-    const [isOpen, setOpen] = useState(false)
     const [service, setService] = useState({type: '', description:''})
     const [customer, setCustomer] = useState({name:'', email:'', telephone:'', location:''})
     const [submitMessage, setSubmitMessage] = useState()
+    
+    const serv = useRef()
+    const prod = useRef()
+    const rev = useRef()
+    const cont = useRef()
 
     useEffect(()=> {
         //set timeout for ui message
@@ -63,16 +67,25 @@ export default function Home() {
 
     return(
         <>
+            
             <Nav 
-                isOpen={isOpen}
-                setOpen={setOpen}
+                servRef={serv}
+                prodRef={prod}
+                revRef={rev}
+                contRef={cont}
             />
+            
             <Hero />
-            <section className="services">
+            
+            <section 
+                className="services"
+                ref={serv}
+            >
                 <h1>Our Services</h1>
                 <p>Professional electrical solutions for residential and commercial properties</p>
                 <div className="serviceCards">
                     <Service
+                        
                         imgSrc= {repairsImg}
                         imgAlt= 'repairs image'
                         name= 'Electrical Repairs'
@@ -110,7 +123,8 @@ export default function Home() {
                     />
                 </div>
             </section>
-            <section className="products">
+
+            <section className="products" ref={prod}>
                 <h1>Featured Products</h1>
                 <p>High-quality electrical products for all your needs</p>
                 <div className="productCards">
@@ -144,7 +158,8 @@ export default function Home() {
                     />
                 </div>
             </section>
-            <section className="reviews">
+
+            <section className="reviews" ref={rev}>
                 <h1>What Our Customers Say</h1>
                 <p>Don't just take our word for it - see what our satisfied customers have to say</p>
                 <div className="reviewCards">
@@ -169,7 +184,8 @@ export default function Home() {
                 </div>
             
             </section>
-            <section className="contactUs">
+
+            <section className="contactUs" ref={cont}>
                  <ContactUs 
                     handleSubmit={handleSubmit}
                     customer={customer}
@@ -179,8 +195,14 @@ export default function Home() {
                 />
             {submitMessage && <div className={`toast ${submitMessage.type}`}>{submitMessage.text}</div>}
             </section>
+
             <section className='footer'>
-                <Footer />
+                <Footer 
+                    servRef={serv}
+                    prodRef={prod}
+                    revRef={rev}
+                    contRef={cont}
+                />
             </section>
         </>
     )
