@@ -1,11 +1,11 @@
 import NavLinks from "./navLinks";
 import './footer.css'
-import { FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import { FaBolt, FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa";
 
 export default function Footer() {
     return(
         <div className="footer">
-            <h4>Trixx Solutions</h4>
+            <h1 className="logo"><FaBolt /> Trixx Solutions</h1>
             <p>Professional electrical services you can trust. Licensed and available 24/7.</p>
             <div className="footNav">
                 <h4>Quick Links</h4>

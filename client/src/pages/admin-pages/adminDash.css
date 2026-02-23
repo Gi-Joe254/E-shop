@@ -12,11 +12,11 @@
     align-items: center;
     height: 60px;
     width: 100%;
-    box-shadow: 0 2px 5px #0000001a;
+    box-shadow: 0 2px 5px var(--muted);
     padding: 1rem 2rem;
     font-size: 1rem;
     background-color: var(--bg);
-
+    
 }
 .logo {
     font-size: clamp(1rem, 3vw, 1rem);
@@ -52,7 +52,8 @@
     align-items: center;
     pointer-events: none;
     background-color: var(--primary-text);
-
+    
+    box-shadow: 0 2px 5px var(--muted);
     transition: all 0.5s ease;
 }
 .drop.open{
@@ -128,4 +129,9 @@
   color: var(--muted-text);
   font-size: 0.9rem;
   padding: var(--space-sm);
+}
+
+.loadingText {
+  text-align: center;
+  color: red;
 }

@@ -177,7 +177,7 @@ export default function Home() {
                     service={service}
                     setService={setService}
                 />
-            {submitMessage && <div className={submitMessage.type}>{submitMessage.text}</div>}
+            {submitMessage && <div className={`toast ${submitMessage.type}`}>{submitMessage.text}</div>}
             </section>
             <section className='footer'>
                 <Footer />

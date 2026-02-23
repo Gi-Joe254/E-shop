@@ -1,5 +1,5 @@
 .hero {
-    padding: 100px 20px;
+    padding: 150px 20px 100px;
     position: relative;
     background-image: 
         linear-gradient(rgba(241, 236, 236, 0.4), rgba(238, 238, 238, 0.4)), 
@@ -9,8 +9,12 @@
     background-repeat: no-repeat;
     z-index: 1;
     color: var(--primary-text);
-    min-height: 90vh;
+    min-height: 100vh;
     align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+
 }
 
 .hero::before {
@@ -63,5 +67,6 @@
     }
     .hero > h1 {
         font-size: 3.5rem;
+        max-width: 80%;
     }
 }

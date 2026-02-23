@@ -33,12 +33,14 @@ export default function AdminLogin() {
                 return setLoginMessage({text: data.message, type: 'error'})
             }
             setLoginMessage({text: data.message, type: 'success'})
-            navigate('/admin/dashboard')
+
+            setTimeout(() => {
+               navigate('/admin/dashboard') 
+            }, 1500);
+            
         } catch (error) {
             setLoginMessage({text: error.message, type: 'error'})
         } finally {
-            setAdmin({name:'', password:''})
-            console.log(e.target.adminName.value)
             setBusyId(false)
         }
     }
@@ -68,7 +70,7 @@ export default function AdminLogin() {
                     <button type="submit" disabled = {busyId}>Log In</button>
                 </form>
                 {loginMessage &&
-                    <div className="loginMessage">{loginMessage.text}</div>
+                    <div className={`loginMessage ${loginMessage.type}`}>{loginMessage.text}</div>
                 }
             </div>
         </div>

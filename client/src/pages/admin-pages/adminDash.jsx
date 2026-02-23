@@ -115,7 +115,7 @@ export default function AdminDash() {
                 </div>
             </header>
 
-            {loading && <div>Loading...</div>}
+            {loading && <div className="loadingText">Loading...</div>}
 
             <h3>Jobs</h3>
             
