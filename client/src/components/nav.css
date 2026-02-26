@@ -22,8 +22,11 @@
 .desktopNav > div {
     font-size: 0.9rem;
 }
-.quoteBtn {
-    background-color: var(--muted);
+.desktopNav > .quoteBtn {
+    background-color: var(--primary-text);
+    color: grey;
+    text-transform: capitalize;
+    min-width: 90px;
 }
 
 .logo {
