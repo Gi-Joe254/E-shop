@@ -58,8 +58,8 @@ export const completeJob = async(req, res)=> {
 }
 
 export const adminDelJob = async(req, res)=> {
-    const jobId = Number(req.params.id)
-    if(isNaN(jobId)) return res.status(400).json({message: 'invalid id'})
+    const jobId = req.params.id
+    if(!jobId) return res.status(400).json({message: 'invalid id'})
     
     try {
         const { data, error } = await supabase

@@ -9,7 +9,7 @@ export default function JobCard({jobs, handleDelete, handleComplete, busyId}) {
                         <span className={`jobStatus ${item.status}`}>
                             {item.status}
                         </span>
-                        <span className="jobDate">{item.created_at}</span>
+                        <span className="jobDate">{new Date(item.created_at).toString().split('GMT')[0]}</span>
                     </div>
 
                     <p className="jobType"> {item.type}</p>

@@ -132,7 +132,6 @@ textarea {
   background-color: var(--input-bg);
   border: none;
   border-radius: var(--radius);
-  outline-color: var(--button-bg);
   color: var(--muted-text);
 }
 
