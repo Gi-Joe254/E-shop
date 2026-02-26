@@ -133,5 +133,5 @@
 
 .loadingText {
   text-align: center;
-  color: red;
+  color: var(--muted-text);
 }

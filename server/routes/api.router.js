@@ -1,7 +1,4 @@
 import express from 'express'
-import { Router } from "express"
-import { createDB } from '../database/db.js'
-import bcrypt from 'bcrypt'
 import { customerReq } from '../controllers/customerReq.js'
 import { adminLogin } from '../controllers/adminLogin.js'
 import { adminDash, adminDelJob, adminMe, completeJob } from '../controllers/adminDash.js'

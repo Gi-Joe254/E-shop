@@ -1,57 +1,59 @@
-import { createDB } from '../database/db.js'
+import "dotenv/config"
+import supabase from '../database/db.js'
 
 export const adminDash = async(req, res)=> {
-    let db
+    
     try {
-        db = await createDB()
         
-        const jobs = await db.all(`
-            SELECT * FROM jobs ORDER BY id DESC
-        `)
-        res.status(200).json(jobs)
+        const {data, error} = await supabase 
+            .from('jobs')
+            .select('*')
+            .order('id', {ascending: false})
+
+        if (error) throw error
+        
+        res.status(200).json(data)
     } catch (error) {
+        console.log(error)
         res.status(500).json({message:'server error'})
-    } finally {
-        if(db) await db.close()
-    }
+    } 
 }
 
 export const adminMe = async(req, res)=> {
-    let db
     try {
+        const { data, error } = await supabase
+            .from('admin')
+            .select('username')
+            .eq('id', req.session.adminId)
+            .single() //return one object instead of array
         
-        db = await createDB()
-        const adminName = await db.get(`
-           SELECT username FROM admin WHERE id = ?
-        `, [req.session.adminId]
-        )
-        res.status(200).json(adminName)
+        if (error) throw error
+        res.status(200).json(data)
     } catch (error) {
+        console.log(error)
         res.status(500).json({message: 'server error'})
-    } finally {
-        if(db) await db.close()
-    }
+    } 
     
 }
 
 export const completeJob = async(req, res)=> {
-    const jobId = req.params.id
-    if(isNaN(jobId)) return res.status(400).json({message:'invalid id'})
 
-    let db
+    const jobId = req.params.id
+    if(!jobId) return res.status(400).json({message:'invalid id'})
+        
     try {
-        db = await createDB()
-        await db.run(`
-            UPDATE jobs 
-            SET status = 'completed'
-            WHERE id = ?
-        `, [jobId]
-        )
-        res.status(200).json({message:`job id: ${req.params.id} completed`})
+        const { data, error } = await supabase
+            .from('jobs')
+            .update({status: 'completed'})
+            .eq('id', jobId)
+            .eq('status', 'pending')
+            .select()
+        
+        
+        if (error) throw error
+        res.status(200).json({message:`job id: ${jobId} completed`})
     } catch (error) {
         res.status(500).json({message:'server error'})
-    } finally {
-        if(db) await db.close()
     }
 }
 
@@ -59,19 +61,16 @@ export const adminDelJob = async(req, res)=> {
     const jobId = Number(req.params.id)
     if(isNaN(jobId)) return res.status(400).json({message: 'invalid id'})
     
-    let db
     try {
-        db = await createDB()
+        const { data, error } = await supabase
+            .from('jobs')
+            .delete()
+            .eq('id', jobId)
         
-        await db.run(`
-           DELETE FROM jobs WHERE id = ?
-        `, [jobId]
-        )
+        if (error) throw error
         res.status(200).json({message:`job id: ${jobId} deleted`})
     } catch (error) {
         res.status(500).json({message: 'server error'})
-    } finally {
-        if(db) await db.close()
     }
     
 }

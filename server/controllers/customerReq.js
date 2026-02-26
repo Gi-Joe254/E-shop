@@ -1,8 +1,9 @@
-import { createDB } from '../database/db.js'
+import 'dotenv/config' 
+import supabase from '../database/db.js'
 
 export const customerReq = async(req, res)=> {
     const {type, description, name, email, telephone, location} = req.body
-    let db
+    
     try {
         //check if any field is empty
         const fields = {type, description, name, email, telephone, location}
@@ -31,30 +32,31 @@ export const customerReq = async(req, res)=> {
             return res.status(400).json({ message: 'name too long' })
         }
 
-        db = await createDB()
-
-        const existing = await db.get(`
-            SELECT id FROM jobs 
-            WHERE type = ?
-                AND description = ?
-                AND name = ?
-                AND telephone = ?
-                AND email = ?
-                AND location = ?
-                AND status != 'completed'
-            `, [type, description, name, telephone, email, location]
-        )
+        //supabase
+        const { data: existing, error:selectError } = await supabase
+            .from('jobs')
+            .select('id')
+            .eq('type',type)
+            .eq('description', description)
+            .eq('name', name)
+            .eq('telephone', telephone)
+            .eq('email', email)
+            .eq('location',location)
+            .neq('status', 'completed')
+            .maybeSingle()
+        
+        if (selectError) throw selectError
         if(existing) return res.status(400).json({message: 'already submitted'})
         
-        await db.run(`
-            INSERT INTO jobs (type, description, name, email, telephone, location) 
-            VALUES(?,?,?,?,?,?)
-        `, [ type, description, name, email, telephone, location ]
-        )
+        const { error: insertError } = await supabase
+            .from('jobs')
+            .insert([
+                {type, description, name, email, telephone, location}
+            ])
+
+        if(insertError) throw insertError
         res.status(201).json({message:'Job submited'})
     } catch (error) {
         res.status(500).json({message:'server error'})
-    } finally {
-        if(db) await db.close()
-    }
+    } 
 }
