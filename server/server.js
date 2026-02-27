@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000
 app.use(cors({
     origin: [
         'http://localhost:5173',
-        'https://e-shop-xq78.onrender.com/'
+        'https://trixx-shop-pfpgfeqmf-gi-joe254s-projects.vercel.app/'
     ],
     credentials: true
 }))
