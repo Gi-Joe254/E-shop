@@ -42,8 +42,11 @@ export default function Home() {
     const handleSubmit = async(e)=> {
         e.preventDefault()
         const load = {...service, ...customer}
+
+        const API = import.meta.env.API_BASE
+
         try {
-            const res = await fetch('http://localhost:3000/api/customerReq', {
+            const res = await fetch(`${API}/api/customerReq`, {
                 method: 'POST',
                 headers: {'Content-Type': 'Application/json'},
                 body: JSON.stringify(load)

@@ -1,4 +1,4 @@
-const API = 'https://e-shop-xq78.onrender.com/'
+const API = import.meta.env.API_BASE
 
 export const fetchJobs = async()=> {
     const jobsRes = await fetch(`${API_BASE}/dash`, {

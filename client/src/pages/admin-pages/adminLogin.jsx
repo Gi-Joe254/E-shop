@@ -9,7 +9,7 @@ export default function AdminLogin() {
 
     const navigate = useNavigate()
 
-    const API = 'https://e-shop-xq78.onrender.com/'
+    const API = import.meta.env.API_BASE
 
 
     //set timeout for loginMessage div
