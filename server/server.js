@@ -6,12 +6,21 @@ import session from "express-session"
 const app = express()
 const PORT = process.env.PORT || 3000
 
+import cors from "cors"
+
 app.use(cors({
-    origin: [
-        'http://localhost:5173',
-        'https://trixx-shop-pfpgfeqmf-gi-joe254s-projects.vercel.app/'
-    ],
-    credentials: true
+  origin: (origin, callback) => {
+    if (
+      !origin || // allow server-side tools
+      origin.includes("localhost") ||
+      origin.includes("vercel.app")
+    ) {
+      callback(null, true)
+    } else {
+      callback(new Error("Not allowed by CORS"))
+    }
+  },
+  credentials: true
 }))
 
 app.use(json())
