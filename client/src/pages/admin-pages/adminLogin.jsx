@@ -9,6 +9,9 @@ export default function AdminLogin() {
 
     const navigate = useNavigate()
 
+    const API = 'https://e-shop-xq78.onrender.com/'
+
+
     //set timeout for loginMessage div
     useEffect(()=> {
         if(!loginMessage) return
@@ -22,7 +25,7 @@ export default function AdminLogin() {
         e.preventDefault()
         setBusyId(true)
         try {
-            const res = await fetch('http://localhost:3000/api/admin/login', {
+            const res = await fetch(`${API}/api/admin/login`, {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify(admin),

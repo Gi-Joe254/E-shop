@@ -1,4 +1,6 @@
 export const healthCheck = async()=> {
-    const res = await fetch('http://localhost:3000/api/health')
+    const API = 'https://e-shop-xq78.onrender.com/'
+    
+    const res = await fetch(`${API}/api/health`)
     return res.json()
 }

@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:3000/api/admin'
+const API = 'https://e-shop-xq78.onrender.com/'
 
 export const fetchJobs = async()=> {
     const jobsRes = await fetch(`${API_BASE}/dash`, {
@@ -11,7 +11,7 @@ export const fetchJobs = async()=> {
 }
 
 export const fetchAdmin = async()=> {
-    const adminRes = await fetch(`${API_BASE}/me`, {
+    const adminRes = await fetch(`${API}/admin/me`, {
         credentials: 'include'
     })
     const adminData = await adminRes.json()
@@ -22,7 +22,7 @@ export const fetchAdmin = async()=> {
 
 export const completeJob = async(id)=> {
     
-        const res = await fetch(`${API_BASE}/complete/${id}`, {
+        const res = await fetch(`${API}/admin/complete/${id}`, {
             method: 'PATCH',
             credentials: 'include'
         })
@@ -34,7 +34,7 @@ export const completeJob = async(id)=> {
     
 export const deleteJob = async(id)=> {
     
-        const res = await fetch(`${API_BASE}/delete/${id}`, {
+        const res = await fetch(`${API}/admin/delete/${id}`, {
             method: 'DELETE',
             credentials: 'include'
         })
@@ -51,7 +51,7 @@ export const deleteJob = async(id)=> {
 export const logout = async()=> {
     
     
-        const res = await fetch(`${API_BASE}/logout`, {
+        const res = await fetch(`${API}/admin/logout`, {
             method: 'POST',
             credentials: 'include'
         })

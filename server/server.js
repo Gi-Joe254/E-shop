@@ -7,7 +7,10 @@ const app = express()
 const PORT = process.env.PORT || 3000
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: [
+        'http://localhost:5173',
+        'https://e-shop-xq78.onrender.com/'
+    ],
     credentials: true
 }))
 
