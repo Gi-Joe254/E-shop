@@ -21,7 +21,7 @@ export default function Nav({servRef, prodRef, revRef, contRef}) {
             <div onClick= {()=> {handleRef(contRef), setOpen(false)}}>Contact</div>
             
 
-            <button className="quoteBtn">Get Free Qoute</button>
+            <button className="quoteBtn" onClick={()=> {handleRef(contRef)}}>Get Free Qoute</button>
             <div className="darkMode" onClick={handleMode}>
                 {isDark ? <FaSun />:<FaMoon />}
             </div>
