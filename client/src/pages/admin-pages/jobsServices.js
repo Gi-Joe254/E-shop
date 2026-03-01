@@ -1,7 +1,7 @@
 const API = import.meta.env.VITE_API_URL
 
 export const fetchJobs = async()=> {
-    const jobsRes = await fetch(`${API_BASE}/dash`, {
+    const jobsRes = await fetch(`${API}/api/dash`, {
         credentials: 'include'
     })
 
@@ -11,7 +11,7 @@ export const fetchJobs = async()=> {
 }
 
 export const fetchAdmin = async()=> {
-    const adminRes = await fetch(`${API}/admin/me`, {
+    const adminRes = await fetch(`${API}/api/admin/me`, {
         credentials: 'include'
     })
     const adminData = await adminRes.json()
@@ -22,7 +22,7 @@ export const fetchAdmin = async()=> {
 
 export const completeJob = async(id)=> {
     
-        const res = await fetch(`${API}/admin/complete/${id}`, {
+        const res = await fetch(`${API}/api/admin/complete/${id}`, {
             method: 'PATCH',
             credentials: 'include'
         })
@@ -34,7 +34,7 @@ export const completeJob = async(id)=> {
     
 export const deleteJob = async(id)=> {
     
-        const res = await fetch(`${API}/admin/delete/${id}`, {
+        const res = await fetch(`${API}/api/admin/delete/${id}`, {
             method: 'DELETE',
             credentials: 'include'
         })
@@ -51,7 +51,7 @@ export const deleteJob = async(id)=> {
 export const logout = async()=> {
     
     
-        const res = await fetch(`${API}/admin/logout`, {
+        const res = await fetch(`${API}/api/admin/logout`, {
             method: 'POST',
             credentials: 'include'
         })
