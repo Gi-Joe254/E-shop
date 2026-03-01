@@ -6,7 +6,6 @@ import session from "express-session"
 const app = express()
 const PORT = process.env.PORT || 3000
 
-import cors from "cors"
 
 app.use(cors({
   origin: (origin, callback) => {
