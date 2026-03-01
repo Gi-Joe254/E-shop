@@ -1,7 +1,7 @@
 // jobsServices.js
 
 // Always read API at runtime, with fallback
-const getAPI = () => import.meta.env.VITE_API_URL || "https://your-render-backend.onrender.com"
+const getAPI = () => import.meta.env.VITE_API_URL || "https://e-shop-xq78.onrender.com"
 
 export const fetchJobs = async () => {
     const API = getAPI()
