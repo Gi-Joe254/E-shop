@@ -36,6 +36,8 @@ app.use(session({
     }
 }))
 
+app.set('trust proxy', 1)
+
 app.use('/api', apiRouter)
 
 app.listen(PORT, ()=> console.log(`live on ${PORT}`))

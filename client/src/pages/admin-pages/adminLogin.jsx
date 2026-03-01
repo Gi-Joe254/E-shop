@@ -38,6 +38,7 @@ export default function AdminLogin() {
             }
             setLoginMessage({text: data.message, type: 'success'})
 
+            console.log('navigating to dashboard')
             setTimeout(() => {
                navigate('/admin/dashboard') 
             }, 1500);
