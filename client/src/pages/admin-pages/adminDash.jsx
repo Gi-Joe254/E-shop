@@ -16,20 +16,6 @@ export default function AdminDash() {
     const navigate = useNavigate()
     const [isOpen, setOpen] = useState(false)
 
-     const loadJobs = async()=> {
-        setLoading(true)
-        try {
-            const admin = await fetchAdmin()
-            setAdminName(admin)
-            const jobs = await fetchJobs()
-            setJobs(jobs)
-        } catch (error) {
-            setMessage({type:'error', text: error.message})
-        } finally {
-            setLoading(false)
-        }
-    }
-
     const handleComplete = async(id)=> {
         setBusyId(id)
         try {
@@ -76,11 +62,26 @@ export default function AdminDash() {
         navigate('/')
     }
 
-    useEffect(()=> {
-        console.log("API URL:", import.meta.env.VITE_API_URL) 
+    useEffect(() => {
+        const loadJobs = async () => {
+            setLoading(true)
+            try {
+                // fetchAdmin now uses runtime API from jobsServices.js
+                const admin = await fetchAdmin()
+                setAdminName(admin)
+
+                const jobs = await fetchJobs()
+                setJobs(jobs)
+            } catch (error) {
+                setMessage({ type: 'error', text: error.message })
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        console.log("Loading jobs, API URL:", import.meta.env.VITE_API_URL)
         loadJobs()
-        
-    },[])
+    }, [])
 
     useEffect(()=> {
         if(!message) return
