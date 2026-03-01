@@ -2,7 +2,7 @@
 export const fetchJobs = async()=> {
     const API = import.meta.env.VITE_API_URL
 
-    const jobsRes = await fetch(`${API}/api/dash`, {
+    const jobsRes = await fetch(`${API}/api/admin/dash`, {
         credentials: 'include'
     })
 
