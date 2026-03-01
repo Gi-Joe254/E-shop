@@ -10,8 +10,7 @@ const PORT = process.env.PORT || 3000
 app.use(cors({
   origin: (origin, callback) => {
     if (
-      !origin || // allow server-side tools
-      origin.includes("localhost") ||
+      !origin ||
       origin.includes("vercel.app")
     ) {
       callback(null, true)
