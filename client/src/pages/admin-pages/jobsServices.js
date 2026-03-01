@@ -1,13 +1,7 @@
-// jobsServices.js
-
-// Always read API at runtime, with fallback
-const getAPI = () => import.meta.env.VITE_API_URL || "https://e-shop-xq78.onrender.com"
 
 export const fetchJobs = async () => {
-    const API = getAPI()
-    console.log("fetchJobs using API:", API)
-
-    const jobsRes = await fetch(`${API}/api/admin/dash`, {
+ 
+    const jobsRes = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/dash`, {
         credentials: 'include'
     })
 
@@ -17,10 +11,8 @@ export const fetchJobs = async () => {
 }
 
 export const fetchAdmin = async () => {
-    const API = getAPI()
-    console.log("fetchAdmin using API:", API)
-
-    const adminRes = await fetch(`${API}/api/admin/me`, {
+  
+    const adminRes = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/me`, {
         credentials: 'include'
     })
     const adminData = await adminRes.json()
@@ -29,10 +21,8 @@ export const fetchAdmin = async () => {
 }
 
 export const completeJob = async (id) => {
-    const API = getAPI()
-    console.log("completeJob using API:", API)
-
-    const res = await fetch(`${API}/api/admin/complete/${id}`, {
+ 
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/complete/${id}`, {
         method: 'PATCH',
         credentials: 'include'
     })
@@ -42,10 +32,8 @@ export const completeJob = async (id) => {
 }
 
 export const deleteJob = async (id) => {
-    const API = getAPI()
-    console.log("deleteJob using API:", API)
-
-    const res = await fetch(`${API}/api/admin/delete/${id}`, {
+   
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/delete/${id}`, {
         method: 'DELETE',
         credentials: 'include'
     })
@@ -55,10 +43,8 @@ export const deleteJob = async (id) => {
 }
 
 export const logout = async () => {
-    const API = getAPI()
-    console.log("logout using API:", API)
-
-    const res = await fetch(`${API}/api/admin/logout`, {
+   
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/logout`, {
         method: 'POST',
         credentials: 'include'
     })
