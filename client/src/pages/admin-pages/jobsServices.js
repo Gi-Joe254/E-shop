@@ -1,6 +1,7 @@
-const API = import.meta.env.VITE_API_URL
 
 export const fetchJobs = async()=> {
+    const API = import.meta.env.VITE_API_URL
+
     const jobsRes = await fetch(`${API}/api/dash`, {
         credentials: 'include'
     })
@@ -11,6 +12,8 @@ export const fetchJobs = async()=> {
 }
 
 export const fetchAdmin = async()=> {
+    const API = import.meta.env.VITE_API_URL
+
     const adminRes = await fetch(`${API}/api/admin/me`, {
         credentials: 'include'
     })
@@ -21,7 +24,8 @@ export const fetchAdmin = async()=> {
             
 
 export const completeJob = async(id)=> {
-    
+        const API = import.meta.env.VITE_API_URL
+
         const res = await fetch(`${API}/api/admin/complete/${id}`, {
             method: 'PATCH',
             credentials: 'include'
@@ -33,7 +37,8 @@ export const completeJob = async(id)=> {
 }
     
 export const deleteJob = async(id)=> {
-    
+        const API = import.meta.env.VITE_API_URL
+
         const res = await fetch(`${API}/api/admin/delete/${id}`, {
             method: 'DELETE',
             credentials: 'include'
@@ -49,13 +54,13 @@ export const deleteJob = async(id)=> {
 }
 
 export const logout = async()=> {
-    
+        const API = import.meta.env.VITE_API_URL
     
         const res = await fetch(`${API}/api/admin/logout`, {
             method: 'POST',
             credentials: 'include'
         })
-        if(!res.ok) throw new Error(data.message || 'Request Failed')
         const data = await res.json()
+        if(!res.ok) throw new Error(data.message || 'Request Failed')
         return data
 }
