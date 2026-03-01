@@ -1,4 +1,4 @@
-const API = import.meta.env.API_BASE
+const API = import.meta.env.VITE_API_URL
 
 export const fetchJobs = async()=> {
     const jobsRes = await fetch(`${API_BASE}/dash`, {

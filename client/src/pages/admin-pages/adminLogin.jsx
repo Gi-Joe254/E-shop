@@ -9,7 +9,7 @@ export default function AdminLogin() {
 
     const navigate = useNavigate()
 
-    const API = import.meta.env.API_BASE
+    const API = import.meta.env.VITE_API_URL
 
 
     //set timeout for loginMessage div
