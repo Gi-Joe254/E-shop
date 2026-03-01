@@ -43,7 +43,7 @@ export default function Home() {
         e.preventDefault()
         const load = {...service, ...customer}
 
-        const API = import.meta.env.API_BASE
+        const API = import.meta.env.VITE_API_URL
 
         try {
             const res = await fetch(`${API}/api/customerReq`, {
