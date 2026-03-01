@@ -14,6 +14,7 @@ export default function AdminLogin() {
 
     //set timeout for loginMessage div
     useEffect(()=> {
+         console.log("API URL:", import.meta.env.VITE_API_URL)
         if(!loginMessage) return
         const timer = setTimeout(() => {
             setLoginMessage(null)
