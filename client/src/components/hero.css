@@ -36,10 +36,12 @@
 }
 .callBtn, .quoteBtn {
     height: 40px;
-    background-color: var(--primary-text);
     text-transform: uppercase;
 }
-
+.quoteBtn {
+    background-color: var(--primary-text);
+    color: var(--muted-text);
+}
 .callBtn {
     background-color: var(--button-bg);
 }

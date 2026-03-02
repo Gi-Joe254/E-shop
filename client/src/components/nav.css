@@ -24,7 +24,7 @@
 }
 .desktopNav > .quoteBtn {
     background-color: var(--primary-text);
-    color: grey;
+    color: var(--muted-text);
     text-transform: capitalize;
     min-width: 90px;
 }

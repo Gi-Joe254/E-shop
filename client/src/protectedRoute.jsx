@@ -8,7 +8,7 @@ export default function ProtectedRoute({children}) {
     useEffect(()=> {
         const checkAdmin = async()=> {
             try {
-                const res = await fetch('http://localhost:3000/api/admin/me', {
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/me`, {
                     credentials: 'include'
                 })
                 if(!res.ok) throw new Error(res.status)
