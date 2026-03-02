@@ -5,7 +5,7 @@ import JobCard from "./jobCard"
 import { completeJob, deleteJob, fetchAdmin, fetchJobs, logout } from "./jobsServices"
 import "./adminDash.css"
 import Hamburger from "hamburger-react"
-import { FaBolt, FaFire } from "react-icons/fa"
+import { FaBolt } from "react-icons/fa"
 
 export default function AdminDash() {
     const [jobs, setJobs] = useState([])
@@ -16,6 +16,21 @@ export default function AdminDash() {
     const navigate = useNavigate()
     const [isOpen, setOpen] = useState(false)
 
+    const loadJobs = async () => {
+        setLoading(true)
+        try {
+            // fetchAdmin now uses runtime API from jobsServices.js
+            const admin = await fetchAdmin()
+            setAdminName(admin)
+
+            const jobs = await fetchJobs()
+            setJobs(jobs)
+        } catch (error) {
+            setMessage({ type: 'error', text: error.message })
+        } finally {
+            setLoading(false)
+        }
+    }
     const handleComplete = async(id)=> {
         setBusyId(id)
         try {
@@ -63,23 +78,7 @@ export default function AdminDash() {
     }
 
     useEffect(() => {
-        const loadJobs = async () => {
-            setLoading(true)
-            try {
-                // fetchAdmin now uses runtime API from jobsServices.js
-                const admin = await fetchAdmin()
-                setAdminName(admin)
 
-                const jobs = await fetchJobs()
-                setJobs(jobs)
-            } catch (error) {
-                setMessage({ type: 'error', text: error.message })
-            } finally {
-                setLoading(false)
-            }
-        }
-
-        console.log("Loading jobs, API URL:", import.meta.env.VITE_API_URL)
         loadJobs()
     }, [])
 
