@@ -2,11 +2,11 @@ import { useState } from "react"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import JobCard from "./jobCard"
-import { completeJob, deleteJob, fetchAdmin, fetchJobs, logout } from "./jobsServices"
+import { completeJob, deleteJob, fetchAdmin, fetchJobs, logout } from "./jobsServices.js"
 import "./adminDash.css"
 import Hamburger from "hamburger-react"
 import { FaBolt } from "react-icons/fa"
-import { addProduct } from "./productServices"
+import { addProduct } from "./productServices.js"
 
 export default function AdminDash() {
     const [jobs, setJobs] = useState([])
@@ -102,8 +102,6 @@ export default function AdminDash() {
                     size={20}
                 />
             </nav>
-
-            <button onClick={addProduct}>Add Product</button>
         
             <div className={`drop ${isOpen ? "open" : ""}`}>
                 <p onClick={toSite}>Go to site</p>
@@ -117,6 +115,8 @@ export default function AdminDash() {
             </header>
 
             {loading && <div className="loadingText">Loading...</div>}
+
+            <button onClick={addProduct}>Add Product</button>
 
             <h3>Jobs</h3>
             
