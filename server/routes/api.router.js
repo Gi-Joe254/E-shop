@@ -3,6 +3,7 @@ import { customerReq } from '../controllers/customerReq.js'
 import { adminLogin } from '../controllers/adminLogin.js'
 import { adminDash, adminDelJob, adminMe, completeJob } from '../controllers/adminDash.js'
 import { requireAdmin } from '../middleware/requireAdmin.js'
+import { postProduct } from '../controllers/postProduct.js'
 
 export const apiRouter = express.Router()
 //public api routes
@@ -30,3 +31,6 @@ apiRouter.post('/admin/logout', (req, res)=> {
         res.json({message: 'logged out'})
     })
 })
+
+//stock routes
+apiRouter.post('/admin/product', postProduct)
