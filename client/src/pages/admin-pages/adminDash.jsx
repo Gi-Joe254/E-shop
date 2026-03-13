@@ -17,6 +17,7 @@ export default function AdminDash() {
     const navigate = useNavigate()
     const [isOpen, setOpen] = useState(false)
 
+
     const loadJobs = async () => {
         setLoading(true)
         try {
@@ -77,6 +78,16 @@ export default function AdminDash() {
         navigate('/')
     }
 
+    const handleAdd = async()=> {
+          try {
+            await addProduct()
+            loadJobs()
+            setMessage({type:'success', text:'Product added'})
+        } catch (error) {
+            setMessage({type:'error', text:error.message})
+        }
+    }
+
     useEffect(() => {
 
         loadJobs()
@@ -116,7 +127,7 @@ export default function AdminDash() {
 
             {loading && <div className="loadingText">Loading...</div>}
 
-            <button onClick={addProduct}>Add Product</button>
+            <button onClick={handleAdd}>Add Product</button>
 
             <h3>Jobs</h3>
             
