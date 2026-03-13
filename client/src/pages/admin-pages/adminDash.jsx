@@ -6,6 +6,7 @@ import { completeJob, deleteJob, fetchAdmin, fetchJobs, logout } from "./jobsSer
 import "./adminDash.css"
 import Hamburger from "hamburger-react"
 import { FaBolt } from "react-icons/fa"
+import { addProduct } from "./productServices"
 
 export default function AdminDash() {
     const [jobs, setJobs] = useState([])
@@ -19,7 +20,6 @@ export default function AdminDash() {
     const loadJobs = async () => {
         setLoading(true)
         try {
-            // fetchAdmin now uses runtime API from jobsServices.js
             const admin = await fetchAdmin()
             setAdminName(admin)
 
@@ -103,6 +103,7 @@ export default function AdminDash() {
                 />
             </nav>
 
+            <button onClick={addProduct}>Add Product</button>
         
             <div className={`drop ${isOpen ? "open" : ""}`}>
                 <p onClick={toSite}>Go to site</p>
