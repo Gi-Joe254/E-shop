@@ -11,8 +11,7 @@ app.use(cors({
   origin: (origin, callback) => {
     if (
       !origin ||
-      origin.includes("vercel.app") ||
-      origin.includes('localhost')
+      origin.includes("vercel.app")
     ) {
       callback(null, true)
     } else {
