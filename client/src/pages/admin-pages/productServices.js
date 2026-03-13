@@ -5,7 +5,8 @@ export const addProduct = async()=> {
         {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
+            body: JSON.stringify(data),
+            credentials: 'include'
         }
     )
 }
