@@ -11,9 +11,19 @@ export default function ProtectedRoute({children}) {
                 const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/me`, {
                     credentials: 'include'
                 })
-                if(!res.ok) throw new Error(res.status)
-                await res.json()
-                setIsAdmin(true)  
+                if(!res.ok) {
+                    setIsAdmin(false)
+                    return
+                }
+                
+                const data = await res.json()
+
+                if (data?.username){
+                    setIsAdmin(true)
+                }else {
+                    setIsAdmin(false)
+                }
+                
             } catch (error) {
                 setIsAdmin(false)
             }
@@ -22,6 +32,6 @@ export default function ProtectedRoute({children}) {
     },[])
 
     if(isAdmin === null) return <div>Loading...</div>
-    if(isAdmin === false) return <Navigate to={'/admin/login'} />
+    if(isAdmin === false) return <Navigate to={'/admin/login'} replace />
     return children
 }
