@@ -8,8 +8,8 @@ export const getProducts = async()=> {
     return data
 }
 
-export const addProduct = async()=> {
-    const load = {name:'phone charger', type: 'type c', brand: 'Tecno', price: 350, stock: 2}
+export const addProduct = async({name, type, brand, price, stock})=> {
+    const load = {name: name, type: type, brand: brand, price: price, stock: stock}
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/product`,
         {
             method: 'POST',

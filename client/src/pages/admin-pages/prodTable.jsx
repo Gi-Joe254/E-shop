@@ -22,7 +22,7 @@ export default function ProdTable({products}) {
                             <td>{item.brand}</td>
                             <td>{item.price}</td>
                             <td>{item.stock}</td>
-                            <td>{item.created_at}</td>
+                            <td>{new Date(item.created_at).toLocaleString()}</td>
                         </tr>     
                     ))}
                 </tbody>

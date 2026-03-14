@@ -5,7 +5,7 @@ import JobCard from "./jobCard"
 import { completeJob, deleteJob, fetchAdmin, fetchJobs, logout } from "./services/jobsServices.js"
 import "./adminDash.css"
 import Hamburger from "hamburger-react"
-import { FaBolt } from "react-icons/fa"
+import { FaBolt, FaMinus, FaPlus } from "react-icons/fa"
 import { addProduct, getProducts } from "./services/productServices.js"
 import ProdTable from "./prodTable.jsx"
 
@@ -19,6 +19,12 @@ export default function AdminDash() {
     const navigate = useNavigate()
     const [isOpen, setOpen] = useState(false)
     const [activeTab, setActive] = useState('jobs')
+    const [formIsOpen, setFormOpen] = useState(false)
+    const [stockValue, setStockValue] = useState(1)
+    const [prodName, setName] = useState('')
+    const [prodType, setType] = useState('')
+    const [prodBrand, setBrand] = useState('')
+    const [prodPrice, setPrice] = useState('')
 
     const loadJobs = async () => {
         setLoading(true)
@@ -91,16 +97,27 @@ export default function AdminDash() {
         }
         
     }
-    const handleAdd = async()=> {
+    const openForm = ()=> {
+        setFormOpen(true)
+    }
+    const handleAdd = async(e)=> {
+        e.preventDefault()
+        
           try {
-            await addProduct()
-            loadJobs()
+            await addProduct({
+                name: prodName, 
+                type: prodType, 
+                brand: prodBrand, 
+                price: prodPrice, 
+                stock: stockValue})
+
+            loadProducts()
             setMessage({type:'success', text:'Product added'})
         } catch (error) {
             setMessage({type:'error', text:error.message})
         }
     }
-
+   
     useEffect(() => {
 
         loadJobs()
@@ -166,10 +183,63 @@ export default function AdminDash() {
 
             {activeTab === 'products' &&
                 <div className= 'products'>
-                    <button onClick={handleAdd}>Add Product</button>
+                    <button onClick={openForm}>New Product</button>
+                    {formIsOpen && 
+                        <form className="prodForm" onSubmit={handleAdd}>
+                            <input 
+                                value={prodName}
+                                placeholder="Product Name (E.g. phone charger, bulb)" 
+                                type="text"
+                                onChange={(e)=> {setName(e.target.value)}}
+                            />
+                            <input 
+                                value={prodType}
+                                placeholder="Type (E.g. type c, LED)" 
+                                type="text"
+                                onChange={(e)=> {setType(e.target.value)}}
+                            />
+                            <input 
+                                value={prodBrand}
+                                placeholder="Brand" type="text"
+                                onChange={(e)=> {setBrand(e.target.value)}}
+                            />
+                            <input 
+                                value={prodPrice}
+                                placeholder="Price" type="text"
+                                onChange={(e)=> {setPrice(e.target.value)}}
+                            />
+
+                            <div className="btn_cont">
+                                <label htmlFor="stock">Stock</label>
+                                <button 
+                                    type='button' 
+                                    onClick={()=> {
+                                        setStockValue(stockValue !=0 ? 
+                                        Number(stockValue) - 1 : 0)}}
+                                >
+                                    
+                                    <FaMinus />
+                                </button>
+
+                                <input type='number' value={stockValue} onChange={(e)=> {setStockValue(e.target.value)}}/>
+
+                                <button 
+                                    id='stock' 
+                                    type='button' 
+                                    onClick={()=> {
+                                        setStockValue(Number(stockValue) + 1)}}
+                                >
+                                    <FaPlus />
+                                </button>
+
+                            </div>
+                            <button type="submit" className="submitBtn">Save</button>
+                        </form>
+                    }
                     <ProdTable
                         products = {products}
                     />
+
                 </div>
                 
             }

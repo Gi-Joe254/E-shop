@@ -152,3 +152,35 @@
   background-color: var(--secondary);
   color: var(--muted-text);
 }
+
+.prodForm {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 10px;
+  align-items: center;
+  text-align: left;
+  border: 2px solid var(--success);
+  background-color: var(--primary-text);
+  width: 70%;
+  margin: 0 auto;
+}
+.btn_cont button {
+  width: 50px;
+  background-color: var(--secondary);
+  height: 50px;
+  outline: none;
+  border-radius: 0;
+  margin: 0 10px;
+}
+.btn_cont button:hover {
+  background-color: var(--success);
+}
+.btn_cont input {
+  width: 50px;
+  outline: none;
+}
+.submitBtn {
+  width: 30%;
+}
