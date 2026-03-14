@@ -135,3 +135,20 @@
   text-align: center;
   color: var(--muted-text);
 }
+
+.tab_btns {
+  display: flex;
+  gap: 0;
+  justify-content: center;
+  margin: 0 0 5rem;
+}
+.tab_btns button{
+  outline: none;
+  font-size: 1.25rem;
+  border-radius: 0;
+  border-right: 2px solid var(--primary);
+}
+.tab_btns button.active {
+  background-color: var(--secondary);
+  color: var(--muted-text);
+}

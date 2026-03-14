@@ -2,21 +2,23 @@ import { useState } from "react"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import JobCard from "./jobCard"
-import { completeJob, deleteJob, fetchAdmin, fetchJobs, logout } from "./jobsServices.js"
+import { completeJob, deleteJob, fetchAdmin, fetchJobs, logout } from "./services/jobsServices.js"
 import "./adminDash.css"
 import Hamburger from "hamburger-react"
 import { FaBolt } from "react-icons/fa"
-import { addProduct } from "./productServices.js"
+import { addProduct, getProducts } from "./services/productServices.js"
+import ProdTable from "./prodTable.jsx"
 
 export default function AdminDash() {
     const [jobs, setJobs] = useState([])
+    const [products, setProducts] = useState([])
     const [adminName, setAdminName] = useState('')
     const [message, setMessage] = useState(null)
     const [loading, setLoading] = useState(false)
     const [busyId, setBusyId] = useState(null)
     const navigate = useNavigate()
     const [isOpen, setOpen] = useState(false)
-
+    const [activeTab, setActive] = useState('jobs')
 
     const loadJobs = async () => {
         setLoading(true)
@@ -77,7 +79,18 @@ export default function AdminDash() {
     const toSite = ()=> {
         navigate('/')
     }
-
+    
+    //products
+    const loadProducts = async()=> {
+        try {
+            const data = await getProducts()
+            setProducts(data)
+            setMessage({type: 'success', text: 'products loaded'})
+        } catch (error) {
+            setMessage({type: 'error', text:error.message})
+        }
+        
+    }
     const handleAdd = async()=> {
           try {
             await addProduct()
@@ -91,6 +104,7 @@ export default function AdminDash() {
     useEffect(() => {
 
         loadJobs()
+        loadProducts()
     }, [])
 
     useEffect(()=> {
@@ -100,6 +114,7 @@ export default function AdminDash() {
         }, 2000);
         return ()=> {clearTimeout(timer)}
     },[message])
+
 
     return(
         <>
@@ -125,22 +140,48 @@ export default function AdminDash() {
                 </div>
             </header>
 
+            <div className="tab_btns">
+                <button className={activeTab === 'jobs'? 'active': ''} onClick={()=>{setActive('jobs')}}>Jobs</button>
+                <button className={activeTab === 'products'? 'active': ''} onClick={()=>{setActive('products')}}>Products</button>
+                <button className={activeTab === 'sales'? 'active': ''} onClick={()=>{setActive('sales')}}>Sales</button>
+            </div>
+
             {loading && <div className="loadingText">Loading...</div>}
 
-            <button onClick={handleAdd}>Add Product</button>
+            {activeTab === 'jobs' &&
+                <>
+                <h3>Jobs</h3>
 
-            <h3>Jobs</h3>
-            
-            {!loading && jobs.length === 0 &&
+                <JobCard
+                    jobs ={jobs}
+                    handleDelete={handleDelete}
+                    handleComplete={handleComplete}
+                    busyId={busyId}
+                />
+                </>
+            }
+            {!loading && jobs.length === 0 && activeTab === 'jobs' &&
                 <div className="adminState">No jobs to show</div>
             }
 
-            <JobCard
-                jobs ={jobs}
-                handleDelete={handleDelete}
-                handleComplete={handleComplete}
-                busyId={busyId}
-            />
+            {activeTab === 'products' &&
+                <div className= 'products'>
+                    <button onClick={handleAdd}>Add Product</button>
+                    <ProdTable
+                        products = {products}
+                    />
+                </div>
+                
+            }
+            {!loading && products.length === 0 && activeTab === 'products' &&
+                <div className="adminState">No products to show</div>
+            }
+
+            {activeTab === 'sales' &&
+                <div>Sales</div>
+            }
+
+           
         </div>
 
         {message &&

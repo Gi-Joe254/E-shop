@@ -41,7 +41,6 @@ export const adminLogin = async(req, res)=> {
         //set session
         req.session.adminId = data.id
         req.session.isAdmin = true
-        console.log('Session after login:', req.session);
         
         res.status(200).json({message: 'login success'})
     } catch (error) {

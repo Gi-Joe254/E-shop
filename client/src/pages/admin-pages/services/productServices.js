@@ -1,3 +1,12 @@
+export const getProducts = async()=> {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/product`,
+        {credentials: 'include'}
+    )
+    const data = await res.json()
+    if(!res.ok) throw new Error(data.message || 'Request Failed')
+        console.log('products',data )
+    return data
+}
 
 export const addProduct = async()=> {
     const load = {name:'phone charger', type: 'type c', brand: 'Tecno', price: 350, stock: 2}

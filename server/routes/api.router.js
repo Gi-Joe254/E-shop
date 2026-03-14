@@ -4,6 +4,7 @@ import { adminLogin } from '../controllers/adminLogin.js'
 import { adminDash, adminDelJob, adminMe, completeJob } from '../controllers/adminDash.js'
 import { requireAdmin } from '../middleware/requireAdmin.js'
 import { postProduct } from '../controllers/postProduct.js'
+import { getProducts } from '../controllers/getProducts.js'
 
 export const apiRouter = express.Router()
 //public api routes
@@ -33,4 +34,5 @@ apiRouter.post('/admin/logout', (req, res)=> {
 })
 
 //stock routes
+apiRouter.get('/admin/product', getProducts)
 apiRouter.post('/admin/product', postProduct)
