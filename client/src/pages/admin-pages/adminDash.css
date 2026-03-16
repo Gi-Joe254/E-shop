@@ -179,8 +179,20 @@
 }
 .btn_cont input {
   width: 50px;
-  outline: none;
+  
 }
 .submitBtn {
   width: 30%;
+}
+
+.newPrdtBtn {
+    background-color: var(--button-bg);
+    height: 3rem;
+    width: max-content;
+    display: block;
+    margin: 0 auto 2rem;
+}
+
+.newPrdtBtn:hover {
+  background-color: var(--button-hover)
 }

@@ -38,3 +38,8 @@
     background-color: var(--accent);
     color: var(--danger); 
 }
+
+.newPrdtBtn {
+    background-color: var(--success);
+    height: 2rem;
+}

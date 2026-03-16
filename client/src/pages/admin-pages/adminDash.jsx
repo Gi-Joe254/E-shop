@@ -98,7 +98,7 @@ export default function AdminDash() {
         
     }
     const openForm = ()=> {
-        setFormOpen(true)
+        setFormOpen(prev => !prev)
     }
     const handleAdd = async(e)=> {
         e.preventDefault()
@@ -182,8 +182,12 @@ export default function AdminDash() {
             }
 
             {activeTab === 'products' &&
+                <> 
+                <h3>Products</h3>
                 <div className= 'products'>
-                    <button onClick={openForm}>New Product</button>
+                    <button onClick={openForm} className="newPrdtBtn">
+                        {formIsOpen ? 'close' : 'Add New Product'}
+                    </button>
                     {formIsOpen && 
                         <form className="prodForm" onSubmit={handleAdd}>
                             <input 
@@ -241,14 +245,16 @@ export default function AdminDash() {
                     />
 
                 </div>
-                
+            </> 
             }
             {!loading && products.length === 0 && activeTab === 'products' &&
                 <div className="adminState">No products to show</div>
             }
 
             {activeTab === 'sales' &&
-                <div>Sales</div>
+                <>
+                <h3>Sales</h3>
+                </>
             }
 
            
