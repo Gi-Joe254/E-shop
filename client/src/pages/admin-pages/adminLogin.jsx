@@ -14,7 +14,6 @@ export default function AdminLogin() {
 
     //set timeout for loginMessage div
     useEffect(()=> {
-         console.log("API URL:", import.meta.env.VITE_API_URL)
         if(!loginMessage) return
         const timer = setTimeout(() => {
             setLoginMessage(null)
@@ -38,7 +37,10 @@ export default function AdminLogin() {
             }
             setLoginMessage({text: data.message, type: 'success'})
 
-            console.log('navigating to dashboard')
+            setTimeout(()=> {
+                setLoginMessage({text:'loading dashboard', type:'success'})
+            }, 1000)
+            
             setTimeout(() => {
                navigate('/admin/dashboard') 
             }, 1500);

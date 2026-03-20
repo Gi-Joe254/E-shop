@@ -143,14 +143,16 @@
   margin: 0 0 5rem;
 }
 .tab_btns button{
+  background-color: var(--secondary);
   outline: none;
   font-size: 1.25rem;
   border-radius: 0;
   border-right: 2px solid var(--primary);
 }
 .tab_btns button.active {
-  background-color: var(--secondary);
+  background-color: var(--bg);
   color: var(--muted-text);
+  border-color: var(--muted-text);
 }
 
 .prodForm {
@@ -165,6 +167,9 @@
   background-color: var(--primary-text);
   width: 70%;
   margin: 0 auto;
+}
+.btn_cont {
+  display: flex;
 }
 .btn_cont button {
   width: 50px;
@@ -194,5 +199,6 @@
 }
 
 .newPrdtBtn:hover {
-  background-color: var(--button-hover)
+  background-color: var(--button-hover);
+
 }

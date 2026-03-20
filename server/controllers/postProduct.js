@@ -1,14 +1,51 @@
 import supabase from "../database/db.js"
 
 export const postProduct = async(req, res)=> {
-    try {
-       const {data, error} = await supabase
-        .from('products')
-        .insert(req.body)
 
-        if(error) throw error
-        res.status(200).json({message:'product added'})
+    //validation
+    let { name, type, brand, price, stock } = req.body
+
+    if(!name || !type || !brand || !price || stock === null) {
+        return res.status(400).json({message: 'missing fields'})
+    }
+    try {
+        const { data: existing, error: selectError } = await supabase
+            .from('products')
+            .select('*')
+            .eq('name', name)
+            .eq('type', type)
+            .eq('brand', brand)
+            .eq('price', price)
+
+
+        if(selectError) throw selectError
+
+        if(existing.length === 0) {
+            
+            const {data, insertError} = await supabase
+                .from('products')
+                .insert(req.body)
+
+            if(insertError) throw insertError
+
+            return res.status(200).json({message:'product added'})
+
+        }
+
+        const { error:updateError } =  await supabase
+            .from('products')
+            .update({stock: existing[0].stock += Number(stock) } )
+            .eq('id', existing[0].id)
+
+        if(updateError) throw updateError
+        res.status(200).json({message: 'stock updated'})
+       
+
     } catch (error) {
+        console.log(error)
         res.status(500).json({message: 'server error'})
     }
+    
+
+   
 }

@@ -26,6 +26,9 @@
     overflow:hidden;
 }
 
+.prodCard td:hover, .prodCard th:hover {
+    overflow: visible;
+}
 /* cells */
 .prodCard td{
     padding:12px 16px;
@@ -33,6 +36,11 @@
     border-bottom:1px solid #ececec;
     white-space:nowrap;
     overflow:hidden;
+}
+
+.prodCard td:nth-child(2) {
+    white-space: nowrap;
+    overflow: visible;
 }
 
 /* row hover */

@@ -212,9 +212,9 @@ export default function AdminDash() {
                                 placeholder="Price" type="text"
                                 onChange={(e)=> {setPrice(e.target.value)}}
                             />
+                                <label htmlFor="stock">Stock</label>
 
                             <div className="btn_cont">
-                                <label htmlFor="stock">Stock</label>
                                 <button 
                                     type='button' 
                                     onClick={()=> {
