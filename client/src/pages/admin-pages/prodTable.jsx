@@ -3,7 +3,7 @@ import "./prodTable.css"
 export default function ProdTable({products}) {
     return(
         <div className="prodCont">
-            <table className="prodCard">
+            <table className="prodTable">
                 <thead>
                     <tr>
                         <th>Name</th>

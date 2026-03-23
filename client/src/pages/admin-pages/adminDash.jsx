@@ -24,7 +24,9 @@ export default function AdminDash() {
     const [prodName, setName] = useState('')
     const [prodType, setType] = useState('')
     const [prodBrand, setBrand] = useState('')
-    const [prodPrice, setPrice] = useState('')
+    const [prodPrice, setPrice] = useState([])
+    
+    const [types, setTypes] = useState('')
 
     const loadJobs = async () => {
         setLoading(true)
@@ -88,9 +90,12 @@ export default function AdminDash() {
     
     //products
     const loadProducts = async()=> {
+
         try {
             const data = await getProducts()
             setProducts(data)
+            setTypes([...new Set(data.map(i => i.type))])
+
             setMessage({type: 'success', text: 'products loaded'})
         } catch (error) {
             setMessage({type: 'error', text:error.message})
@@ -181,6 +186,7 @@ export default function AdminDash() {
                 <div className="adminState">No jobs to show</div>
             }
 
+            
             {activeTab === 'products' &&
                 <> 
                 <h3>Products</h3>
@@ -196,12 +202,19 @@ export default function AdminDash() {
                                 type="text"
                                 onChange={(e)=> {setName(e.target.value)}}
                             />
-                            <input 
+                            <select 
+                                name="type" 
+                                id="type"
                                 value={prodType}
-                                placeholder="Type (E.g. type c, LED)" 
-                                type="text"
                                 onChange={(e)=> {setType(e.target.value)}}
-                            />
+                            >
+                                <option defaultValue="">--select type--</option>
+                                {types.map((type)=> (
+                                    <option key={type} value={type}>{type}</option>
+                                ))}
+                                <option value="other">Other</option>
+                            </select>
+                            
                             <input 
                                 value={prodBrand}
                                 placeholder="Brand" type="text"

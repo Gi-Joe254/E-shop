@@ -187,7 +187,8 @@
   
 }
 .submitBtn {
-  width: 30%;
+  max-width: max-content;
+
 }
 
 .newPrdtBtn {
