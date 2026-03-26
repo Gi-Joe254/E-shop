@@ -1,12 +1,11 @@
-import { useState } from "react"
-import { useEffect } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import JobCard from "./jobCard"
 import { completeJob, deleteJob, fetchAdmin, fetchJobs, logout } from "./services/jobsServices.js"
 import "./adminDash.css"
 import Hamburger from "hamburger-react"
 import { FaBolt, FaMinus, FaPlus } from "react-icons/fa"
-import { addProduct, getProducts } from "./services/productServices.js"
+import { addProduct, getProducts, sellProduct } from "./services/productServices.js"
 import ProdTable from "./prodTable.jsx"
 
 export default function AdminDash() {
@@ -22,11 +21,21 @@ export default function AdminDash() {
     const [formIsOpen, setFormOpen] = useState(false)
     const [stockValue, setStockValue] = useState(1)
     const [prodName, setName] = useState('')
+    const [customBrand, setCustomBrand] = useState('')
+    const [customType, setCustomType] = useState('')
     const [prodType, setType] = useState('')
     const [prodBrand, setBrand] = useState('')
-    const [prodPrice, setPrice] = useState([])
+    const [prodPrice, setPrice] = useState('')
+    const [salePrice, setSalePrice] = useState('')
     
-    const [types, setTypes] = useState('')
+    const [types, setTypes] = useState([])
+    const [brands, setBrands] = useState([])
+
+    const customBrandRef = useRef(null)
+    const customTypeRef = useRef(null)
+
+    const [saleOpen, setSaleOpen] = useState(false)
+    const [addNewOpen, setNewOpen] = useState(false)
 
     const loadJobs = async () => {
         setLoading(true)
@@ -90,37 +99,83 @@ export default function AdminDash() {
     
     //products
     const loadProducts = async()=> {
-
         try {
             const data = await getProducts()
             setProducts(data)
             setTypes([...new Set(data.map(i => i.type))])
-
+            setBrands([...new Set(data.map(i => i.brand))])
             setMessage({type: 'success', text: 'products loaded'})
         } catch (error) {
             setMessage({type: 'error', text:error.message})
         }
         
     }
-    const openForm = ()=> {
+    const openForm = (e)=> {
+        e.target.style = {display:'none'}
+        console.log('style',e.target.style)
+        if(e.target.className === 'sellBtn') {
+            setSaleOpen(prev => !prev)
+            setFormOpen(prev => !prev)
+            return
+        }
+        setNewOpen(prev => !prev)
         setFormOpen(prev => !prev)
     }
     const handleAdd = async(e)=> {
         e.preventDefault()
-        
+            const finalBrand = prodBrand==='other' ? customBrand: prodBrand
+            const finalType = prodType==='other' ? customType: prodType
           try {
-            await addProduct({
-                name: prodName, 
-                type: prodType, 
-                brand: prodBrand, 
-                price: prodPrice, 
-                stock: stockValue})
+            const data = await addProduct({
+                name: prodName.trim().toLowerCase(), 
+                type: finalType.trim().toLowerCase(), 
+                brand: finalBrand.trim().toLowerCase(), 
+                price: Number(prodPrice), 
+                stock: Number(stockValue)})
+            setLoading(true)
 
-            loadProducts()
-            setMessage({type:'success', text:'Product added'})
+            setName('')
+            setType('')
+            setBrand('')
+            setPrice('')
+            setStockValue(1)
+
+            setMessage({type:'success', text: data.message})
+            
+            setTimeout(() => {
+                loadProducts()
+            }, 1500);
+            
         } catch (error) {
             setMessage({type:'error', text:error.message})
+        } finally {
+            setLoading(false)
         }
+    }
+
+    const handleSell = async(e)=> {
+        e.preventDefault()
+        try {
+            const data = await sellProduct({
+                name: prodName.trim().toLowerCase(),
+                type: prodType.trim().toLowerCase(),
+                brand: prodBrand.trim().toLowerCase(),
+                price : Number(prodPrice),
+                salePrice: Number(salePrice),
+                stock: Number(stockValue)
+            })
+            setLoading(true)
+            setMessage({type: 'success', text: data.message })
+            console.log(data.message)
+            setTimeout(() => {
+                loadProducts()
+            }, 1500);
+        } catch (error) {
+            setMessage({type: 'error', text: error.message})
+        } finally {
+            setLoading(false)
+        }
+        
     }
    
     useEffect(() => {
@@ -128,6 +183,14 @@ export default function AdminDash() {
         loadJobs()
         loadProducts()
     }, [])
+
+    useEffect(() => {
+        customBrandRef.current?.focus()
+    }, [prodBrand])
+
+    useEffect(() => {
+        customTypeRef.current?.focus()
+    }, [prodType])
 
     useEffect(()=> {
         if(!message) return
@@ -191,12 +254,26 @@ export default function AdminDash() {
                 <> 
                 <h3>Products</h3>
                 <div className= 'products'>
-                    <button onClick={openForm} className="newPrdtBtn">
-                        {formIsOpen ? 'close' : 'Add New Product'}
+                    <button 
+                        style={{
+                            display: saleOpen? 'none' :'block'
+                        }} 
+                        onClick={openForm} className="newPrdtBtn"
+                    >
+                        {formIsOpen? 'Close' : 'Add New Product'}
+                    </button>
+                    <button 
+                        style={{
+                            display: addNewOpen? 'none' :'block'
+                        }} 
+                        onClick={openForm} className="sellBtn"
+                    >
+                        {formIsOpen? 'Close' : 'Sell'}
                     </button>
                     {formIsOpen && 
-                        <form className="prodForm" onSubmit={handleAdd}>
+                        <form className="prodForm" onSubmit={saleOpen? handleSell:handleAdd}>
                             <input 
+                                name='name'
                                 value={prodName}
                                 placeholder="Product Name (E.g. phone charger, bulb)" 
                                 type="text"
@@ -208,23 +285,57 @@ export default function AdminDash() {
                                 value={prodType}
                                 onChange={(e)=> {setType(e.target.value)}}
                             >
-                                <option defaultValue="">--select type--</option>
+                                <option value="">Type (E.g. LED, Type c)</option>
                                 {types.map((type)=> (
                                     <option key={type} value={type}>{type}</option>
                                 ))}
-                                <option value="other">Other</option>
+                                {!saleOpen && <option value='other'>other</option>}
                             </select>
+                            {prodType === 'other' &&
+                                <input
+                                    name='type'
+                                    ref={customTypeRef}
+                                    value={customType} placeholder='Add type' 
+                                    onChange={(e)=> {setCustomType(e.target.value)}}
+                                />
+                            }
+
+                            <select 
+                                name="brand" 
+                                id="brand"
+                                value={prodBrand}
+                                onChange={(e)=> {setBrand(e.target.value)}}
+                            >
+                                <option value="">Brand</option>
+                                {brands.map((brand)=> (
+                                    <option key={brand} value={brand}>{brand}</option>
+                                ))}
+                                {!saleOpen && <option value='other'>other</option>}
+                            </select>
+                            {prodBrand === 'other' &&
+                                <input
+                                    name='brand'
+                                    ref={customBrandRef}
+                                    value={customBrand} placeholder='Add brand' 
+                                    onChange={(e)=> {setCustomBrand(e.target.value)}}
+                                />
+                            }
                             
                             <input 
-                                value={prodBrand}
-                                placeholder="Brand" type="text"
-                                onChange={(e)=> {setBrand(e.target.value)}}
-                            />
-                            <input 
+                                name='price'
                                 value={prodPrice}
                                 placeholder="Price" type="text"
                                 onChange={(e)=> {setPrice(e.target.value)}}
                             />
+
+                            {saleOpen &&
+                            <input 
+                                name='price'
+                                value={salePrice}
+                                placeholder='Sale Price' type="text"
+                                onChange={(e)=> {setSalePrice(e.target.value)}}
+                            />
+                            }
                                 <label htmlFor="stock">Stock</label>
 
                             <div className="btn_cont">
@@ -238,7 +349,7 @@ export default function AdminDash() {
                                     <FaMinus />
                                 </button>
 
-                                <input type='number' value={stockValue} onChange={(e)=> {setStockValue(e.target.value)}}/>
+                                <input name='stock' type='number' value={stockValue} onChange={(e)=> {setStockValue(e.target.value)}}/>
 
                                 <button 
                                     id='stock' 
@@ -250,7 +361,8 @@ export default function AdminDash() {
                                 </button>
 
                             </div>
-                            <button type="submit" className="submitBtn">Save</button>
+                            {!saleOpen && <button type="submit" className="submitBtn">Save</button>}
+                            {saleOpen && <button type="submit" className="submitBtn">Done</button>}
                         </form>
                     }
                     <ProdTable

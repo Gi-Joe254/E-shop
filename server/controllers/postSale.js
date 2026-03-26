@@ -1,14 +1,47 @@
 import supabase from "../database/db.js"
 
 export const postSale = async(req, res)=> {
-    const {productId, quantity, salePrice, total} = req.body
-    try {
-       const {data, error} = await supabase
-        .from('sales')
-        .insert({product_id: productId, quantity: quantity, sale_price: salePrice, total: total})
+    const {name, type, brand, salePrice, price, stock} = req.body
+    if(!name || !type || !brand || !price || stock === null) {
+        return res.status(400).json({message: 'missing fields'})
+    }
 
-        if(error) throw error
-        res.status(200).json({message:'sale recorded'})
+    try {
+       const {data: product, error: selectError} = await supabase
+        .from('products')
+        .select('id, stock')
+        .eq('name', name.toLowerCase())
+        .eq('type', type.toLowerCase())
+        .eq('brand', brand.toLowerCase())
+        .eq('price', Number(price))
+
+        if(selectError) throw selectError
+
+        if(!product || product.length === 0) {
+            return res.status(404).json({message: "product not found"})
+        }
+            const newStock = product[0].stock - Number(stock)
+        const {error: updateError} = await supabase
+            .from('products')
+            .update({stock: newStock})
+            .eq('id', product[0].id)
+
+        if(updateError) throw updateError
+
+        if (product[0].stock < Number(stock)) {
+            return res.status(400).json({message:'insufficient stock'})
+        }
+        
+        const {error:insertError} = await supabase
+            .from('sales')
+            .insert({
+                product_id: product[0].id,
+                quantity: Number(stock),
+                sale_price: Number(salePrice),
+                total: salePrice * Number(stock)
+            })
+            if(insertError) throw insertError
+               res.status(200).json({message:'sale recorded'})
     } catch (error) {
         res.status(500).json({message: 'server error'})
     }
