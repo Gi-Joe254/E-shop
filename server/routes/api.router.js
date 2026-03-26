@@ -6,6 +6,7 @@ import { requireAdmin } from '../middleware/requireAdmin.js'
 import { postProduct } from '../controllers/postProduct.js'
 import { getProducts } from '../controllers/getProducts.js'
 import { postSale } from '../controllers/postSale.js'
+import { getSales } from '../controllers/getSales.js'
 
 export const apiRouter = express.Router()
 //public api routes
@@ -37,4 +38,6 @@ apiRouter.post('/admin/logout', (req, res)=> {
 //stock routes
 apiRouter.get('/admin/product', getProducts)
 apiRouter.post('/admin/product', postProduct)
+
+apiRouter.get('/admin/sale', getSales)
 apiRouter.post('/admin/sale', postSale)

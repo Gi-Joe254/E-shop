@@ -20,7 +20,11 @@ export const postSale = async(req, res)=> {
         if(!product || product.length === 0) {
             return res.status(404).json({message: "product not found"})
         }
-            const newStock = product[0].stock - Number(stock)
+        const newStock = product[0].stock - Number(stock)
+        if (product[0].stock < Number(stock)) {
+            return res.status(400).json({message:'insufficient stock'})
+        }
+
         const {error: updateError} = await supabase
             .from('products')
             .update({stock: newStock})
@@ -28,20 +32,21 @@ export const postSale = async(req, res)=> {
 
         if(updateError) throw updateError
 
-        if (product[0].stock < Number(stock)) {
-            return res.status(400).json({message:'insufficient stock'})
-        }
+        
         
         const {error:insertError} = await supabase
             .from('sales')
             .insert({
                 product_id: product[0].id,
+                product: name.toLowerCase(),
                 quantity: Number(stock),
                 sale_price: Number(salePrice),
-                total: salePrice * Number(stock)
+                total: salePrice * Number(stock),
+                type: type.toLowerCase(),
+                brand: brand.toLowerCase()
             })
             if(insertError) throw insertError
-               res.status(200).json({message:'sale recorded'})
+            res.status(200).json({message:'sale recorded'})
     } catch (error) {
         res.status(500).json({message: 'server error'})
     }

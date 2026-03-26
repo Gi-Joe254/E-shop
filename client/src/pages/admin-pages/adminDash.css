@@ -191,15 +191,21 @@
 
 }
 
-.newPrdtBtn {
+.newPrdtBtn, .sellBtn {
     background-color: var(--button-bg);
     height: 3rem;
-    width: max-content;
+    width: 150px;
     display: block;
-    margin: 0 auto 2rem;
+    margin: 0 0 2rem;
 }
 
-.newPrdtBtn:hover {
+.newPrdtBtn:hover, .sellBtn:hover {
   background-color: var(--button-hover);
-
 }
+
+.productActions {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
