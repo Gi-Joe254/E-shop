@@ -32,8 +32,17 @@ export default function ProductForm ({
      
     customBrand,
     customBrandRef, 
-    setCustomBrand, }) {
+    setCustomBrand,
+
+    applyFilters
+}) {
     return(
+        <>
+        <form onSubmit={applyFilters} className="filterForm">
+            <input type="text" placeholder="name"/>
+            <input type="text" placeholder="type"/>
+            <button type="submit">Apply</button>
+        </form>
         <form className="prodForm" onSubmit={saleOpen? handleSell:handleAdd}>
             {addNewOpen &&
                 <input 
@@ -142,5 +151,6 @@ export default function ProductForm ({
             {!saleOpen && <button type="submit" className="submitBtn">Save</button>}
             {saleOpen && <button type="submit" className="submitBtn">Done</button>}
         </form>
+        </>
     )
 }

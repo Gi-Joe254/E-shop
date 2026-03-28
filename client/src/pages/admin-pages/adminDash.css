@@ -168,20 +168,8 @@
   width: 70%;
   margin: 0 auto;
 }
-.btn_cont {
-  display: flex;
-}
-.btn_cont button {
-  width: 50px;
-  background-color: var(--secondary);
-  height: 50px;
-  outline: none;
-  border-radius: 0;
-  margin: 0 10px;
-}
-.btn_cont button:hover {
-  background-color: var(--success);
-}
+
+
 .btn_cont input {
   width: 50px;
   
@@ -192,9 +180,10 @@
 }
 
 .newPrdtBtn, .sellBtn {
+    font-size: clamp(0.5rem, 2vw, 0.6rem);
     background-color: var(--button-bg);
-    height: 3rem;
-    width: 150px;
+    height: 2.5rem;
+    max-width: 150px;
     display: block;
     margin: 0 0 2rem;
 }
@@ -208,4 +197,39 @@
   justify-content: center;
   gap: 2rem;
 }
+
+.filterForm {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-size: 0.75rem;
+  padding: 0.75rem;
+  justify-content: center;
+}
+
+.filterForm > input {
+  border: 1px solid var(--secondary-text);
+  min-width: 70px;
+  max-width: 150px;
+  font-size: 0.75rem;
+}
+.filterForm > button {
+  font-size: 0.55rem;
+  max-width: 30px;
+  color: var(--muted-text);
+  height: 40px;
+  margin: auto 0;
+  text-align: center;
+  background-color: var(--muted);
+}
+.filterForm > button:hover {
+  background-color: var(--muted);
+  color: var(--succes-text);
+}
+
+.totals {
+  padding: 0 50px;
+  color: var(--muted-text);
+}
+
 

@@ -4,7 +4,7 @@ import JobCard from "./components/jobCard.jsx"
 import { completeJob, deleteJob, fetchAdmin, fetchJobs, logout } from "./services/jobsServices.js"
 import "./adminDash.css"
 import Hamburger from "hamburger-react"
-import { FaBolt } from "react-icons/fa"
+import { FaBolt, FaCheck, FaTimes } from "react-icons/fa"
 import { addProduct, getProducts, getSales, sellProduct } from "./services/productServices.js"
 import ProdTable from "./components/prodTable.jsx"
 import SalesTable from "./components/salesTable.jsx"
@@ -40,6 +40,9 @@ export default function AdminDash() {
 
     const [saleOpen, setSaleOpen] = useState(false)
     const [addNewOpen, setNewOpen] = useState(false)
+
+    const [searchName, setSearchName] = useState('')
+    const [searchType, setSearchType] = useState('')
 
     const totalSales = sales.reduce((sum, s)=> sum + s.total, 0)
     const totalQty = sales.reduce((sum, s) => sum += s.quantity, 0)
@@ -208,6 +211,31 @@ export default function AdminDash() {
             setLoading(false)
         }
     }
+
+    const applyFilters = (e)=> {
+        e.preventDefault()
+        let filteredData
+
+        if(!searchName && !searchType) return 
+
+        if(!searchName || !searchType) {
+            filteredData = products.filter((i)=> i.name === searchName || i.type === searchType)
+            setProducts(filteredData)
+            return
+        } 
+        
+        filteredData = products.filter((i)=> i.name === searchName && i.type === searchType
+        )
+        
+        setProducts(filteredData)
+    }
+
+    const clearFilters = ()=> {
+        setProducts(products)
+        setSearchName('')
+        setSearchType('')
+        loadProducts()
+    }
    
     useEffect(() => {
         loadJobs()
@@ -307,7 +335,9 @@ export default function AdminDash() {
                             </button>
                         }
                     </div>
+
                     {formIsOpen && 
+                        
                         <ProductForm
                             saleOpen = {saleOpen }
                             handleSell = {handleSell}
@@ -337,6 +367,28 @@ export default function AdminDash() {
                         />
                     }
                     
+                    
+                    <form onSubmit={applyFilters} className="filterForm">
+                        <div>Filter:</div>
+                        <input 
+                            name= "name" 
+                            type="text" 
+                            placeholder="by name"
+                            value={searchName}
+                            onChange={(e)=>{setSearchName(e.target.value)}}    
+                        />
+                        <input 
+                            name= "type" 
+                            type="text" 
+                            placeholder="by type"
+                            value={searchType}
+                            onChange={(e)=>{setSearchType(e.target.value)}}
+                        />
+                        <button type="submit"><FaCheck /></button>
+                        <button type="button" onClick={clearFilters}><FaTimes /></button>
+                    </form>
+                    
+
                     {products.length > 0 && 
                         <ProdTable
                             products = {products}
@@ -352,7 +404,8 @@ export default function AdminDash() {
     
             {/*sales tab*/}
             {activeTab === 'sales' &&
-                <>
+                <div className="sales">
+
                 <h3>Sales</h3>
 
                 <div className="totals">
@@ -360,12 +413,10 @@ export default function AdminDash() {
                     <div>Total Amount Sold: {totalQty} items</div>
                 </div>
 
-                <div className="sales">
-                    <SalesTable
-                        sales={sales}
-                    />   
+                <SalesTable
+                    sales={sales}
+                /> 
                 </div>
-                </>
             }
             {!loading && sales.length === 0 && activeTab === 'sales' &&
                 <div className="adminState">No Sales to show</div>
