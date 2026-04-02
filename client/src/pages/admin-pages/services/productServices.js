@@ -40,8 +40,8 @@ export const sellProduct = async({name, type, brand, price, salePrice, stock})=>
     return data
 }
 
-export const getSales = async()=> {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/sale`, {
+export const getSales = async(fromDate, toDate, name, type)=> {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/sale?fromDate=${fromDate}&toDate=${toDate}&name=${name}&type=${type}`, {
         credentials: 'include'
     })
     const data = await res.json()

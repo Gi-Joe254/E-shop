@@ -194,26 +194,31 @@
 
 .productActions {
   display: flex;
-  justify-content: center;
-  gap: 2rem;
+  gap: var(--space-md);
+  border: 1px solid var(--border);
+  padding: var(--space-sm);
 }
 
+/*hide ghost filter form*/
 .filterForm {
+  display: none;
+}
+.filterFormProducts {
   display: flex;
   gap: 5px;
   align-items: center;
-  font-size: 0.75rem;
+  font-size: clamp(0.5rem, 2vw, 0.75rem);
   padding: 0.75rem;
   justify-content: center;
 }
 
-.filterForm > input {
+.filterFormProducts > input {
   border: 1px solid var(--secondary-text);
   min-width: 70px;
   max-width: 150px;
   font-size: 0.75rem;
 }
-.filterForm > button {
+.filterFormProducts > button, .filterFormSales >button {
   font-size: 0.55rem;
   max-width: 30px;
   color: var(--muted-text);
@@ -222,9 +227,38 @@
   text-align: center;
   background-color: var(--muted);
 }
-.filterForm > button:hover {
+.filterFormProducts > button:hover {
   background-color: var(--muted);
   color: var(--succes-text);
+}
+
+.filterFormSales {
+  border: 1px solid var(--border);
+  margin: var(--space-md);
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  display: grid;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.inputs, .dates {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.inputs> input, .dates> input{
+  border: 1px solid var(--secondary-text);
+  min-width: 70px;
+  max-width: 150px;
+  font-size: 0.5rem;
+}
+.filterBtns> button {
+  background-color: var(--border);
+  margin: 5px;
+}
+.filterBtns> button:hover {
+  background-color: var(--muted-text);
 }
 
 .totals {

@@ -13,7 +13,8 @@ export const postSale = async(req, res)=> {
         .eq('name', name.toLowerCase())
         .eq('type', type.toLowerCase())
         .eq('brand', brand.toLowerCase())
-        .eq('price', Number(price))
+        .lte('price', Number(price) + 50)
+        .gte('price', Number(price) - 50)
 
         if(selectError) throw selectError
 

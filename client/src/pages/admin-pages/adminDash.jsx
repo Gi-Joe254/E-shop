@@ -44,6 +44,11 @@ export default function AdminDash() {
     const [searchName, setSearchName] = useState('')
     const [searchType, setSearchType] = useState('')
 
+    const [saleSearchName, setSaleSearchName] = useState('')
+    const [saleSearchType, setSaleSearchType] = useState('')
+    const [fromDate, setFromDate] = useState('')
+    const [toDate, setToDate] = useState('')
+
     const totalSales = sales.reduce((sum, s)=> sum + s.total, 0)
     const totalQty = sales.reduce((sum, s) => sum += s.quantity, 0)
 
@@ -199,10 +204,12 @@ export default function AdminDash() {
         
     }
 
-    const loadSales = async()=> {
+    const loadSales = async(e)=> {
+        if(e) {e.preventDefault()}
+        
         setLoading(true)
         try {
-            const data = await getSales()
+            const data = await getSales(fromDate, toDate, saleSearchName, saleSearchType)
             setSales(data)
             setMessage({type: 'success', text: data.message})
         } catch (error) {
@@ -216,7 +223,12 @@ export default function AdminDash() {
         e.preventDefault()
         let filteredData
 
-        if(!searchName && !searchType) return 
+        if(!searchName && !searchType) {
+            setSearchName('')
+            setSearchType('')
+            loadProducts()
+            return
+        }
 
         if(!searchName || !searchType) {
             filteredData = products.filter((i)=> i.name === searchName || i.type === searchType)
@@ -228,14 +240,32 @@ export default function AdminDash() {
         )
         
         setProducts(filteredData)
+
     }
 
     const clearFilters = ()=> {
-        setProducts(products)
-        setSearchName('')
-        setSearchType('')
-        loadProducts()
+        if(activeTab === 'products') {
+            setSearchName('')
+            setSearchType('')
+            
+            loadProducts()
+        }
+        if(activeTab === 'sales') {
+            setSaleSearchName('')
+            setSaleSearchType('')
+            setFromDate('')
+            setToDate('')
+        }
+        
     }
+
+    useEffect(()=> {
+        const timer = setTimeout(() => {
+            loadSales()
+        }, 400) // wait 400ms after typing stops
+
+        return () => clearTimeout(timer)
+    },[fromDate, toDate, saleSearchName, saleSearchType])
    
     useEffect(() => {
         loadJobs()
@@ -295,8 +325,6 @@ export default function AdminDash() {
             {/*jobs tab*/}
             {activeTab === 'jobs' &&
                 <>
-                <h3>Jobs</h3>
-
                 <JobCard
                     jobs ={jobs}
                     handleDelete={handleDelete}
@@ -312,9 +340,27 @@ export default function AdminDash() {
             {/*products tab*/}
             {activeTab === 'products' &&
                 <> 
-                <h3>Products</h3>
                 <div className= 'products'>
                     <div className="productActions">
+                        {!formIsOpen && 
+                            <form onSubmit={applyFilters} className="filterFormProducts">
+                                <div>Search Product:</div>
+                                <input 
+                                    type="text" 
+                                    placeholder="by name"
+                                    value={searchName}
+                                    onChange={(e)=>{setSearchName(e.target.value)}}    
+                                />
+                                <input 
+                                    type="text" 
+                                    placeholder="by type"
+                                    value={searchType}
+                                    onChange={(e)=>{setSearchType(e.target.value)}}
+                                />
+                                <button type="submit"><FaCheck /></button>
+                                <button type="button" onClick={clearFilters}><FaTimes /></button>
+                            </form>
+                        }
 
                         <button 
                             style={{
@@ -324,6 +370,7 @@ export default function AdminDash() {
                         >
                             {formIsOpen? 'Close' : 'Add New Product'}
                         </button>
+
                         {products.length > 0 &&
                             <button 
                                 style={{
@@ -337,57 +384,36 @@ export default function AdminDash() {
                     </div>
 
                     {formIsOpen && 
-                        
-                        <ProductForm
-                            saleOpen = {saleOpen }
-                            handleSell = {handleSell}
-                            handleAdd = {handleAdd}
-                            addNewOpen = {addNewOpen}
-                            prodName = {prodName}
-                            setName = {setName}
-                            names = {names}
-                            prodType = {prodType}
-                            setType = {setType}
-                            types = {types}
-                            prodBrand = {prodBrand}
-                            setBrand = {setBrand}
-                            brands = {brands}
-                            prodPrice = {prodPrice}
-                            setPrice = {setPrice}
-                            salePrice = {salePrice}
-                            setSalePrice = {setSalePrice}
-                            stockValue = {stockValue}
-                            setStockValue = {setStockValue} 
-                            customType = {customType}
-                            customTypeRef = {customTypeRef}
-                            setCustomType = {setCustomType}
-                            customBrand = {customBrand}
-                            customBrandRef = {customBrandRef}
-                            setCustomBrand = {setCustomBrand}
-                        />
+                        <div className="prodFormContainer">
+                            <ProductForm
+                                saleOpen = {saleOpen }
+                                handleSell = {handleSell}
+                                handleAdd = {handleAdd}
+                                addNewOpen = {addNewOpen}
+                                prodName = {prodName}
+                                setName = {setName}
+                                names = {names}
+                                prodType = {prodType}
+                                setType = {setType}
+                                types = {types}
+                                prodBrand = {prodBrand}
+                                setBrand = {setBrand}
+                                brands = {brands}
+                                prodPrice = {prodPrice}
+                                setPrice = {setPrice}
+                                salePrice = {salePrice}
+                                setSalePrice = {setSalePrice}
+                                stockValue = {stockValue}
+                                setStockValue = {setStockValue} 
+                                customType = {customType}
+                                customTypeRef = {customTypeRef}
+                                setCustomType = {setCustomType}
+                                customBrand = {customBrand}
+                                customBrandRef = {customBrandRef}
+                                setCustomBrand = {setCustomBrand}
+                            />
+                        </div>
                     }
-                    
-                    
-                    <form onSubmit={applyFilters} className="filterForm">
-                        <div>Filter:</div>
-                        <input 
-                            name= "name" 
-                            type="text" 
-                            placeholder="by name"
-                            value={searchName}
-                            onChange={(e)=>{setSearchName(e.target.value)}}    
-                        />
-                        <input 
-                            name= "type" 
-                            type="text" 
-                            placeholder="by type"
-                            value={searchType}
-                            onChange={(e)=>{setSearchType(e.target.value)}}
-                        />
-                        <button type="submit"><FaCheck /></button>
-                        <button type="button" onClick={clearFilters}><FaTimes /></button>
-                    </form>
-                    
 
                     {products.length > 0 && 
                         <ProdTable
@@ -406,12 +432,55 @@ export default function AdminDash() {
             {activeTab === 'sales' &&
                 <div className="sales">
 
-                <h3>Sales</h3>
-
                 <div className="totals">
                     <div>Total Revenue: KES {totalSales}</div>
                     <div>Total Amount Sold: {totalQty} items</div>
                 </div>
+
+                <form onSubmit={loadSales} className="filterFormSales">
+                    
+                    <div>Filter Sales:</div>
+                    <div className="inputs">
+                        <input 
+                            name= "name" 
+                            type="text" 
+                            placeholder="by name"
+                            value={saleSearchName}
+                            onChange={(e)=>{setSaleSearchName(e.target.value)}}    
+                        />
+                        <input 
+                            name= "type" 
+                            type="text" 
+                            placeholder="by type"
+                            value={saleSearchType}
+                            onChange={(e)=>{setSaleSearchType(e.target.value)}}
+                        />
+                    </div>
+                    
+                    <div className="dates">
+                        <label htmlFor="fromDate">From: </label>
+                        <input
+                            id="fromDate"
+                            type="date" 
+                            value={fromDate}
+                            onChange={(e)=>{setFromDate(e.target.value)}}    
+                        />
+
+                        <label htmlFor="fromDate">To: </label>
+                        <input 
+                            type="date" 
+                            value={toDate}
+                            onChange={(e)=>{setToDate(e.target.value)}}    
+                        />
+                    </div>
+                    <div className="filterBtns">
+                        {/* removed button since useeffect updates onchange
+                        <button type="submit">Apply</button>*/
+                        }
+                        <button type="button" onClick={clearFilters}>Clear</button>
+                    </div>
+                    
+                </form>
 
                 <SalesTable
                     sales={sales}
