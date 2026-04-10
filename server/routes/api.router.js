@@ -7,6 +7,7 @@ import { postProduct } from '../controllers/postProduct.js'
 import { getProducts } from '../controllers/getProducts.js'
 import { postSale } from '../controllers/postSale.js'
 import { getSales } from '../controllers/getSales.js'
+import { getPublicProducts } from '../controllers/getPublicProducts.js'
 
 export const apiRouter = express.Router()
 //public api routes
@@ -14,6 +15,8 @@ apiRouter.get('/health', (req, res)=> {
     res.json({status: 'ok'})
 })
 apiRouter.post('/customerReq', customerReq)
+
+apiRouter.get('/products', getPublicProducts)
 
 //admin api routes
 apiRouter.post('/admin/login', adminLogin)

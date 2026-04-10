@@ -343,24 +343,24 @@ export default function AdminDash() {
                 <div className= 'products'>
                     <div className="productActions">
                         {!formIsOpen && 
-                            <form onSubmit={applyFilters} className="filterFormProducts">
-                                <div>Search Product:</div>
-                                <input 
-                                    type="text" 
-                                    placeholder="by name"
-                                    value={searchName}
-                                    onChange={(e)=>{setSearchName(e.target.value)}}    
-                                />
-                                <input 
-                                    type="text" 
-                                    placeholder="by type"
-                                    value={searchType}
-                                    onChange={(e)=>{setSearchType(e.target.value)}}
-                                />
-                                <button type="submit"><FaCheck /></button>
-                                <button type="button" onClick={clearFilters}><FaTimes /></button>
-                            </form>
-                        }
+                        <form onSubmit={applyFilters} className="filterFormProducts">
+                            <div>Search Product:</div>
+                            <input 
+                                type="text" 
+                                placeholder="by name"
+                                value={searchName}
+                                onChange={(e)=>{setSearchName(e.target.value)}}    
+                            />
+                            <input 
+                                type="text" 
+                                placeholder="by type"
+                                value={searchType}
+                                onChange={(e)=>{setSearchType(e.target.value)}}
+                            />
+                            <button type="submit"><FaCheck /></button>
+                            <button type="button" onClick={clearFilters}><FaTimes /></button>
+                        </form>
+                    }
 
                         <button 
                             style={{

@@ -17,6 +17,7 @@ import repairsImg from "../assets/images/services/repairs-image.jpg"
 import lightImg2 from "../assets/images/products/lights-image.jpg"
 import tvImg from "../assets/images/products/tv-image.avif"
 import wireImg from "../assets/images/products/wires-image.jpg"
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
     const [service, setService] = useState({type: '', description:''})
@@ -27,6 +28,8 @@ export default function Home() {
     const prod = useRef()
     const rev = useRef()
     const cont = useRef()
+
+    const navigate = useNavigate()
 
     useEffect(()=> {
         //set timeout for ui message
@@ -43,10 +46,8 @@ export default function Home() {
         e.preventDefault()
         const load = {...service, ...customer}
 
-        const API = import.meta.env.VITE_API_URL
-
         try {
-            const res = await fetch(`${API}/api/customerReq`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/customerReq`, {
                 method: 'POST',
                 headers: {'Content-Type': 'Application/json'},
                 body: JSON.stringify(load)
@@ -67,6 +68,10 @@ export default function Home() {
         }
        
     }   
+
+    const toProducts = ()=> {
+        navigate('/products')
+    }
 
     return(
         <>
@@ -161,6 +166,7 @@ export default function Home() {
                         description='Essential and professional grade electrical wires'
                         price='From Ksh.50'
                     />
+                    <button onClick={toProducts}>View More...</button>
                 </div>
             </section>
 
