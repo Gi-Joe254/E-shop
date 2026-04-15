@@ -8,8 +8,10 @@ import { getProducts } from '../controllers/getProducts.js'
 import { postSale } from '../controllers/postSale.js'
 import { getSales } from '../controllers/getSales.js'
 import { getPublicProducts } from '../controllers/getPublicProducts.js'
-
+import multer from 'multer'
 export const apiRouter = express.Router()
+
+const upload = multer({dest: 'uploads/'})
 //public api routes
 apiRouter.get('/health', (req, res)=> {
     res.json({status: 'ok'})
@@ -40,7 +42,11 @@ apiRouter.post('/admin/logout', (req, res)=> {
 
 //stock routes
 apiRouter.get('/admin/product', getProducts)
-apiRouter.post('/admin/product', postProduct)
+apiRouter.post(
+    '/admin/product', 
+    upload.single('prodImage'),  
+    postProduct
+)
 
 apiRouter.get('/admin/sale', getSales)
 apiRouter.post('/admin/sale', postSale)

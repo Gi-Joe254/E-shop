@@ -32,18 +32,13 @@ export default function ProductForm ({
      
     customBrand,
     customBrandRef, 
-    setCustomBrand,
-
-    applyFilters
+    setCustomBrand
 }) {
     return(
         <>
-        <form onSubmit={applyFilters} className="filterForm">
-            <input type="text" placeholder="name"/>
-            <input type="text" placeholder="type"/>
-            <button type="submit">Apply</button>
-        </form>
-        <form className="prodForm" onSubmit={saleOpen? handleSell:handleAdd}>
+        <form className="prodForm" onSubmit={saleOpen? handleSell:handleAdd}
+            encType="multipart/form-data"
+        >
             {addNewOpen &&
                 <input 
                     name='name'
@@ -148,6 +143,14 @@ export default function ProductForm ({
                 </button>
 
             </div>
+        
+            {addNewOpen &&
+            <>
+            <label htmlFor="uploadImg">Upload Image:</label>
+            <input type="file" accept="image/*" id="uploadImg"/>
+            </>
+            }
+            
             {!saleOpen && <button type="submit" className="submitBtn">Save</button>}
             {saleOpen && <button type="submit" className="submitBtn">Done</button>}
         </form>

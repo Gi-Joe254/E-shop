@@ -145,13 +145,21 @@ export default function AdminDash() {
         const finalType = prodType==='other' ? customType: prodType
     
         setLoading(true)  
+        const formData = new FormData()
+
+        formData.append('name', prodName.trim().toLowerCase())
+        formData.append('type', finalType.trim().toLowerCase())
+        formData.append('brand', finalBrand.trim().toLowerCase())
+        formData.append('price', Number(prodPrice))
+        formData.append('stock', Number(stockValue))
+
+        const fileInput = document.querySelector('#uploadImg')
+
+        if (fileInput?.files?.[0]) {
+            formData.append('prodImage', fileInput.files[0])
+        }
         try {
-            const data = await addProduct({
-                name: prodName.trim().toLowerCase(), 
-                type: finalType.trim().toLowerCase(), 
-                brand: finalBrand.trim().toLowerCase(), 
-                price: Number(prodPrice), 
-                stock: Number(stockValue)})
+            const data = await addProduct(formData)
 
             setName('')
             setType('')

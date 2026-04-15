@@ -9,13 +9,12 @@ export const getProducts = async()=> {
     return data
 }
 
-export const addProduct = async({name, type, brand, price, stock})=> {
+export const addProduct = async(formData)=> {
     
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/product`,
         {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({name, type, brand, price, stock}),
+            body: formData,
             credentials: 'include'
         }
     )
