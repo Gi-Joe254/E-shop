@@ -14,7 +14,7 @@
 .navLinks {
     display: flex;
     gap: var(--space-md);
-    font-size: 0.9rem;
+    font-size: clamp(0.6rem, 2vw, 0.9rem);
 }
 a {
     text-decoration: none;

@@ -42,9 +42,16 @@ section > p {
 .moreProdBtn {
   padding-top: var(--space-lg);
   outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.moreProdBtn:hover {
+.moreProdBtn> p {
+  text-align: center;
+}
+
+.moreProdBtn> p:hover {
   color: var(--button-hover);
   outline: none;
 }

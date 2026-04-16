@@ -8,7 +8,10 @@ export default function ProductForm ({
 
     prodName, 
     setName, 
-    names, 
+    names,
+    customName,
+    customNameRef,
+    setCustomName,
 
     prodType, 
     setType, 
@@ -32,35 +35,38 @@ export default function ProductForm ({
      
     customBrand,
     customBrandRef, 
-    setCustomBrand
+    setCustomBrand,
+
+    fileInputRef
+
 }) {
     return(
         <>
         <form className="prodForm" onSubmit={saleOpen? handleSell:handleAdd}
             encType="multipart/form-data"
         >
-            {addNewOpen &&
-                <input 
+            <select 
+                name="name" 
+                id="name"
+                value={prodName}
+                onChange={(e)=> {setName(e.target.value)}}
+            >
+                <option value="">Name</option>
+                {names.map((name)=> (
+                    <option key={name} value={name}>{name}</option>
+                ))}
+                {!saleOpen && <option value='other'>other</option>}
+            </select>
+            {prodName === 'other' &&
+                <input
                     name='name'
-                    value={prodName}
-                    placeholder="Product Name (E.g. phone charger, bulb)" 
-                    type="text"
-                    onChange={(e)=> {setName(e.target.value)}}
+                    ref={customNameRef}
+                    value={customName} placeholder='Add name' 
+                    onChange={(e)=> {setCustomName(e.target.value)}}
                 />
             }
-            {saleOpen &&
-                <select 
-                    name="name" 
-                    id="name"
-                    value={prodName}
-                    onChange={(e)=> {setName(e.target.value)}}
-                >
-                    <option value="">Name</option>
-                    {names.map((name)=> (
-                        <option key={name} value={name}>{name}</option>
-                    ))}
-                </select>
-            }
+
+
             <select 
                 name="type" 
                 id="type"
@@ -147,7 +153,7 @@ export default function ProductForm ({
             {addNewOpen &&
             <>
             <label htmlFor="uploadImg">Upload Image:</label>
-            <input type="file" accept="image/*" id="uploadImg"/>
+            <input type="file" accept="image/*" id="uploadImg" name="prodImage" ref={fileInputRef}/>
             </>
             }
             

@@ -35,8 +35,8 @@ export default function Products() {
                         key={p.id}
                         imgSrc= {`${import.meta.env.VITE_API_URL}${p.imageUrl}`}
                         imgAlt= {`${p.name} image`}
-                        name= {p.name}
-                        description= {`${p.brand}, ${p.type}`}
+                        name= {`${p.brand} ${p.name}`}
+                        description= {p.type}
                         price= {p.price}
                     />                
             ))

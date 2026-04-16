@@ -24,6 +24,8 @@ export default function AdminDash() {
     const [formIsOpen, setFormOpen] = useState(false)
     const [stockValue, setStockValue] = useState(1)
     const [prodName, setName] = useState('')
+    const [customName, setCustomName] = useState('')
+
     const [customBrand, setCustomBrand] = useState('')
     const [customType, setCustomType] = useState('')
     const [prodType, setType] = useState('')
@@ -35,8 +37,10 @@ export default function AdminDash() {
     const [types, setTypes] = useState([])
     const [brands, setBrands] = useState([])
 
+    const customNameRef = useRef(null)
     const customBrandRef = useRef(null)
     const customTypeRef = useRef(null)
+    const fileInputRef = useRef(null)
 
     const [saleOpen, setSaleOpen] = useState(false)
     const [addNewOpen, setNewOpen] = useState(false)
@@ -141,13 +145,14 @@ export default function AdminDash() {
     }
     const handleAdd = async(e)=> {
         e.preventDefault()
+        const finalName = prodName==='other' ? customName: prodName     
         const finalBrand = prodBrand==='other' ? customBrand: prodBrand
         const finalType = prodType==='other' ? customType: prodType
     
         setLoading(true)  
         const formData = new FormData()
 
-        formData.append('name', prodName.trim().toLowerCase())
+        formData.append('name', finalName.trim().toLowerCase())
         formData.append('type', finalType.trim().toLowerCase())
         formData.append('brand', finalBrand.trim().toLowerCase())
         formData.append('price', Number(prodPrice))
@@ -166,6 +171,11 @@ export default function AdminDash() {
             setBrand('')
             setPrice('')
             setStockValue(1)
+            
+            //clear input for images
+            if(fileInputRef.current) {
+                fileInputRef.current.value = ''
+            }
 
             setMessage({type:'success', text: data.message})
             
@@ -280,6 +290,10 @@ export default function AdminDash() {
         loadProducts()
         loadSales()
     }, [])
+
+    useEffect(() => {
+        customNameRef.current?.focus()
+    }, [prodName])
 
     useEffect(() => {
         customBrandRef.current?.focus()
@@ -413,12 +427,16 @@ export default function AdminDash() {
                                 setSalePrice = {setSalePrice}
                                 stockValue = {stockValue}
                                 setStockValue = {setStockValue} 
+                                customName= {customName} 
+                                setCustomName={setCustomName}  
+                                customNameRef={customNameRef} 
                                 customType = {customType}
                                 customTypeRef = {customTypeRef}
                                 setCustomType = {setCustomType}
                                 customBrand = {customBrand}
                                 customBrandRef = {customBrandRef}
                                 setCustomBrand = {setCustomBrand}
+                                fileInputRef={fileInputRef}
                             />
                         </div>
                     }

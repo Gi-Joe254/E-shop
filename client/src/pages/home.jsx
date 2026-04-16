@@ -17,7 +17,7 @@ import repairsImg from "../assets/images/services/repairs-image.jpg"
 import lightImg2 from "../assets/images/products/lights-image.jpg"
 import tvImg from "../assets/images/products/tv-image.avif"
 import wireImg from "../assets/images/products/wires-image.jpg"
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Home() {
     const [service, setService] = useState({type: '', description:''})
@@ -68,10 +68,6 @@ export default function Home() {
         }
        
     }   
-
-    const toProducts = ()=> {
-        navigate('/products')
-    }
 
     return(
         <>
@@ -166,7 +162,7 @@ export default function Home() {
                         description='Essential and professional grade electrical wires'
                         price='From Ksh.50'
                     />
-                    <button onClick={toProducts} className="moreProdBtn">View More...</button>
+                    <Link to={'/products'} className="moreProdBtn"><p>View More...</p></Link>
                 </div>
             </section>
 
