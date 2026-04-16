@@ -166,7 +166,7 @@ export default function Home() {
                         description='Essential and professional grade electrical wires'
                         price='From Ksh.50'
                     />
-                    <button onClick={toProducts}>View More...</button>
+                    <button onClick={toProducts} className="moreProdBtn">View More...</button>
                 </div>
             </section>
 

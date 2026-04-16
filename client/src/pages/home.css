@@ -39,6 +39,16 @@ section > p {
   justify-content: center;
 }
 
+.moreProdBtn {
+  padding-top: var(--space-lg);
+  outline: none;
+}
+
+.moreProdBtn:hover {
+  color: var(--button-hover);
+  outline: none;
+}
+
 .reviewCards {
   display: flex;
   gap: var(--space-lg);

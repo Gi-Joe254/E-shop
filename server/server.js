@@ -28,6 +28,8 @@ app.use(json())
 const isProd = process.env.NODE_ENV === "production"
 
 console.log('NODE_ENV:', process.env.NODE_ENV, 'isProd:', isProd);
+app.use('/uploads', express.static('uploads'))
+
 app.use(session({
     secret: process.env.SESSION_SECRET || 'my secret',
     resave: false,

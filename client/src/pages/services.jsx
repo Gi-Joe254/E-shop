@@ -1,9 +1,9 @@
-import Nav from "../components/nav";
+import NavLinks from "../components/navLinks";
 
 export default function Services() {
     return(
         <>
-            <Nav />
+            <NavLinks />
             <div>Services Page</div>
         </>
     )

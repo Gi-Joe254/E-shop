@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { application } from 'express'
 import { customerReq } from '../controllers/customerReq.js'
 import { adminLogin } from '../controllers/adminLogin.js'
 import { adminDash, adminDelJob, adminMe, completeJob } from '../controllers/adminDash.js'
@@ -12,7 +12,9 @@ import multer from 'multer'
 export const apiRouter = express.Router()
 
 const upload = multer({dest: 'uploads/'})
+
 //public api routes
+
 apiRouter.get('/health', (req, res)=> {
     res.json({status: 'ok'})
 })

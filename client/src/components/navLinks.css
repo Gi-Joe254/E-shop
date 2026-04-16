@@ -1,10 +1,40 @@
+.pageNav {
+    display: flex;
+    position: fixed;
+    top: 0;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+    z-index: 100;
+    box-shadow: 0 2px 5px var(--muted);
+    padding: 1rem 2rem;
+    background-color: var(--bg);
+
+}
 .navLinks {
     display: flex;
-    flex-direction: column;
+    gap: var(--space-md);
+    font-size: 0.9rem;
+}
+a {
+    text-decoration: none;
+    color: var(--muted-text);
+}
+a:hover {
+    color: var(--button-bg);
+}
+
+.active {
+    color: var(--button-hover);
+}
+
+.logo {
+    flex: 1;
+    font-weight: 5800;
+  font-size: 1.35rem;
+  letter-spacing: 0.8px;
 }
 
 @media (min-width: 760px) {
-    .navLinks {
-        flex-direction: row;
-    }
+    
 }
