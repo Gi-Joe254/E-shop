@@ -11,7 +11,7 @@ app.use(cors({
   origin: (origin, callback) => {
     if (
       !origin ||
-      origin.includes("https://trixx-solutions.vercel.app/") ||
+      origin.includes("vercel.app") ||
       origin.includes("localhost")
     ) {
       callback(null, true)
