@@ -37,7 +37,7 @@ export default function Products() {
                         imgAlt= {`${p.name} image`}
                         name= {`${p.brand} ${p.name}`}
                         description= {p.type}
-                        price= {p.price}
+                        price= {`Ksh${p.price}.00`}
                     />                
             ))
             }

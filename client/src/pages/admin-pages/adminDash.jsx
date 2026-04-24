@@ -4,7 +4,7 @@ import JobCard from "./components/jobCard.jsx"
 import { completeJob, deleteJob, fetchAdmin, fetchJobs, logout } from "./services/jobsServices.js"
 import "./adminDash.css"
 import Hamburger from "hamburger-react"
-import { FaBolt, FaCheck, FaTimes } from "react-icons/fa"
+import { FaBolt, FaCheck, FaPlus, FaTimes } from "react-icons/fa"
 import { addProduct, getProducts, getSales, sellProduct } from "./services/productServices.js"
 import ProdTable from "./components/prodTable.jsx"
 import SalesTable from "./components/salesTable.jsx"
@@ -390,7 +390,7 @@ export default function AdminDash() {
                             }} 
                             onClick={openForm} className="newPrdtBtn"
                         >
-                            {formIsOpen? 'Close' : 'Add New Product'}
+                            {formIsOpen? 'Close' : 'Add' }
                         </button>
 
                         {products.length > 0 &&
@@ -400,7 +400,7 @@ export default function AdminDash() {
                                 }} 
                                 onClick={openForm} className="sellBtn"
                             >
-                                {formIsOpen? 'Close' : 'Sell Product'}
+                                {formIsOpen? 'Close' : 'Sell'}
                             </button>
                         }
                     </div>

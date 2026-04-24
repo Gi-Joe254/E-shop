@@ -9,12 +9,12 @@ export default function NavLinks() {
 
             <div className="navLinks">
                 <NavLink to="/">Back to Home</NavLink>
-                <NavLink 
+                {/*<NavLink 
                     to="/services" 
                     className={({isActive})=> isActive? 'active': ''}
                 >
                     Services
-                </NavLink>
+                </NavLink>*/}
 
                 <NavLink 
                     to="/products"

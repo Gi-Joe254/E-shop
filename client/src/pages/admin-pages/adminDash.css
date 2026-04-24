@@ -183,9 +183,10 @@
     font-size: clamp(0.5rem, 2vw, 0.6rem);
     background-color: var(--button-bg);
     height: 2.5rem;
-    max-width: 150px;
+    max-width: fit-content;
     display: block;
     margin: 0 0 2rem;
+    text-align: center;
 }
 
 .newPrdtBtn:hover, .sellBtn:hover {
@@ -194,9 +195,12 @@
 
 .productActions {
   display: flex;
-  gap: var(--space-md);
+  flex-direction: column;
+  gap: var(--space-sm);
   border: 1px solid var(--border);
   padding: var(--space-sm);
+  align-items: center;
+
 }
 
 /*hide ghost filter form*/
@@ -264,6 +268,16 @@
 .totals {
   padding: 0 50px;
   color: var(--muted-text);
+}
+
+@media (min-width: 769px) {
+  .filterFormSales {
+    border: 1px solid var(--border);
+    margin: var(--space-md);
+    padding: 1.75rem;
+    align-items: center;
+    gap: 10px;
+  }
 }
 
 
