@@ -11,7 +11,7 @@ app.use(cors({
   origin: (origin, callback) => {
     if (
       !origin ||
-      origin.includes("vercel.app") ||
+      origin.includes("https://trixx-solutions.vercel.app/") ||
       origin.includes("localhost")
     ) {
       callback(null, true)
@@ -30,11 +30,13 @@ const isProd = process.env.NODE_ENV === "production"
 console.log('NODE_ENV:', process.env.NODE_ENV, 'isProd:', isProd);
 app.use('/uploads', express.static('uploads'))
 
+app.set('trust proxy', 1)
+
 app.use(session({
     secret: process.env.SESSION_SECRET || 'my secret',
     resave: false,
     saveUninitialized: false,
-    //proxy: true,
+    proxy: true,
     cookie: {
         maxAge: 60 * 60 * 1000,
         httpOnly: true,
@@ -43,7 +45,6 @@ app.use(session({
     }  
 }))
 
-//app.set('trust proxy', 1)
 
 app.use('/api', apiRouter)
 
