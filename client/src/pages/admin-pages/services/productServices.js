@@ -24,7 +24,7 @@ export const addProduct = async(formData)=> {
 }
 
 export const sellProduct = async({name, type, brand, price, salePrice, stock})=> {
-    
+    console.log('name:', name, type, brand, price, salePrice, stock)
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/sale`,
         {
             method: 'POST',
@@ -35,6 +35,8 @@ export const sellProduct = async({name, type, brand, price, salePrice, stock})=>
     )
 
     const data = await res.json()
+        console.log(name, type, brand, price, salePrice, stock)
+
     if(!res.ok) throw new Error(data.message || 'Request Failed')
     return data
 }

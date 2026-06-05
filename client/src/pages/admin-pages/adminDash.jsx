@@ -13,6 +13,7 @@ import ProductForm from "./components/productForm.jsx"
 export default function AdminDash() {
     const [jobs, setJobs] = useState([])
     const [products, setProducts] = useState([])
+    const [allProducts, setAllProducts] = useState([])
     const [sales, setSales] = useState([])
     const [adminName, setAdminName] = useState('')
     const [message, setMessage] = useState(null)
@@ -22,7 +23,7 @@ export default function AdminDash() {
     const [isOpen, setOpen] = useState(false)
     const [activeTab, setActive] = useState('jobs')
     const [formIsOpen, setFormOpen] = useState(false)
-    const [stockValue, setStockValue] = useState(1)
+    const [stockValue, setStockValue] = useState(0)
     const [prodName, setName] = useState('')
     const [customName, setCustomName] = useState('')
 
@@ -43,7 +44,8 @@ export default function AdminDash() {
     const fileInputRef = useRef(null)
 
     const [saleOpen, setSaleOpen] = useState(false)
-    const [addNewOpen, setNewOpen] = useState(false)
+    const [addOpen, setAddOpen] = useState(false)
+    const [newOpen, setNewOpen ] = useState(false)
 
     const [searchName, setSearchName] = useState('')
     const [searchType, setSearchType] = useState('')
@@ -122,6 +124,7 @@ export default function AdminDash() {
         try {
             const data = await getProducts()
             setProducts(data)
+            setAllProducts(data)
             setNames([...new Set(data.map(i => i.name))])
             setTypes([...new Set(data.map(i => i.type))])
             setBrands([...new Set(data.map(i => i.brand))])
@@ -133,16 +136,65 @@ export default function AdminDash() {
         }
         
     }
-    const openForm = (e)=> {
-        e.target.style = {display:'none'}
-        if(e.target.className === 'sellBtn') {
-            setSaleOpen(prev => !prev)
-            setFormOpen(prev => !prev)
-            return
-        }
-        setNewOpen(prev => !prev)
-        setFormOpen(prev => !prev)
+
+    const [autoName, setAutoName] = useState('')
+    const [autoType, setAutoType] = useState('')
+    const [autoBrand, setAutoBrand] = useState('')
+    const [autoPrice, setAutoPrice] = useState(0)
+    const [autoStock, setAutoStock] = useState(0)
+
+    const openSellForm = (item)=> {
+        setAutoName(item.name)
+        setAutoBrand(item.brand)
+        setAutoType(item.type)
+        setAutoPrice(item.price)
+        setAutoStock(item.stock)
+
+        setSaleOpen(true)
+        setAddOpen(false)
+        setNewOpen(false)
+        setFormOpen(true)
     }
+
+    const openAddForm = (item)=> {
+        setAutoName(item.name)
+        setAutoBrand(item.brand)
+        setAutoType(item.type)
+        setAutoPrice(item.price)
+        setAutoStock(item.stock)
+
+        setSaleOpen(false)
+        setAddOpen(true)
+        setNewOpen(false)
+        setFormOpen(true)
+    }
+
+    const openNewForm = ()=> {
+        setAutoName('')
+        setAutoBrand('')
+        setAutoType('')
+        setAutoPrice('')
+        setAutoStock('')
+
+        setSaleOpen(false)
+        setAddOpen(false)
+        setNewOpen(true)
+        setFormOpen(true)
+    }
+
+    const closeForm = ()=> {
+        setFormOpen(false)
+        setSaleOpen(false)
+        setAddOpen(false)
+        setNewOpen(false)
+
+        setAutoName('')
+        setAutoBrand('')
+        setAutoType('')
+        setAutoPrice(0)
+        setAutoStock(0)
+    }
+
     const handleAdd = async(e)=> {
         e.preventDefault()
         const finalName = prodName==='other' ? customName: prodName     
@@ -171,6 +223,12 @@ export default function AdminDash() {
             setBrand('')
             setPrice('')
             setStockValue(1)
+
+            setAutoBrand('')
+            setAutoName('')
+            setAutoPrice(0)
+            setAutoStock(0)
+            setAutoType('')
             
             //clear input for images
             if(fileInputRef.current) {
@@ -195,13 +253,15 @@ export default function AdminDash() {
         setLoading(true)
         try {
             const data = await sellProduct({
-                name: prodName.trim().toLowerCase(),
-                type: prodType.trim().toLowerCase(),
-                brand: prodBrand.trim().toLowerCase(),
-                price : Number(prodPrice),
+                name: prodName.trim().toLowerCase() || autoName,
+                type: prodType.trim().toLowerCase() || autoType,
+                brand: prodBrand.trim().toLowerCase() || autoBrand,
+                price : Number(prodPrice) || autoPrice,
                 salePrice: Number(salePrice),
                 stock: Number(stockValue)
             })
+
+            console.log(data)
             setName('')
             setType('')
             setBrand('')
@@ -239,26 +299,18 @@ export default function AdminDash() {
 
     const applyFilters = (e)=> {
         e.preventDefault()
-        let filteredData
 
-        if(!searchName && !searchType) {
-            setSearchName('')
-            setSearchType('')
-            loadProducts()
-            return
-        }
+        const filteredData = allProducts.filter((i)=> {
+            const matchName = !searchName ||
+                i.name.toLowerCase().includes(searchName.toLowerCase())
+console.log(matchName)
+            const matchType = !searchType ||
+                i.type.toLowerCase().includes(searchType.toLowerCase())
 
-        if(!searchName || !searchType) {
-            filteredData = products.filter((i)=> i.name === searchName || i.type === searchType)
-            setProducts(filteredData)
-            return
-        } 
-        
-        filteredData = products.filter((i)=> i.name === searchName && i.type === searchType
-        )
+            return matchName && matchType
+        })
         
         setProducts(filteredData)
-
     }
 
     const clearFilters = ()=> {
@@ -385,24 +437,13 @@ export default function AdminDash() {
                     }
 
                         <button 
-                            style={{
-                                display: saleOpen? 'none' :'block'
-                            }} 
-                            onClick={openForm} className="newPrdtBtn"
+                            onClick={openNewForm} className="newPrdtBtn"
+                            style={{display: formIsOpen? 'none': 'block'}}
                         >
-                            {formIsOpen? 'Close' : 'Add' }
+                            New Product
                         </button>
 
-                        {products.length > 0 &&
-                            <button 
-                                style={{
-                                    display: addNewOpen? 'none' :'block'
-                                }} 
-                                onClick={openForm} className="sellBtn"
-                            >
-                                {formIsOpen? 'Close' : 'Sell'}
-                            </button>
-                        }
+
                     </div>
 
                     {formIsOpen && 
@@ -411,7 +452,8 @@ export default function AdminDash() {
                                 saleOpen = {saleOpen }
                                 handleSell = {handleSell}
                                 handleAdd = {handleAdd}
-                                addNewOpen = {addNewOpen}
+                                addOpen = {addOpen}
+                                newOpen={newOpen}
                                 prodName = {prodName}
                                 setName = {setName}
                                 names = {names}
@@ -437,6 +479,14 @@ export default function AdminDash() {
                                 customBrandRef = {customBrandRef}
                                 setCustomBrand = {setCustomBrand}
                                 fileInputRef={fileInputRef}
+                                formIsOpen={formIsOpen}
+                                autoName={autoName}
+                                autoBrand={autoBrand}
+                                autoType={autoType}
+                                autoPrice={autoPrice}
+                                autoStock={autoStock}
+                                closeForm={closeForm}
+                                loading={loading}
                             />
                         </div>
                     }
@@ -444,6 +494,9 @@ export default function AdminDash() {
                     {products.length > 0 && 
                         <ProdTable
                             products = {products}
+                            openSellForm={openSellForm}
+                            openAddForm={openAddForm}
+                            loading={loading}
                         />
                     }
                     

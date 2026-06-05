@@ -1,6 +1,6 @@
 import "./prodTable.css"
 
-export default function ProdTable({products}) {
+export default function ProdTable({products, openSellForm, openAddForm, formIsOpen}) {
     return(
         <div className="prodCont">
             <table className="prodTable">
@@ -17,12 +17,25 @@ export default function ProdTable({products}) {
                 <tbody>
                     {products.map((item) => (
                         <tr key={item.id}>
-                            <td>{item.name}</td>
-                            <td>{item.type}</td>
+                            <td id="name">{item.name}</td>
+                            <td>{item.type}</td>  
                             <td>{item.brand}</td>
                             <td>{item.price}</td>
                             <td>{item.stock}</td>
                             <td>{new Date(item.created_at).toLocaleString()}</td>
+                            <td>
+                                <button 
+                                    className="AddBtn" onClick={()=>{openAddForm(item)}}
+                                >
+                                    Add
+                                </button>
+
+                                <button
+                                    onClick={()=>{openSellForm(item)}} className="sellBtn"
+                                >
+                                    {formIsOpen ? 'Close' : 'Sell'}
+                                </button>
+                            </td>
                         </tr>     
                     ))}
                 </tbody>

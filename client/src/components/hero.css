@@ -36,7 +36,7 @@
 }
 .callBtn, .quoteBtn {
     height: 40px;
-    text-transform: uppercase;
+    
 }
 .quoteBtn {
     background-color: var(--primary-text);
@@ -46,16 +46,13 @@
     background-color: var(--button-bg);
 }
 .callBtn > a {
-    color: var(--text);
+    color: var(--muted-text);
+}
+.callBtn > a:hover {
+    color: var(--muted-text);
 }
 .callBtn > svg {
     color: var(--text);
-}
-.callBtn:hover {
-    background-color: var(--button-hover);
-}
-.quoteBtn:hover {
-  border: 1px solid var(--button-hover);
 }
 
 .hero > p {

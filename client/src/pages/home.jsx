@@ -18,6 +18,100 @@ import lightImg2 from "../assets/images/products/lights-image.jpg"
 import tvImg from "../assets/images/products/tv-image.avif"
 import wireImg from "../assets/images/products/wires-image.jpg"
 import { Link, useNavigate } from "react-router-dom";
+import { motion } from 'framer-motion'
+
+const sectionVars = {
+    hidden: {
+        opacity: 0
+    },
+    visible: {
+        opacity: 1,
+        transition: {
+            duration: 0.7,
+            staggerChildren: 0.2
+        }
+    }
+}
+
+const headerVars = {
+    hidden: {
+        opacity: 0,
+        y: -15
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.5,
+            ease: "easeOut"
+        }
+    }
+}
+
+const textVars = {
+    hidden: {
+        opacity: 0,
+        y: 10
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.5,
+            ease: "easeOut"
+        }
+    }
+}
+
+const buttonVars = {
+    hidden: {
+        opacity: 0,
+        y: 10
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.4,
+            ease: "easeOut"
+        }
+    },
+    whileHover: {
+        y: -4,
+        scale: 1.02,
+        transition: {
+            duration: 0.25
+        }
+    }
+}
+
+const cardVars = {
+    hidden: {
+        opacity: 0,
+        y: 20
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.6,
+            ease: "easeOut"
+        }
+    }
+}
+
+const reviewVars = {
+    
+    visible: {
+        x: [0, -150, 0 ],
+        transition: {
+            duration: 1,
+            repeat: 2,
+            repeatDelay: 2,
+            ease: 'easeOut'
+        }
+    }
+}
 
 export default function Home() {
     const [service, setService] = useState({type: '', description:''})
@@ -83,150 +177,332 @@ export default function Home() {
                 contRef={cont}
             />
             
-            <section 
+            <motion.section 
                 className="services"
                 ref={serv}
+                variants={sectionVars}
+                initial='hidden'
+                whileInView='visible'
+                viewport={{once: true, amount: 0.15}}
             >
-                <h1>Our Services</h1>
-                <p>Professional electrical solutions for residential and commercial properties</p>
-                <div className="serviceCards">
-                    <Service
-                        
-                        imgSrc= {repairsImg}
-                        imgAlt= 'repairs image'
-                        name= 'Electrical Repairs'
-                        description= 'Quick and reliable fixes for all elctrical issues in your home or business.'
-                    />
-                    <Service 
-                        imgSrc= {panelImg}
-                        imgAlt= 'upgrades image'
-                        name= 'Panel Upgrades'
-                        description= 'Modern electrical panel installations to handle your power needs.'
-                    />
-                    <Service
-                        imgSrc= {lightsImg}
-                        imgAlt= 'lighting image'
-                        name= 'Lighting Solutions'
-                        description= 'Interior and exterior lighting solutions for enhanced ambiance and security'
-                    />
-                    <Service 
-                        imgSrc= {gadgetImg}
-                        imgAlt= 'gadget image'
-                        name= 'Gadget Repairs'
-                        description= 'Fast and reliable repairs for your phone, TV, and laptop'
-                    />
-                    <Service 
-                        imgSrc= {soundImg}
-                        imgAlt= 'sound image'
-                        name= 'Car Sound Installation'
-                        description= 'Professional car sound system installation to upgrade your ride with good music'
-                    />
-                    <Service 
-                        imgSrc= {emergencyImg}
-                        imgAlt= 'emergency image'
-                        name= '24/7 Emergency Service'
-                        description= 'Round-the-clock availability for urgent electrial issues'
-                    />
-                </div>
-            </section>
+                <motion.h1 
+                    variants={headerVars}
+                >
+                    Our Services
+                </motion.h1>
 
-            <section className="products" ref={prod}>
-                <h1>Featured Products</h1>
-                <p>High-quality electrical products for all your needs</p>
-                <div className="productCards">
-                    <Product
-                        imgSrc= {lightImg2}
-                        imgAlt='bulbs image'
-                        name='LED Light Bulbs'
-                        description='Energy-efficient LED bulbs'
-                        price='From Ksh.100'
-                    />
-                    <Product
-                        imgSrc= {soundImg}
-                        imgAlt='sound image'
-                        name='Sound Sytems'
-                        description='Premium and high-quality sound systems'
-                        price='From Ksh.10,000'
-                    />
-                    <Product
-                        imgSrc= {tvImg}
-                        imgAlt='TV image'
-                        name='Pre-owned TVs'
-                        description='Refurbished Television sets'
-                        price='From Ksh.5000'
-                    />
-                    <Product
-                        imgSrc= {wireImg}
-                        imgAlt='wire image'
-                        name='Electrical wires'
-                        description='Essential and professional grade electrical wires'
-                        price='From Ksh.50'
-                    />
-                    <Link to={'/products'} className="moreProdBtn"><p>View More...</p></Link>
-                </div>
-            </section>
+                <motion.p 
+                    variants={textVars}
+                >
+                    Professional electrical solutions for residential and commercial properties
+                </motion.p>
 
-            <section className="reviews" ref={rev}>
-                <h1>What Our Customers Say</h1>
-                <p>Don't just take our word for it - see what our satisfied customers have to say</p>
-                <div className="reviewCards">
-                    <Review
-                        name="Mary Wanjiku"
-                        location="Ruiru"
-                        message="Great experience from start to finish. The team arrived on time, explained everything clearly, and completed the job neatly. Very reliable and affordable service."
-                        rating="*****"
-                    />
+                <motion.div className="serviceCards">
 
-                    <Review
-                        name="Peter Mwangi"
-                        location="Thika"
-                        message="I was impressed by how fast they responded to my emergency call. The wiring issue was fixed quickly and safely. Definitely my go-to electricians."
-                        rating="****"
-                    />
+                    <motion.div
+                        variants={cardVars}
+                        viewport={{once:true, amount: 0.3}}
+                        initial='hidden'
+                        whileInView='visible'
+                    >
+                        <Service
+                            imgSrc={repairsImg}
+                            imgAlt='repairs image'
+                            name='Electrical Repairs'
+                            description='Quick and reliable fixes for all electrical issues in your home or business.'
+                        />
+                    </motion.div>
 
-                    <Review
-                        name="Grace Njeri"
-                        location="Kiambu Road"
-                        message="Professional and honest service. They helped upgrade our lighting and gave useful advice without pushing unnecessary costs. Highly recommended."
-                        rating="****"
-                    />
+                    <motion.div
+                        variants={cardVars}
+                        viewport={{once:true, amount: 0.3}}
+                        initial='hidden'
+                        whileInView='visible'
+                    >
+                        <Service 
+                            imgSrc={panelImg}
+                            imgAlt='upgrades image'
+                            name='Panel Upgrades'
+                            description='Modern electrical panel installations to handle your power needs.'
+                        />
+                    </motion.div>
 
-                    <Review
-                        name="Daniel Kariuki"
-                        location="Juja"
-                        message="Excellent workmanship and very friendly technicians. Everything was done efficiently and the place was left clean. I would use their services again."
-                        rating="*****"
-                    />
+                    <motion.div
+                        variants={cardVars}
+                        initial='hidden'
+                        whileInView='visible'
+                        viewport={{once:true, amount: 0.3}}
+                    >
+                        <Service
+                            imgSrc={lightsImg}
+                            imgAlt='lighting image'
+                            name='Lighting Solutions'
+                            description='Interior and exterior lighting solutions for enhanced ambiance and security'
+                        />
+                    </motion.div>
 
-                    <Review
-                        name="Lucy Achieng"
-                        location="Githurai"
-                        message="Very dependable service. They diagnosed the problem quickly and fixed it the same day. Good communication and fair pricing."
-                        rating="****"
-                    />
-                    <Review
-                        name='John Sabimana'
-                        location='Kiambu'
-                        message='Absolutely fantastic service! They came out the same day to fix our electrical issue. The technician was professional, knowledgeable, and very thorough. Highly recommend!'
-                        rating='****'
-                    />
-                    <Review
-                        name='Emily Anyango'
-                        location='Kiambu'
-                        message='Best electrician service in the area! Fair pricing, excellent communication, and top-notch work. They installed all new lighting in our office and it looks amazing.'
-                        rating='*****'
-                    />
-                    <Review
-                        name='Stephen Kamau'
-                        location='Kiambu'
-                        message='Very knowledgeable and professional. Highly recommend for energy-efficient upgrades'
-                        rating='*****'
-                    />
-                </div>
+                    <motion.div
+                        variants={cardVars}
+                        initial='hidden'
+                        whileInView='visible'
+                        viewport={{once:true, amount: 0.3}}
+                    >
+                        <Service 
+                            imgSrc={gadgetImg}
+                            imgAlt='gadget image'
+                            name='Gadget Repairs'
+                            description='Fast and reliable repairs for your phone, TV, and laptop'
+                        />
+                    </motion.div>
+
+                    <motion.div
+                        variants={cardVars}
+                        initial='hidden'
+                        whileInView='visible'
+                        viewport={{once:true, amount: 0.3}}
+                    >
+                        <Service 
+                            imgSrc={soundImg}
+                            imgAlt='sound image'
+                            name='Car Sound Installation'
+                            description='Professional car sound system installation to upgrade your ride with good music'
+                        />
+                    </motion.div>
+
+                    <motion.div
+                        variants={cardVars}
+                        initial='hidden'
+                        whileInView='visible'
+                        viewport={{once:true, amount: 0.3}}
+                    >
+                        <Service 
+                            imgSrc={emergencyImg}
+                            imgAlt='emergency image'
+                            name='24/7 Emergency Service'
+                            description='Round-the-clock availability for urgent electrical issues'
+                        />
+                    </motion.div>
+
+                </motion.div>
+            </motion.section>
+
+            <motion.section 
+                className="products" 
+                ref={prod}
+                
+                variants={sectionVars}
+                initial='hidden'
+                whileInView='visible'
+                viewport={{once: true, amount: 0.15}}
+            >
+
+                <motion.h1 
+                    variants={headerVars}
+                    initial='hidden'
+                    whileInView='visible'
+                    viewport={{once: true, amount: 0.1}}
+                >
+                    Featured Products
+                </motion.h1>
+
+                <motion.p 
+                    variants={textVars}
+                    initial='hidden'
+                    whileInView='visible'
+                    viewport={{once: true, amount: 0.1}}
+                >
+                    High-quality electrical products for all your needs
+                </motion.p>
+
+                <motion.div className="productCards">
+
+                    <motion.div
+                        variants={cardVars}
+                        initial='hidden'
+                        whileInView='visible'
+                        viewport={{once:true, amount: 0.3}}
+                    >
+                        <Product
+                            imgSrc={lightImg2}
+                            imgAlt='bulbs image'
+                            name='LED Light Bulbs'
+                            description='Energy-efficient LED bulbs'
+                            price='From Ksh.100'
+                        />
+                    </motion.div>
+
+                    <motion.div
+                        variants={cardVars}
+                        initial='hidden'
+                        whileInView='visible'
+                        viewport={{once:true, amount: 0.3}}
+                    >
+                        <Product
+                            imgSrc={soundImg}
+                            imgAlt='sound image'
+                            name='Sound Systems'
+                            description='Premium and high-quality sound systems'
+                            price='From Ksh.10,000'
+                        />
+                    </motion.div>
+
+                    <motion.div
+                        variants={cardVars}
+                        initial='hidden'
+                        whileInView='visible'
+                        viewport={{once:true, amount: 0.3}}
+                    >
+                        <Product
+                            imgSrc={tvImg}
+                            imgAlt='TV image'
+                            name='Pre-owned TVs'
+                            description='Refurbished Television sets'
+                            price='From Ksh.5000'
+                        />
+                    </motion.div>
+
+                    <motion.div
+                        variants={cardVars}
+                        initial='hidden'
+                        whileInView='visible'
+                        viewport={{once:true, amount: 0.3}}
+                    >
+                        <Product
+                            imgSrc={wireImg}
+                            imgAlt='wire image'
+                            name='Electrical Wires'
+                            description='Essential and professional grade electrical wires'
+                            price='From Ksh.50'
+                        />
+                    </motion.div>
+
+                    <motion.div
+                        variants={buttonVars}
+                        whileHover="whileHover"
+                    >
+                        <Link to={'/products'} className="moreProdBtn">
+                            <motion.p>
+                                View More...
+                            </motion.p>
+                        </Link>
+                    </motion.div>
+
+                </motion.div>
+
+            </motion.section>
+
+            <motion.section 
+                className="reviews" 
+                ref={rev} 
+                variants={sectionVars}
+                initial='hidden'
+                whileInView='visible'
+                viewport={{once: true, amount: 0.3}}
+            >
+                <motion.h1 variants={headerVars}>What Our Customers Say</motion.h1>
+                <motion.p variants={textVars}>Don't just take our word for it - see what our satisfied customers have to say</motion.p>
+                <motion.div className="reviewCards" variants={cardVars}>
+                    <motion.div
+                        variants={reviewVars}
+                        animate='visible'
+                    >
+                        <Review
+                            name="Mary Wanjiku"
+                            location="Ruiru"
+                            message="Great experience from start to finish. The team arrived on time, explained everything clearly, and completed the job neatly. Very reliable and affordable service."
+                            rating="*****"
+                        />
+                    </motion.div>
+                    
+                    <motion.div
+                        variants={reviewVars}
+                        animate='visible'
+                    >
+                        <Review
+                            name="Peter Mwangi"
+                            location="Thika"
+                            message="I was impressed by how fast they responded to my emergency call. The wiring issue was fixed quickly and safely. Definitely my go-to electricians."
+                            rating="****"
+                        />
+                    </motion.div>
+
+                    <motion.div
+                        variants={reviewVars}
+                        animate='visible'
+                    >
+                        <Review
+                            name="Grace Njeri"
+                            location="Kiambu Road"
+                            message="Professional and honest service. They helped upgrade our lighting and gave useful advice without pushing unnecessary costs. Highly recommended."
+                            rating="****"
+                        />
+                    </motion.div>
+
+                    <motion.div
+                        variants={reviewVars}
+                        animate='visible'
+                    >
+                        <Review
+                            name="Daniel Kariuki"
+                            location="Juja"
+                            message="Excellent workmanship and very friendly technicians. Everything was done efficiently and the place was left clean. I would use their services again."
+                            rating="*****"
+                        />
+                    </motion.div>
+                    
+                    <motion.div
+                        variants={reviewVars}
+                        animate='visible'
+                    >
+                        <Review
+                            name="Lucy Achieng"
+                            location="Githurai"
+                            message="Very dependable service. They diagnosed the problem quickly and fixed it the same day. Good communication and fair pricing."
+                            rating="****"
+                        />
+                    </motion.div>
+                    
+                    <motion.div
+                        variants={reviewVars}
+                        animate='visible'
+                    >
+                        <Review
+                            name='John Sabimana'
+                            location='Kiambu'
+                            message='Absolutely fantastic service! They came out the same day to fix our electrical issue. The technician was professional, knowledgeable, and very thorough. Highly recommend!'
+                            rating='****'
+                        />
+                    </motion.div>
+                    
+                    <motion.div
+                        variants={reviewVars}
+                        animate='visible'
+                    >
+                        <Review
+                            name='Emily Anyango'
+                            location='Kiambu'
+                            message='Best electrician service in the area! Fair pricing, excellent communication, and top-notch work. They installed all new lighting in our office and it looks amazing.'
+                            rating='*****'
+                        />
+                    </motion.div>
+                    
+                    <motion.div
+                        variants={reviewVars}
+                        animate='visible'
+                    >
+                        <Review
+                            name='Stephen Kamau'
+                            location='Kiambu'
+                            message='Very knowledgeable and professional. Highly recommend for energy-efficient upgrades'
+                            rating='*****'
+                        />
+                    </motion.div>
+                    
+                </motion.div>
             
-            </section>
+            </motion.section>
 
-            <section className="contactUs" ref={cont}>
+            <motion.section className="contactUs" ref={cont}>
                  <ContactUs 
                     handleSubmit={handleSubmit}
                     customer={customer}
@@ -235,7 +511,7 @@ export default function Home() {
                     setService={setService}
                 />
             {submitMessage && <div className={`toast ${submitMessage.type}`}>{submitMessage.text}</div>}
-            </section>
+            </motion.section>
 
             <section className='footer'>
                 <Footer 
