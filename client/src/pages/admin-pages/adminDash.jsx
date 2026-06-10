@@ -239,7 +239,7 @@ export default function AdminDash() {
             }
 
             setMessage({type:'success', text: data.message})
-            
+            closeForm()
             setTimeout(() => {
                 loadProducts()
             }, 1500);
@@ -275,6 +275,7 @@ export default function AdminDash() {
             
             setMessage({type: 'success', text: data.message })
             
+            closeForm()
             loadSales()
             setTimeout(() => {
                 loadProducts()
