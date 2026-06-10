@@ -170,6 +170,7 @@ export default function AdminDash() {
     }
 
     const openNewForm = ()=> {
+        setActive('products')
         setAutoName('')
         setAutoBrand('')
         setAutoType('')
