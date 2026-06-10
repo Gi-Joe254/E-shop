@@ -54,7 +54,7 @@ export default function ProductForm ({
     
     return(
         <>
-        <form className="prodForm" onSubmit={saleOpen && !addOpen && newOpen? handleSell:handleAdd}
+        <form className="prodForm" onSubmit={saleOpen ? handleSell:handleAdd}
             encType="multipart/form-data"
         >   
         <button 

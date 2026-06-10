@@ -198,17 +198,19 @@ export default function AdminDash() {
 
     const handleAdd = async(e)=> {
         e.preventDefault()
-        const finalName = prodName==='other' ? customName: prodName     
-        const finalBrand = prodBrand==='other' ? customBrand: prodBrand
-        const finalType = prodType==='other' ? customType: prodType
-    
+        
+        const finalName = prodName==='other' ? customName: (prodName || autoName)    
+        const finalBrand = prodBrand==='other' ? customBrand: (prodBrand || autoBrand)
+        const finalType = prodType==='other' ? customType: (prodType || autoType)
+        const finalPrice = Number(prodPrice || autoPrice)
+
         setLoading(true)  
         const formData = new FormData()
 
         formData.append('name', finalName.trim().toLowerCase())
         formData.append('type', finalType.trim().toLowerCase())
         formData.append('brand', finalBrand.trim().toLowerCase())
-        formData.append('price', Number(prodPrice))
+        formData.append('price', finalPrice)
         formData.append('stock', Number(stockValue))
 
         const fileInput = document.querySelector('#uploadImg')
@@ -241,7 +243,6 @@ export default function AdminDash() {
             setTimeout(() => {
                 loadProducts()
             }, 1500);
-            
         } catch (error) {
             setMessage({type:'error', text:error.message})
         } finally {
@@ -262,12 +263,15 @@ export default function AdminDash() {
                 stock: Number(stockValue)
             })
 
-            console.log(data)
             setName('')
             setType('')
             setBrand('')
-            setPrice('')
-            setStockValue(1)
+            setPrice(0)
+            setAutoName('')
+            setAutoType('')
+            setAutoBrand('')
+            setAutoPrice(0)
+            setStockValue(0)
             
             setMessage({type: 'success', text: data.message })
             
@@ -304,7 +308,6 @@ export default function AdminDash() {
         const filteredData = allProducts.filter((i)=> {
             const matchName = !searchName ||
                 i.name.toLowerCase().includes(searchName.toLowerCase())
-console.log(matchName)
             const matchType = !searchType ||
                 i.type.toLowerCase().includes(searchType.toLowerCase())
 
@@ -371,7 +374,7 @@ console.log(matchName)
             <aside className="sideBar">
                 <div className="brand">
                     <FaBolt />
-                    <h1 className="logo"> Trixx Solutions</h1>
+                    <h1 className="adminLogo"> Trixx Solutions</h1>
                 </div>
 
                 <div 
