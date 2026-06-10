@@ -12,6 +12,7 @@ export default function ProdTable({products, openSellForm, openAddForm, formIsOp
                         <th>Price</th>
                         <th>Stock</th>
                         <th>Date created</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,13 +26,15 @@ export default function ProdTable({products, openSellForm, openAddForm, formIsOp
                             <td>{new Date(item.created_at).toLocaleString()}</td>
                             <td>
                                 <button 
-                                    className="AddBtn" onClick={()=>{openAddForm(item)}}
+                                    className="addBtn" 
+                                    onClick={()=>{openAddForm(item)}}
                                 >
                                     Add
                                 </button>
 
                                 <button
-                                    onClick={()=>{openSellForm(item)}} className="sellBtn"
+                                    onClick={()=>{openSellForm(item)}} 
+                                    className="sellBtn"
                                 >
                                     {formIsOpen ? 'Close' : 'Sell'}
                                 </button>

@@ -22,7 +22,7 @@ export default function SalesTable ({sales}) {
                             <td>{sale.product}</td>
                             <td>{sale.quantity}</td>
                             <td>{sale.sale_price}</td>
-                            <td>{sale.total}</td>
+                            <td className="totalCell">{sale.total}</td>
                             <td>{sale.type}</td>
                             <td>{sale.brand}</td>
                         </tr>

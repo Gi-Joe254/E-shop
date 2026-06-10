@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { FaMinus, FaPlus } from "react-icons/fa"
+import './productForm.css'
 
 export default function ProductForm ({
     saleOpen, 
@@ -56,7 +57,12 @@ export default function ProductForm ({
         <form className="prodForm" onSubmit={saleOpen && !addOpen && newOpen? handleSell:handleAdd}
             encType="multipart/form-data"
         >   
-        <button onClick={closeForm}>X</button> 
+        <button 
+            onClick={closeForm}
+            type="button"
+        >
+            X
+        </button> 
         <select 
             name="name" 
             id="name"

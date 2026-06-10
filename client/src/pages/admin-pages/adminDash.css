@@ -1,283 +1,348 @@
-/* PAGE WRAPPER */
-.adminDash {
-  min-height: 100vh;
-  background-color: var(--secondary);
-  display: flex;
-  flex-direction: column;
+/* ==========================
+   APP SHELL
+========================== */
+
+.adminDash{
+    min-height:100vh;
+    display:grid;
+    grid-template-columns:60px 1fr;
+    background:#f5f7fb;
+    overflow:hidden;
 }
 
-.adminDash nav {
-    display: flex;
-    justify-content: space-between;
+/* ==========================
+   SIDEBAR
+========================== */
+
+.sideBar{
+    background:#fff;
+    border-right:1px solid #e8edf5;
+
+    padding:1rem .5rem;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:.5rem;
+
+    overflow:hidden;
+    height: 1400px;
+}
+
+.brand{
+    width:100%;
+    text-align:center;
+    margin-bottom:1rem;
+}
+
+.logo,
+.brand span,
+.sideBar > div span{
+    display:none;
+}
+
+.brand svg{
+    font-size:1.5rem;
+    color: darkgoldenrod;
+}
+
+.sideBar > div:not(.brand){
+    width:48px;
+    height:48px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:#64748b;
+
+    transition:.25s ease;
+}
+
+.sideBar > div:not(.brand):hover{
+    background:#f1f5f9;
+}
+
+.sideBar .active{
+    background:#eef4ff;
+    color:#2563eb;
+}
+
+.sideBar > div:last-child{
+    margin-top:auto;
+}
+
+/* ==========================
+   MAIN
+========================== */
+
+main{
+    overflow:auto;
+    padding:.75rem;
+}
+
+.dashCard{
+    background:#fff;
+    min-height:100%;
+
+    border-radius:18px;
+
+    padding:1rem;
+
+    display:flex;
+    flex-direction:column;
+    gap:1rem;
+
+    box-shadow:
+        0 2px 10px rgba(0,0,0,.03);
+}
+
+/* ==========================
+   TYPOGRAPHY
+========================== */
+
+.adminActions h1{
+    margin:0;
+    font-size:clamp(1rem,4vw,2rem);
+}
+
+.adminActions p{
+    margin-top:.35rem;
+    font-size:clamp(.75rem,2vw,.95rem);
+    color:#94a3b8;
+}
+
+.label{
+    font-size:clamp(.65rem,2vw,.85rem);
+}
+
+.value{
+    font-size:clamp(.9rem,3vw,1.5rem);
+}
+
+/* ==========================
+   HEADER
+========================== */
+
+.dashboardHeader{
+    display:flex;
+    flex-direction:column;
+    gap:.75rem;
+}
+
+/* ==========================
+   STATS
+========================== */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:.75rem;
+}
+
+.statCard{
+    background:#f8fafc;
+    border:1px solid #edf2f7;
+    border-radius:12px;
+    padding:1rem;
+}
+
+/* ==========================
+   CONTENT
+========================== */
+
+.contentArea{
+    flex:1;
+
+    background:#fafbfd;
+
+    border:1px solid #eef2f7;
+
+    border-radius:18px;
+
+    padding:.75rem;
+
+    overflow:auto;
+}
+
+/* tables should scroll, not shrink */
+
+.contentArea table{
+    min-width:700px;
+}
+
+.contentArea{
+    overflow:auto;
+}
+
+/* ==========================
+   FORMS
+========================== */
+.filterFormSales,
+.filterFormProducts{
+    display:flex;
+    flex-wrap:nowrap;
+    gap:.75rem;
     align-items: center;
-    height: 60px;
-    width: 100%;
-    box-shadow: 0 2px 5px var(--muted);
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    background-color: var(--bg);
-    
+    overflow-x: auto;
+    height: 100px;
+    border-bottom: 1px solid var(--muted);
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
-.logo {
-    font-size: clamp(1rem, 3vw, 1rem);
-    display: flex;
-    align-items: center;
+.filterFormProducts, .filterFormSales div {
+    font-size: clamp(0.6rem, 2vw, 0.75rem);
 }
 
-.logo :nth-child(1) {
-    color: var(--button-bg);
-}
-.adminDash header {
-  font-size: 1.25rem;
-  font-weight: bold;
-  padding: 1rem 1.75rem;
-}
+.filterFormProducts input,
+.filterFormSales input{
+    min-width:140px;
+    flex:1 1 0;
 
-.adminDash p {
-  color: var(--muted-text);
-  margin-bottom: var(--space-md);
-}
-.adminDash h3 {
-  color: var(--text);
-  font-size: clamp(1rem, 3vw, 2rem);
-  text-align: center;
-  margin-bottom: var(--space-md);
-}
-.drop {
-    height: 0;
-    opacity: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none;
-    background-color: var(--primary-text);
-    
-    box-shadow: 0 2px 5px var(--muted);
-    transition: all 0.5s ease;
-}
-.drop.open{
-    height: 20vh;
-    opacity: 1;
-    pointer-events: auto;
-
-}
-
-.drop > p {
+    background: var(--input-bg);
     color: var(--text);
-}
-.drop > p:hover {
-    color: var(--button-bg);
-    text-decoration: underline;
-}
-.drop button {
-  background-color: var(--button-bg);
-  color: var(--primary-text);
-  padding: 6px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s ease;
-  width: 30%;
-}
-
-.drop button:hover {
-  background-color: var(--button-hover);
-  color: var(--primary-text);
-  border-color: var(--button-bg);
-}
-/* TOP ACTION BAR */
-.adminActions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-md);
-  gap: var(--space-sm);
-  flex-wrap: wrap;
-}
-
-/* STATUS / FEEDBACK MESSAGE */
-.toast {
-    position: fixed;
-    bottom: 1.25rem;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 80%;
-    padding: 0.75rem;
+    border: 1px solid var(--border);
     border-radius: var(--radius);
-    margin-bottom: var(--space-md);
+    padding: var(--space-xs);
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.6rem, 2vw, 0.75rem);
+}
+
+.filterFormProducts input::placeholder,
+.filterFormSales input::placeholder{
+    color: var(--muted-text);
+}
+
+/* button alignment */
+.filterFormSales button,
+.filterFormProducts button{
+    height: 30px;
+    margin: 0;
+    font-size: clamp(0.6rem, 2vw, 0.75rem);
+    background-color: var(--muted-text);
+    max-width: 100px;
+} 
+
+.filterFormSales button:hover,
+.filterFormProducts button:hover{
+    background-color: var(--text);
+} 
+
+
+.filterFormSales::-webkit-scrollbar{
+    display: none;
+}
+
+/* group containers behave inline too */
+.filterFormSales .inputs,
+.filterFormSales .dates,
+.filterFormSales .filterBtns{
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    flex-shrink: 0; /* prevents breaking layout */
+}
+
+/* labels */
+.filterFormSales label,
+.filterFormSales > div:first-child{
+    white-space: nowrap;
+    color: var(--text);
     font-size: 0.85rem;
 }
 
-.toast.success {
-  background-color: var(--success);
-  color: var(--succes-text);
+.prodFormContainer{
+    overflow-x:auto;
 }
 
-.toast.error {
-  background-color: var(--accent);
-  color: var(--danger);
+/* ==========================
+   TOTALS
+========================== */
+
+.totals{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:.75rem;
 }
 
-/* SECTION TITLE */
-.adminSectionTitle {
-  font-weight: bold;
-  margin-bottom: var(--space-sm);
+.totals > div{
+    background:#fff;
+    padding:1rem;
+    border-radius:14px;
+    border:1px solid #eef2f7;
 }
 
-/* EMPTY / LOADING STATES */
-.adminState {
-  color: var(--muted-text);
-  font-size: 0.9rem;
-  padding: var(--space-sm);
-}
+/* ==========================
+   DESKTOP
+========================== */
 
-.loadingText {
-  text-align: center;
-  color: var(--muted-text);
-}
+@media (min-width:900px){
 
-.tab_btns {
-  display: flex;
-  gap: 0;
-  justify-content: center;
-  margin: 0 0 5rem;
-}
-.tab_btns button{
-  background-color: var(--secondary);
-  outline: none;
-  font-size: 1.25rem;
-  border-radius: 0;
-  border-right: 2px solid var(--primary);
-}
-.tab_btns button.active {
-  background-color: var(--bg);
-  color: var(--muted-text);
-  border-color: var(--muted-text);
-}
+    .adminDash{
+        grid-template-columns:240px 1fr;
+    }
 
-.prodForm {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  gap: 10px;
-  align-items: center;
-  text-align: left;
-  border: 2px solid var(--success);
-  background-color: var(--primary-text);
-  width: 70%;
-  margin: 0 auto;
-}
+    .sideBar{
+        align-items:stretch;
+        padding:2rem 1rem;
+    }
 
+    .logo,
+    .brand span,
+    .sideBar > div span{
+        display:inline;
+    }
 
-.btn_cont input {
-  width: 50px;
-  
-}
-.submitBtn {
-  max-width: max-content;
+    .brand{
+        text-align:left;
+        margin-bottom:2rem;
+    }
 
-}
+    .brand svg{
+        font-size:2rem;
+    }
 
-.newPrdtBtn, .sellBtn {
-    font-size: clamp(0.5rem, 2vw, 0.6rem);
-    background-color: var(--button-bg);
-    height: 2.5rem;
-    max-width: fit-content;
-    display: block;
-    margin: 0 0 2rem;
-    text-align: center;
-}
+    .sideBar > div:not(.brand){
+        width:auto;
+        height:auto;
 
-.newPrdtBtn:hover, .sellBtn:hover {
-  background-color: var(--button-hover);
-}
+        justify-content:flex-start;
+        gap:.9rem;
 
-.productActions {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  border: 1px solid var(--border);
-  padding: var(--space-sm);
-  align-items: center;
+        padding:.9rem 1rem;
 
-}
+        font-size:.95rem;
+    }
 
-/*hide ghost filter form*/
-.filterForm {
-  display: none;
-}
-.filterFormProducts {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  font-size: clamp(0.5rem, 2vw, 0.75rem);
-  padding: 0.75rem;
-  justify-content: center;
-}
+    main{
+        padding:1.5rem;
+    }
 
-.filterFormProducts > input {
-  border: 1px solid var(--secondary-text);
-  min-width: 70px;
-  max-width: 150px;
-  font-size: 0.75rem;
-}
-.filterFormProducts > button, .filterFormSales >button {
-  font-size: 0.55rem;
-  max-width: 30px;
-  color: var(--muted-text);
-  height: 40px;
-  margin: auto 0;
-  text-align: center;
-  background-color: var(--muted);
-}
-.filterFormProducts > button:hover {
-  background-color: var(--muted);
-  color: var(--succes-text);
-}
+    .dashCard{
+        padding:2rem;
+        border-radius:28px;
+    }
 
-.filterFormSales {
-  border: 1px solid var(--border);
-  margin: var(--space-md);
-  padding: 0.75rem;
-  font-size: 0.75rem;
-  display: grid;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.inputs, .dates {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.inputs> input, .dates> input{
-  border: 1px solid var(--secondary-text);
-  min-width: 70px;
-  max-width: 150px;
-  font-size: 0.5rem;
-}
-.filterBtns> button {
-  background-color: var(--border);
-  margin: 5px;
-}
-.filterBtns> button:hover {
-  background-color: var(--muted-text);
-}
+    .dashboardHeader{
+        flex-direction:row;
+        justify-content:space-between;
+        align-items:center;
+    }
 
-.totals {
-  padding: 0 50px;
-  color: var(--muted-text);
+    .stats{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .totals{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .contentArea{
+        padding:1.5rem;
+    }
 }
-
-@media (min-width: 769px) {
-  .filterFormSales {
-    border: 1px solid var(--border);
-    margin: var(--space-md);
-    padding: 1.75rem;
-    align-items: center;
-    gap: 10px;
-  }
-}
-
-

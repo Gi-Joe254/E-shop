@@ -7,7 +7,7 @@
 .prodTable{
     border-collapse: collapse;
     table-layout: fixed;
-    background: var(--secondary);
+    background: var(--card);
     border-radius:8px;
     overflow:visible;
     box-shadow:0 4px 12px rgba(0,0,0,0.08);
@@ -20,32 +20,47 @@
     padding:14px 16px;
     font-size:14px;
     font-weight:600;
-    background: var(--success);
-    border-bottom:2px solid var(--button-bg);
-    white-space: nowrap
+    background: var(--secondary);
+    color: var(--secondary-text);
+    border-bottom:2px solid var(--border);
+    white-space: nowrap;
 }
 
 /* cells */
 .prodTable td{
     padding:12px 16px;
     font-size:14px;
-    border-bottom:1px solid #ececec;
+    border-bottom:1px solid var(--border);
     
-    color: var(--secondary-text);
+    color: var(--card-text);
     white-space:nowrap;
 }
 
-
 /* row hover */
 .prodTable tbody tr:hover{
-    background: var(--border);
+    background: var(--muted);
 }
 
 /* zebra rows */
 .prodTable tbody tr:nth-child(even){
-    background: var(--success);
+    background: var(--card);
 }
 
 .prodTable tbody tr:nth-child(even):hover{
-    background: var(--border);
+    background: var(--muted);
+}
+
+.addBtn {
+    background-color: var(--button-bg);
+    margin-right: 5px;
+}
+.sellBtn {
+    background-color: var(--success-text);
+}
+
+.addBtn:hover {
+    background-color: var(--button-hover);
+}
+.sellBtn:hover {
+    background-color: var(--success);
 }

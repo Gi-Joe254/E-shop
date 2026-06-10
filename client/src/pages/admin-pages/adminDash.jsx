@@ -4,7 +4,7 @@ import JobCard from "./components/jobCard.jsx"
 import { completeJob, deleteJob, fetchAdmin, fetchJobs, logout } from "./services/jobsServices.js"
 import "./adminDash.css"
 import Hamburger from "hamburger-react"
-import { FaBolt, FaCheck, FaPlus, FaTimes } from "react-icons/fa"
+import { FaArrowRight, FaBolt, FaBox, FaCheck, FaPlug, FaPlus, FaSignOutAlt, FaTimes, FaUserTag, FaWifi } from "react-icons/fa"
 import { addProduct, getProducts, getSales, sellProduct } from "./services/productServices.js"
 import ProdTable from "./components/prodTable.jsx"
 import SalesTable from "./components/salesTable.jsx"
@@ -367,210 +367,258 @@ console.log(matchName)
     return(
         <>
         <div className="adminDash">
-            <nav>
-                
-                <h1 className="logo"><FaBolt /> Trixx Solutions</h1>
-                <Hamburger 
-                    toggle={setOpen} 
-                    toggled={isOpen}
-                    size={20}
-                />
-            </nav>
-        
-            <div className={`drop ${isOpen ? "open" : ""}`}>
-                <p onClick={toSite}>Go to site</p>
-                <button onClick={handleLogout} >Logout</button>
-            </div>
-        
-            <header>
-                <div className="adminActions">
-                    <p>Hello, {adminName} (admin)</p>
+            <aside className="sideBar">
+                <div className="brand">
+                    <FaBolt />
+                    <h1 className="logo"> Trixx Solutions</h1>
                 </div>
-            </header>
 
-            <div className="tab_btns">
-                <button className={activeTab === 'jobs'? 'active': ''} onClick={()=>{setActive('jobs')}}>Jobs</button>
-                <button className={activeTab === 'products'? 'active': ''} onClick={()=>{setActive('products')}}>Products</button>
-                <button className={activeTab === 'sales'? 'active': ''} onClick={()=>{setActive('sales')}}>Sales</button>
-            </div>
+                <div 
+                    className={activeTab === 'jobs'? 'active': ''} 
+                    onClick={()=>{setActive('jobs')}}
+                >
+                    <FaPlug />
+                    <span>Jobs</span>
+                </div>
+
+                <div 
+                    className={activeTab === 'products'? 'active': ''} 
+                    onClick={()=>{setActive('products')}}
+                >   
+                    <FaBox />
+                    <span>Products</span>
+                </div>
+
+                <div 
+                    className={activeTab === 'sales'? 'active': ''} 
+                    onClick={()=>{setActive('sales')}}
+                >
+                    <FaUserTag />
+                    <span>Sales</span>
+                </div>
+
+                <div 
+                    onClick={openNewForm} 
+                    className="addNewBtn"
+                >
+                    <FaPlus />
+                    <span>New Product</span>
+                </div>
+
+                <div onClick={toSite}>
+                    <FaWifi />
+                    <span>View Site</span>
+                </div>
+                
+                <div onClick={handleLogout} >
+                    <FaSignOutAlt />
+                    <span>Logout</span>
+                </div>
+            
+            </aside>
 
             {loading && <div className="loadingText">Loading...</div>}
             
-            {/*jobs tab*/}
-            {activeTab === 'jobs' &&
-                <>
-                <JobCard
-                    jobs ={jobs}
-                    handleDelete={handleDelete}
-                    handleComplete={handleComplete}
-                    busyId={busyId}
-                />
-                </>
-            }
-            {!loading && jobs.length === 0 && activeTab === 'jobs' &&
-                <div className="adminState">No jobs to show</div>
-            }
-
-            {/*products tab*/}
-            {activeTab === 'products' &&
-                <> 
-                <div className= 'products'>
-                    <div className="productActions">
-                        {!formIsOpen && 
-                        <form onSubmit={applyFilters} className="filterFormProducts">
-                            <div>Search Product:</div>
-                            <input 
-                                type="text" 
-                                placeholder="by name"
-                                value={searchName}
-                                onChange={(e)=>{setSearchName(e.target.value)}}    
-                            />
-                            <input 
-                                type="text" 
-                                placeholder="by type"
-                                value={searchType}
-                                onChange={(e)=>{setSearchType(e.target.value)}}
-                            />
-                            <button type="submit"><FaCheck /></button>
-                            <button type="button" onClick={clearFilters}><FaTimes /></button>
-                        </form>
-                    }
-
-                        <button 
-                            onClick={openNewForm} className="newPrdtBtn"
-                            style={{display: formIsOpen? 'none': 'block'}}
-                        >
-                            New Product
-                        </button>
-
-
-                    </div>
-
-                    {formIsOpen && 
-                        <div className="prodFormContainer">
-                            <ProductForm
-                                saleOpen = {saleOpen }
-                                handleSell = {handleSell}
-                                handleAdd = {handleAdd}
-                                addOpen = {addOpen}
-                                newOpen={newOpen}
-                                prodName = {prodName}
-                                setName = {setName}
-                                names = {names}
-                                prodType = {prodType}
-                                setType = {setType}
-                                types = {types}
-                                prodBrand = {prodBrand}
-                                setBrand = {setBrand}
-                                brands = {brands}
-                                prodPrice = {prodPrice}
-                                setPrice = {setPrice}
-                                salePrice = {salePrice}
-                                setSalePrice = {setSalePrice}
-                                stockValue = {stockValue}
-                                setStockValue = {setStockValue} 
-                                customName= {customName} 
-                                setCustomName={setCustomName}  
-                                customNameRef={customNameRef} 
-                                customType = {customType}
-                                customTypeRef = {customTypeRef}
-                                setCustomType = {setCustomType}
-                                customBrand = {customBrand}
-                                customBrandRef = {customBrandRef}
-                                setCustomBrand = {setCustomBrand}
-                                fileInputRef={fileInputRef}
-                                formIsOpen={formIsOpen}
-                                autoName={autoName}
-                                autoBrand={autoBrand}
-                                autoType={autoType}
-                                autoPrice={autoPrice}
-                                autoStock={autoStock}
-                                closeForm={closeForm}
-                                loading={loading}
-                            />
+            <main>
+                <div className="dashCard">
+                    <header className="dashboardHeader">
+                        <div className="adminActions">
+                            <h1>Welcome Back</h1>
+                            <p>{adminName}</p>
                         </div>
-                    }
+                    </header>
 
-                    {products.length > 0 && 
-                        <ProdTable
-                            products = {products}
-                            openSellForm={openSellForm}
-                            openAddForm={openAddForm}
-                            loading={loading}
-                        />
-                    }
-                    
-                </div>
-            </> 
-            }
-            {!loading && products.length === 0 && activeTab === 'products' &&
-                <div className="adminState">No products to show</div>
-            }
-    
-            {/*sales tab*/}
-            {activeTab === 'sales' &&
-                <div className="sales">
+                    <section className="stats">
 
-                <div className="totals">
-                    <div>Total Revenue: KES {totalSales}</div>
-                    <div>Total Amount Sold: {totalQty} items</div>
-                </div>
+                        <div className="statCard">
+                            <div className="label">Products</div>
+                            <div className="value">{products.length}</div>
+                        </div>
 
-                <form onSubmit={loadSales} className="filterFormSales">
-                    
-                    <div>Filter Sales:</div>
-                    <div className="inputs">
-                        <input 
-                            name= "name" 
-                            type="text" 
-                            placeholder="by name"
-                            value={saleSearchName}
-                            onChange={(e)=>{setSaleSearchName(e.target.value)}}    
-                        />
-                        <input 
-                            name= "type" 
-                            type="text" 
-                            placeholder="by type"
-                            value={saleSearchType}
-                            onChange={(e)=>{setSaleSearchType(e.target.value)}}
-                        />
-                    </div>
-                    
-                    <div className="dates">
-                        <label htmlFor="fromDate">From: </label>
-                        <input
-                            id="fromDate"
-                            type="date" 
-                            value={fromDate}
-                            onChange={(e)=>{setFromDate(e.target.value)}}    
-                        />
+                        <div className="statCard">
+                            <div className="label">Jobs</div>
+                            <div className="value">{jobs.length}</div>
+                        </div>
 
-                        <label htmlFor="fromDate">To: </label>
-                        <input 
-                            type="date" 
-                            value={toDate}
-                            onChange={(e)=>{setToDate(e.target.value)}}    
-                        />
-                    </div>
-                    <div className="filterBtns">
-                        {/* removed button since useeffect updates onchange
-                        <button type="submit">Apply</button>*/
+                        <div className="statCard">
+                            <div className="label">Revenue</div>
+                            <div className="value">KES {totalSales}</div>
+                        </div>
+
+                        <div className="statCard">
+                            <div className="label">Items Sold</div>
+                            <div className="value">{totalQty}</div>
+                        </div>
+
+                    </section>
+
+                    <section className="contentArea">
+                        {/*jobs tab*/}
+                        {activeTab === 'jobs' &&
+                            <>
+                            <JobCard
+                                jobs ={jobs}
+                                handleDelete={handleDelete}
+                                handleComplete={handleComplete}
+                                busyId={busyId}
+                            />
+                            </>
                         }
-                        <button type="button" onClick={clearFilters}>Clear</button>
-                    </div>
+                        {!loading && jobs.length === 0 && activeTab === 'jobs' &&
+                            <div className="adminState">No jobs to show</div>
+                        }
+
+                        {/*products tab*/}
+                        {activeTab === 'products' &&
+                            <> 
+                            <div className= 'products'>
+                                <div className="productActions">
+                                    {!formIsOpen && 
+                                    <form onSubmit={applyFilters} className="filterFormProducts">
+                                        <div>Filter Products:</div>
+                                        <input 
+                                            type="text" 
+                                            placeholder="by name"
+                                            value={searchName}
+                                            onChange={(e)=>{setSearchName(e.target.value)}}    
+                                        />
+                                        <input 
+                                            type="text" 
+                                            placeholder="by type"
+                                            value={searchType}
+                                            onChange={(e)=>{setSearchType(e.target.value)}}
+                                        />
+                                        <button type="submit">Apply</button>
+                                        <button type="button" onClick={clearFilters}>Clear</button>
+                                    </form>
+                                }
+
+                                </div>
+
+                                {formIsOpen && 
+                                    <div className="prodFormContainer">
+                                        <ProductForm
+                                            saleOpen = {saleOpen }
+                                            handleSell = {handleSell}
+                                            handleAdd = {handleAdd}
+                                            addOpen = {addOpen}
+                                            newOpen={newOpen}
+                                            prodName = {prodName}
+                                            setName = {setName}
+                                            names = {names}
+                                            prodType = {prodType}
+                                            setType = {setType}
+                                            types = {types}
+                                            prodBrand = {prodBrand}
+                                            setBrand = {setBrand}
+                                            brands = {brands}
+                                            prodPrice = {prodPrice}
+                                            setPrice = {setPrice}
+                                            salePrice = {salePrice}
+                                            setSalePrice = {setSalePrice}
+                                            stockValue = {stockValue}
+                                            setStockValue = {setStockValue} 
+                                            customName= {customName} 
+                                            setCustomName={setCustomName}  
+                                            customNameRef={customNameRef} 
+                                            customType = {customType}
+                                            customTypeRef = {customTypeRef}
+                                            setCustomType = {setCustomType}
+                                            customBrand = {customBrand}
+                                            customBrandRef = {customBrandRef}
+                                            setCustomBrand = {setCustomBrand}
+                                            fileInputRef={fileInputRef}
+                                            formIsOpen={formIsOpen}
+                                            autoName={autoName}
+                                            autoBrand={autoBrand}
+                                            autoType={autoType}
+                                            autoPrice={autoPrice}
+                                            autoStock={autoStock}
+                                            closeForm={closeForm}
+                                            loading={loading}
+                                        />
+                                    </div>
+                                }
+
+                                {products.length > 0 && 
+                                    <ProdTable
+                                        products = {products}
+                                        openSellForm={openSellForm}
+                                        openAddForm={openAddForm}
+                                        loading={loading}
+                                    />
+                                }
+                                
+                            </div>
+                        </> 
+                        }
+                        {!loading && products.length === 0 && activeTab === 'products' &&
+                            <div className="adminState">No products to show</div>
+                        }
+                
+                        {/*sales tab*/}
+                        {activeTab === 'sales' &&
+                            <div className="sales">
+                            <form onSubmit={loadSales} className="filterFormSales">
+                                
+                                <div>Filter Sales:</div>
+                                <div className="inputs">
+                                    <input 
+                                        name= "name" 
+                                        type="text" 
+                                        placeholder="by name"
+                                        value={saleSearchName}
+                                        onChange={(e)=>{setSaleSearchName(e.target.value)}}    
+                                    />
+                                    <input 
+                                        name= "type" 
+                                        type="text" 
+                                        placeholder="by type"
+                                        value={saleSearchType}
+                                        onChange={(e)=>{setSaleSearchType(e.target.value)}}
+                                    />
+                                </div>
+                                
+                                <div className="dates">
+                                    <label htmlFor="fromDate">From: </label>
+                                    <input
+                                        id="fromDate"
+                                        type="date" 
+                                        value={fromDate}
+                                        onChange={(e)=>{setFromDate(e.target.value)}}    
+                                    />
+
+                                    <label htmlFor="fromDate">To: </label>
+                                    <input 
+                                        type="date" 
+                                        value={toDate}
+                                        onChange={(e)=>{setToDate(e.target.value)}}    
+                                    />
+                                </div>
+                                <div className="filterBtns">
+                                    {/* removed button since useeffect updates onchange
+                                    <button type="submit">Apply</button>*/
+                                    }
+                                    <button type="button" onClick={clearFilters}>Clear</button>
+                                </div>
+                                
+                            </form>
+
+                            <SalesTable
+                                sales={sales}
+                            /> 
+                            </div>
+                        }
+                        {!loading && sales.length === 0 && activeTab === 'sales' &&
+                            <div className="adminState">No Sales to show</div>
+                        }
+
                     
-                </form>
-
-                <SalesTable
-                    sales={sales}
-                /> 
+                    
+                    </section>
                 </div>
-            }
-            {!loading && sales.length === 0 && activeTab === 'sales' &&
-                <div className="adminState">No Sales to show</div>
-            }
-
-           
+                
+            </main>
         </div>
 
         {message &&
