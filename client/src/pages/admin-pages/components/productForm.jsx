@@ -179,10 +179,17 @@ export default function ProductForm ({
                 <>
                 <label htmlFor="uploadImg">Upload Image:</label>
                 <input type="file" accept="image/*" id="uploadImg" name="prodImage" ref={fileInputRef}/>
+
+                <button type="submit" 
+                    className="submitBtn"
+                    disabled={!!loading}
+                >
+                    Add
+                </button>
                 </>
             }
             
-            {newOpen || addOpen && 
+            {addOpen && 
                 <button type="submit" 
                     className="submitBtn"
                     disabled={!!loading}

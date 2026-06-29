@@ -42,6 +42,7 @@ export default function AdminDash() {
     const customBrandRef = useRef(null)
     const customTypeRef = useRef(null)
     const fileInputRef = useRef(null)
+    
 
     const [saleOpen, setSaleOpen] = useState(false)
     const [addOpen, setAddOpen] = useState(false)
@@ -199,6 +200,7 @@ export default function AdminDash() {
     const handleAdd = async(e)=> {
         e.preventDefault()
         
+
         const finalName = prodName==='other' ? customName: (prodName || autoName)    
         const finalBrand = prodBrand==='other' ? customBrand: (prodBrand || autoBrand)
         const finalType = prodType==='other' ? customType: (prodType || autoType)
